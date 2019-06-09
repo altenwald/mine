@@ -6,9 +6,9 @@ defmodule Mine.Board do
   @base_points 1
 
   defstruct cells: [],
-            mines: @default_mines,
-            width: @default_width,
-            height: @default_height,
+            mines: nil,
+            width: nil,
+            height: nil,
             flags: 0,
             score: 0,
             status: :play
@@ -32,7 +32,7 @@ defmodule Mine.Board do
     cells = gen_clean(width, height)
             |> place_mines(width, height, mines)
             |> place_hints(width, height)
-    {:ok, %Board{cells: cells}}
+    {:ok, %Board{cells: cells, width: width, height: height, mines: mines}}
   end
 
   defp place_hints(cells, width, height) do
