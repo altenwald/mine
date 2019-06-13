@@ -5,9 +5,16 @@ defmodule Mine do
 
   alias Mine.Board
 
+  @name __MODULE__
+
+  def start do
+    Board.start_link(@name)
+    show()
+  end
+
   def restart do
-    Board.stop()
-    Process.sleep 250
+    Board.stop(@name)
+    Board.start_link(@name)
     show()
   end
 
@@ -20,9 +27,9 @@ defmodule Mine do
 
   def show do
     IO.puts IO.ANSI.clear() <> "Mine " <> to_string(Application.spec(:mine)[:vsn])
-    IO.puts IO.ANSI.underline() <> "Score" <> IO.ANSI.reset() <> ": #{Board.score()}"
-    IO.puts IO.ANSI.underline() <> "Flags" <> IO.ANSI.reset() <> ": #{Board.flags()}"
-    board = Board.show()
+    IO.puts IO.ANSI.underline() <> "Score" <> IO.ANSI.reset() <> ": #{Board.score(@name)}"
+    IO.puts IO.ANSI.underline() <> "Flags" <> IO.ANSI.reset() <> ": #{Board.flags(@name)}"
+    board = Board.show(@name)
     for i <- 0..length(board) do
       if i == 0 do
         "\n     "
@@ -45,19 +52,19 @@ defmodule Mine do
       |> IO.puts()
     end
     IO.puts(IO.ANSI.reset())
-    if Board.status == :gameover do
+    if Board.status(@name) == :gameover do
       IO.puts IO.ANSI.blink_slow() <> "G A M E   O V E R ! ! !" <> IO.ANSI.blink_off()
     end
     :ok
   end
 
   def sweep(x, y) do
-    Board.sweep(x, y)
+    Board.sweep(@name, x, y)
     show()
   end
 
   def flag(x, y) do
-    Board.flag(x, y)
+    Board.flag(@name, x, y)
     show()
   end
 end

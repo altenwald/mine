@@ -5,6 +5,10 @@ defmodule Mine.Board do
 
   @base_points 1
 
+  @default_mines 40
+  @default_height 16
+  @default_width 16
+
   defstruct cells: [],
             mines: nil,
             width: nil,
@@ -13,19 +17,33 @@ defmodule Mine.Board do
             score: 0,
             status: :play
 
-  @name __MODULE__
-
-  def start_link([width, height, mines]) do
-    GenServer.start_link __MODULE__, [width, height, mines], name: @name
+  defp via(board) do
+    {:via, Registry, {Mine.Board.Registry, board}}
   end
 
-  def stop, do: GenServer.stop @name
-  def show, do: GenServer.call @name, :show
-  def sweep(x, y), do: GenServer.cast @name, {:sweep, x, y}
-  def flag(x, y), do: GenServer.cast @name, {:flag, x, y}
-  def flags, do: GenServer.call @name, :flags
-  def score, do: GenServer.call @name, :score
-  def status, do: GenServer.call @name, :status
+  def start_link(name) do
+    width = Application.get_env(:mine, :width, @default_width)
+    height = Application.get_env(:mine, :height, @default_height)
+    mines = Application.get_env(:mine, :mines, @default_mines)
+    GenServer.start_link __MODULE__, [width, height, mines], name: via(name)
+  end
+
+  def exists?(board) do
+    case Registry.lookup(Mine.Board.Registry, board) do
+      [{_pid, nil}] -> true
+      [] -> false
+    end
+  end
+
+  def stop(name), do: GenServer.stop via(name)
+  def show(name), do: GenServer.call via(name), :show
+  def sweep(name, x, y), do: GenServer.cast via(name), {:sweep, x, y}
+  def flag(name, x, y), do: GenServer.cast via(name), {:flag, x, y}
+  def unflag(name, x, y), do: GenServer.cast via(name), {:unflag, x, y}
+  def toggle_flag(name, x, y), do: GenServer.cast via(name), {:toggle_flag, x, y}
+  def flags(name), do: GenServer.call via(name), :flags
+  def score(name), do: GenServer.call via(name), :score
+  def status(name), do: GenServer.call via(name), :status
 
   @impl true
   def init([width, height, mines]) do
@@ -72,7 +90,7 @@ defmodule Mine.Board do
   defp place_mines(cells, width, height, i) do
     x = Enum.random(1..width)
     y = Enum.random(1..height)
-    if cells[x][y] == {:mine, :hidden} do
+    if cells[y][x] == {:mine, :hidden} do
       place_mines(cells, width, height, i)
     else
       cells
@@ -125,6 +143,34 @@ defmodule Mine.Board do
   def handle_cast({:flag, x, y}, %Board{cells: cells} = board) do
     case cells[y][x] do
       {_, :flag} -> {:noreply, board}
+      {_, :show} -> {:noreply, board}
+      {value, :hidden} ->
+        cells = put_in(cells[y][x], {value, :flag})
+        {:noreply, %Board{board | cells: cells, flags: board.flags + 1}}
+    end
+  end
+
+  def handle_cast({:unflag, _, _}, %Board{status: :gameover} = board) do
+    {:noreply, board}
+  end
+  def handle_cast({:unflag, x, y}, %Board{cells: cells} = board) do
+    case cells[y][x] do
+      {value, :flag} ->
+        cells = put_in(cells[y][x], {value, :hidden})
+        {:noreply, %Board{board | cells: cells, flags: board.flags - 1}}
+      {_, :show} -> {:noreply, board}
+      {_, :hidden} -> {:noreply, board}
+    end
+  end
+
+  def handle_cast({:toggle_flag, _, _}, %Board{status: :gameover} = board) do
+    {:noreply, board}
+  end
+  def handle_cast({:toggle_flag, x, y}, %Board{cells: cells} = board) do
+    case cells[y][x] do
+      {value, :flag} ->
+        cells = put_in(cells[y][x], {value, :hidden})
+        {:noreply, %Board{board | cells: cells, flags: board.flags - 1}}
       {_, :show} -> {:noreply, board}
       {value, :hidden} ->
         cells = put_in(cells[y][x], {value, :flag})
