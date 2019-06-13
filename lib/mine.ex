@@ -43,8 +43,8 @@ defmodule Mine do
       for cell <- rows, into: "" do
         case cell do
           {_, :hidden} -> hidden_text("[   ]")
-          {_, :flag} -> hidden_text("[ 🚩]")
-          {:mine, _} -> show_text("[ 💣]")
+          {_, :flag} -> hidden_text("[ ⛳ ]")
+          {:mine, _} -> show_text("[ ☠ ]")
           {0, _} -> show_text("[   ]")
           {n, _} -> show_text("[ #{n} ]")
         end
