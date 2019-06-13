@@ -1,9 +1,9 @@
 <html lang="es">
 <head>
     <meta charset="utf-8"/>
-    <title>Leprechaun</title>
+    <title>Mine</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Leprechaun">
+    <meta name="description" content="Mine">
     <meta name="author" content="Altenwald Solutions, S.L.">
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -40,50 +40,64 @@
             <h5 class="modal-title" id="howToPlayLabel">How to Play</h5>
           </div>
           <div class="modal-body">
-            <p>You have to move pieces to swap them with their neighbors up, left, right or down. If you achieve to put 3 equal pieces in a row (in a vertical or horizontal way) then you obtain points and the pieces are upgraded to 1 of higher level. For example 3 copper nuggets are transformed in 1 silver nugget. Check table below.</p>
-            <p>If you put <strong>4 pieces together the remaining turns counter isn't decreased</strong>. In the same way, putting <strong>5 or more pieces together will increase the turns counter</strong>.</p>
-            <p>These are the points obtained:</p>
+            <p>You have to discover cells from the board. You can discover an empty piece which will be spread until reach numbers, or you can discover directly a number or a mine. In the last case the game is finished and you loose.</p>
+            <p>The numbers meaning are regarding the number of mines around that cell.</p>
+            <p>You can press right button on a cell to mark it with a flag when you discover a mine there.</p>
+            <p>The game is finished when you have flagged correctly all of the mines.</p>
+            <p>These are the cells:</p>
             <table class="table">
               <thead>
-                <th>Piece</th>
-                <th>Points</th>
+                <th>Cell</th>
+                <th>Meaning</th>
               </thead>
               <tbody>
                 <tr>
+                  <td><img src="/img/cell_hidden.png"></td>
+                  <td>Cell to be sweept or flagged.</td>
+                </tr>
+                <tr>
+                  <td><img src="/img/cell_flag.png"></td>
+                  <td>A cell flagged.</td>
+                </tr>
+                <tr>
+                  <td><img src="/img/cell_mine.png"></td>
+                  <td>You discovered a mine. You died.</td>
+                </tr>
+                <tr>
                   <td><img src="/img/cell_1.png"></td>
-                  <td><img src="/img/cell_1_blink.png" alt="1"></td>
+                  <td>One mine around, be carefully.</td>
                 </tr>
                 <tr>
                   <td><img src="/img/cell_2.png"></td>
-                  <td><img src="/img/cell_2_blink.png" alt="2"></td>
+                  <td>Two mines around, slow, love, slow.</td>
                 </tr>
                 <tr>
                   <td><img src="/img/cell_3.png"></td>
-                  <td><img src="/img/cell_3_blink.png" alt="3"></td>
+                  <td>Three mines around, keep your eyes wide open!</td>
                 </tr>
                 <tr>
                   <td><img src="/img/cell_4.png"></td>
-                  <td><img src="/img/cell_4_blink.png" alt="4"></td>
+                  <td>Four mines around, don't move too much around.</td>
                 </tr>
                 <tr>
                   <td><img src="/img/cell_5.png"></td>
-                  <td><img src="/img/cell_5_blink.png" alt="5"></td>
+                  <td>Five mines around, this is getting hard, move away.</td>
                 </tr>
                 <tr>
                   <td><img src="/img/cell_6.png"></td>
-                  <td><img src="/img/cell_6_blink.png" alt="6"></td>
+                  <td>Six mines around, run to the hills!</td>
                 </tr>
                 <tr>
                   <td><img src="/img/cell_7.png"></td>
-                  <td><img src="/img/cell_7_blink.png" alt="7"></td>
+                  <td>Seven mines around, 1 out of 8 to explode!</td>
                 </tr>
                 <tr>
                   <td><img src="/img/cell_8.png"></td>
-                  <td><img src="/img/cell_8_blink.png" alt="8"></td>
+                  <td>Eight mines around, completely surrounded! DON'T MOVE!</td>
                 </tr>
               </tbody>
             </table>
-            <p>If you want to make suggestions or obtain the source code you can go to <a href="https://github.com/altenwald/leprechaun">Github site</a> and create a issue, fork the code to send us modifications or fixes or whatever.</p>
+            <p>If you want to make suggestions or obtain the source code you can go to <a href="https://github.com/altenwald/mine">Github site</a> and create a issue, fork the code to send us modifications or fixes or whatever.</p>
             <p>In the same way we will be pleased receiving donations:</p>
             <a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RC5F8STDA6AXE"><img src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif" alt="paypal"></a>
             <p>Thanks! and Enjoy!</p>
