@@ -1,5 +1,6 @@
 var ws;
 var game_id;
+var gameover = false;
 
 function update_score(data) {
     console.log("updating: ", data)
@@ -62,8 +63,10 @@ function connect() {
         disconnected(false);
     };
     ws.onclose = function() {
-        console.error("onclose");
-        disconnected(true);
+        if (!gameover) {
+            console.error("onclose");
+            disconnected(true);
+        }
     }
     ws.onmessage = function(message){
         console.log("Got message", message.data);
@@ -71,7 +74,14 @@ function connect() {
 
         switch(data.type) {
             case "gameover":
+                gameover = true;
+                ws.close();
                 $("#board-msg").html("<h2>GAME OVER!</h2>");
+                break;
+            case "win":
+                gameover = true;
+                ws.close();
+                $("#board-msg").html("<h2>YOU WIN!</h2>");
                 break;
             case "draw":
                 draw(data.html);
@@ -82,6 +92,9 @@ function connect() {
                 break;
             case "vsn":
                 $("#vsn").html("v" + data.vsn);
+                break;
+            case "tick":
+                $("#board-time span").html(data.time);
                 break;
         }
     };

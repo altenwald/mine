@@ -31,6 +31,18 @@ defmodule Mine.Websocket do
   def websocket_info({:timeout, _ref, msg}, board) do
     {:reply, {:text, msg}, board}
   end
+  def websocket_info(:tick, board) do
+    msg = %{"type" => "tick", "time" => Board.time(board)}
+    {:reply, {:text, Jason.encode!(msg)}, board}
+  end
+  def websocket_info(:gameover, board) do
+    msg = %{"type" => "gameover"}
+    {:reply, {:text, Jason.encode!(msg)}, board}
+  end
+  def websocket_info(:win, board) do
+    msg = %{"type" => "win"}
+    {:reply, {:text, Jason.encode!(msg)}, board}
+  end
 
   def websocket_info(info, board) do
     Logger.info "info => #{inspect info}"
@@ -44,12 +56,14 @@ defmodule Mine.Websocket do
 
   defp process_data(%{"type" => "create"}, _board) do
     board = UUID.uuid4()
-    {:ok, _board} = Board.start_link(board)
+    {:ok, _board} = Board.start(board)
+    Board.subscribe(board)
     msg = %{"type" => "id", "id" => board}
     {:reply, {:text, Jason.encode!(msg)}, board}
   end
   defp process_data(%{"type" => "join", "id" => board}, _board) do
     if Board.exists?(board) do
+      Board.subscribe(board)
       {:ok, board}
     else
       msg = %{"type" => "gameover", "error" => true}
@@ -84,7 +98,7 @@ defmodule Mine.Websocket do
   end
   defp process_data(%{"type" => "restart"}, board) do
     if Board.exists?(board), do: Board.stop(board)
-    {:ok, _} = Board.start_link(board)
+    {:ok, _} = Board.start(board)
     draw(board)
   end
   defp process_data(%{"type" => "stop"}, board) do

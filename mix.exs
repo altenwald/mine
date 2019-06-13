@@ -25,6 +25,7 @@ defmodule Mine.MixProject do
       {:jason, "~> 1.1"},
       {:plug_cowboy, "~> 2.0"},
       {:uuid, "~> 1.1"},
+      {:etag_plug, "~> 0.2.0"},
     ]
   end
 end

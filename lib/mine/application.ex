@@ -7,6 +7,7 @@ defmodule Mine.Application do
     # List all child processes to be supervised
     children = [
       {Registry, keys: :unique, name: Mine.Board.Registry},
+      {DynamicSupervisor, strategy: :one_for_one, name: Mine.Boards},
       Plug.Cowboy.child_spec(scheme: :http,
                              plug: Mine.Router,
                              options: [port: 4001,

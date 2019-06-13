@@ -8,14 +8,17 @@ defmodule Mine do
   @name __MODULE__
 
   def start do
-    Board.start_link(@name)
+    Board.start(@name)
     show()
   end
 
-  def restart do
+  def stop do
     Board.stop(@name)
-    Board.start_link(@name)
-    show()
+  end
+
+  def restart do
+    stop()
+    start()
   end
 
   defp hidden_text(text) do
