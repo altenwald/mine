@@ -3,14 +3,17 @@ defmodule Mine.Application do
 
   use Application
 
+  @default_port 4001
+
   def start(_type, _args) do
     # List all child processes to be supervised
+    port_number = Application.get_env(:mine, :port, @default_port)
     children = [
       {Registry, keys: :unique, name: Mine.Board.Registry},
       {DynamicSupervisor, strategy: :one_for_one, name: Mine.Boards},
       Plug.Cowboy.child_spec(scheme: :http,
                              plug: Mine.Router,
-                             options: [port: 4001,
+                             options: [port: port_number,
                                        dispatch: dispatch()]),
     ]
 
