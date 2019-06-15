@@ -134,7 +134,8 @@ defmodule Mine.Websocket do
   defp img_src({piece, :show}), do: "img/cell_#{piece}.png"
 
   defp img(x, y, piece) do
-    "<td><img src='#{img_src piece}' id='row#{y}-col#{x}' class='cell'></td>"
+    class = if rem(x + y, 2) == 0, do: "tile1", else: "tile2"
+    "<td class='#{class}'><img src='#{img_src piece}' id='row#{y}-col#{x}' class='cell'></td>"
   end
 
   defp to_img({col, y}) do

@@ -31,3 +31,9 @@ table#juego tr td.vacio {
 div#leprechaun img {
     width: 100px;
 }
+td.tile1 {
+    background-color: #ddd;
+}
+td.tile2 {
+    background-color: #fff;
+}
