@@ -4,7 +4,7 @@ defmodule Mine.MixProject do
   def project do
     [
       app: :mine,
-      version: "0.2.0",
+      version: "0.3.0",
       elixir: "~> 1.8",
       start_permanent: Mix.env() == :prod,
       deps: deps()
@@ -14,7 +14,7 @@ defmodule Mine.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger],
+      extra_applications: [:logger, :mnesia],
       mod: {Mine.Application, []}
     ]
   end
@@ -26,9 +26,11 @@ defmodule Mine.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:uuid, "~> 1.1"},
       {:etag_plug, "~> 0.2.0"},
+      {:ecto_mnesia, "~> 0.9.1"},
 
       # for releases
       {:distillery, "~> 2.0"},
+      {:ecto_boot_migration, "~> 0.1.1"},
     ]
   end
 end

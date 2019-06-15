@@ -2,6 +2,13 @@ var ws;
 var game_id;
 var gameover = false;
 
+function draw_hiscore(html, position) {
+    $("#hiscore").html(html);
+    if (position) {
+        $("#hiscore-pos").html("<p>Your position is " + position + "</p>");
+    }
+}
+
 function update_score(data) {
     console.log("updating: ", data)
     $("#board-score span").html(data.score);
@@ -74,14 +81,18 @@ function connect() {
 
         switch(data.type) {
             case "gameover":
-                gameover = true;
                 ws.close();
-                $("#board-msg").html("<h2>GAME OVER!</h2>");
+                if (!gameover) {
+                    gameover = true;
+                    $("#board-msg").html("<h2>GAME OVER!</h2>");
+                }
                 break;
             case "win":
                 gameover = true;
-                ws.close();
                 $("#board-msg").html("<h2>YOU WIN!</h2>");
+                if (!data.error) {
+                    $("#hiscoreNameModal").modal('show');
+                }
                 break;
             case "draw":
                 draw(data.html);
@@ -96,6 +107,9 @@ function connect() {
             case "tick":
                 $("#board-time span").html(data.time);
                 break;
+            case "hiscore":
+                draw_hiscore(data.top_list, data.position);
+                break;
         }
     };
 }
@@ -105,5 +119,15 @@ $(document).ready(function(){
     $("#board-restart").on("click", function(event){
         send({type: "stop"});
         location.reload(true);
+    });
+    $("#board-hiscore").on("click", function(event){
+        send({type: "hiscore"});
+    });
+    $("#hiscore-ok").on("click", function(event){
+        var name = $("#hiscore-name").val();
+        send({type: "set-hiscore-name", name: name});
+        $("#hiscoreNameModal").modal('hide');
+        send({type: "hiscore"});
+        $("#hiscoreModal").modal('show');
     });
 });

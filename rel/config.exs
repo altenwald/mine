@@ -39,6 +39,9 @@ environment :prod do
   set include_src: false
   set cookie: :"0ECifX[i=t4q:xsI7oV:_uENy`8J*j>dZPWBL^yd%)XyR[n?dk(g[?OZf/tu[0/|"
   set vm_args: "rel/vm.args"
+  set commands: [
+    remote_migrate: "rel/commands/remote_migrate.sh",
+  ]
 end
 
 # You may define one or more releases in this file.

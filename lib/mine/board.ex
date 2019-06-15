@@ -1,7 +1,7 @@
 defmodule Mine.Board do
   use GenServer
 
-  alias Mine.Board
+  alias Mine.{Board, HiScore}
 
   @default_mines 40
   @default_height 16
@@ -17,7 +17,8 @@ defmodule Mine.Board do
             status: :play,
             timer: nil,
             time: @default_time,
-            subscribe: []
+            consumers: [],
+            username: nil
 
   def child_spec(init_args) do
     %{
@@ -61,6 +62,9 @@ defmodule Mine.Board do
   def status(name), do: GenServer.call via(name), :status
   def subscribe(name), do: GenServer.cast via(name), {:subscribe, self()}
   def time(name), do: GenServer.call via(name), :time
+  def hiscore(name, username, remote_ip) do
+    GenServer.cast via(name), {:hiscore, username, remote_ip}
+  end
 
   @impl true
   def init([width, height, mines, time]) do
@@ -142,6 +146,11 @@ defmodule Mine.Board do
   def handle_call(:time, _from, board), do: {:reply, board.time, board}
 
   @impl true
+  def handle_cast({:hiscore, username, remote_ip}, %Board{score: score, time: time} = board) do
+    {:ok, hiscore} = HiScore.save(username, score, time, remote_ip)
+    send_to_all(board.consumers, {:hiscore, HiScore.get_order(hiscore.id)})
+    {:noreply, %Board{board | username: username}}
+  end
   def handle_cast({:sweep, _, _}, %Board{status: :gameover} = board) do
     {:noreply, board}
   end
@@ -151,12 +160,12 @@ defmodule Mine.Board do
       {_, :flag} -> {:noreply, board}
       {:mine, _} ->
         cells = put_in(cells[y][x], {:mine, :show})
-        send_to_all(board.subscribe, :gameover)
+        send_to_all(board.consumers, :gameover)
         {:noreply, %Board{board | cells: cells, status: :gameover}}
       {0, _} ->
         {cells, score} = discover({cells, board.score}, y, x, board.width, board.height, board.time)
         status = if is_filled?(cells) do
-          send_to_all(board.subscribe, :win)
+          send_to_all(board.consumers, :win)
           :gameover
         else
           board.status
@@ -165,7 +174,7 @@ defmodule Mine.Board do
       {n, _} ->
         cells = put_in(cells[y][x], {n, :show})
         status = if is_filled?(cells) do
-          send_to_all(board.subscribe, :win)
+          send_to_all(board.consumers, :win)
           :gameover
         else
           board.status
@@ -184,7 +193,7 @@ defmodule Mine.Board do
       {value, :hidden} ->
         cells = put_in(cells[y][x], {value, :flag})
         status = if is_filled?(cells) do
-          send_to_all(board.subscribe, :win)
+          send_to_all(board.consumers, :win)
           :gameover
         else
           board.status
@@ -218,7 +227,7 @@ defmodule Mine.Board do
       {value, :hidden} ->
         cells = put_in(cells[y][x], {value, :flag})
         status = if is_filled?(cells) do
-          send_to_all(board.subscribe, :win)
+          send_to_all(board.consumers, :win)
           :gameover
         else
           board.status
@@ -226,9 +235,9 @@ defmodule Mine.Board do
         {:noreply, %Board{board | cells: cells, flags: board.flags + 1, status: status}}
     end
   end
-  def handle_cast({:subscribe, from}, %Board{subscribe: pids} = board) do
+  def handle_cast({:subscribe, from}, %Board{consumers: pids} = board) do
     Process.monitor(from)
-    {:noreply, %Board{board | subscribe: [from|pids]}}
+    {:noreply, %Board{board | consumers: [from|pids]}}
   end
 
   @impl true
@@ -236,17 +245,17 @@ defmodule Mine.Board do
     :timer.cancel(board.timer)
     {:noreply, %Board{board | timer: nil}}
   end
-  def handle_info(:tick, %Board{time: 1, subscribe: pids} = board) do
+  def handle_info(:tick, %Board{time: 1, consumers: pids} = board) do
     :timer.cancel(board.timer)
     send_to_all(pids, :gameover)
     {:noreply, %Board{board | time: 0, timer: nil, status: :gameover}}
   end
-  def handle_info(:tick, %Board{time: time, subscribe: pids} = board) do
+  def handle_info(:tick, %Board{time: time, consumers: pids} = board) do
     send_to_all(pids, :tick)
     {:noreply, %Board{board | time: time - 1}}
   end
   def handle_info({:DOWN, _ref, :process, pid, _reason}, board) do
-    {:noreply, %Board{board | subscribe: board.subscribe -- [pid]}}
+    {:noreply, %Board{board | consumers: board.consumers -- [pid]}}
   end
 
   defp send_to_all(pids, msg) do
