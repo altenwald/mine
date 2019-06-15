@@ -164,11 +164,14 @@ defmodule Mine.Websocket do
   end
 
   defp to_top_entry({entry, position}) do
+    time = Timex.Duration.from_erl({0, Board.get_total_time() - entry.time, 0})
+           |> Timex.Format.Duration.Formatters.Humanized.format()
+    score = Number.Delimit.number_to_delimited(entry.score)
     """
     <th scope="row">#{position}</td>
     <td>#{entry.name}</td>
-    <td class="text-right">#{entry.time}</td>
-    <td class="text-right">#{entry.score}</td>
+    <td class="text-right">#{time}</td>
+    <td class="text-right">#{score}</td>
     """
   end
 

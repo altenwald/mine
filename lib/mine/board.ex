@@ -1,5 +1,6 @@
 defmodule Mine.Board do
   use GenServer
+  require Logger
 
   alias Mine.{Board, HiScore}
 
@@ -32,11 +33,15 @@ defmodule Mine.Board do
     {:via, Registry, {Mine.Board.Registry, board}}
   end
 
+  def get_total_time do
+    Application.get_env(:mine, :total_time, @default_time)
+  end
+
   def start_link(name) do
     width = Application.get_env(:mine, :width, @default_width)
     height = Application.get_env(:mine, :height, @default_height)
     mines = Application.get_env(:mine, :mines, @default_mines)
-    time = Application.get_env(:mine, :total_time, @default_time)
+    time = get_total_time()
     GenServer.start_link __MODULE__, [width, height, mines, time], name: via(name)
   end
 
@@ -71,13 +76,11 @@ defmodule Mine.Board do
     cells = gen_clean(width, height)
             |> place_mines(width, height, mines)
             |> place_hints(width, height)
-    {:ok, timer} = :timer.send_interval :timer.seconds(1), self(), :tick
     {:ok, %Board{cells: cells,
                  width: width,
                  height: height,
                  mines: mines,
-                 time: time,
-                 timer: timer}}
+                 time: time}}
   end
 
   defp place_hints(cells, width, height) do
@@ -154,8 +157,24 @@ defmodule Mine.Board do
   def handle_cast({:sweep, _, _}, %Board{status: :gameover} = board) do
     {:noreply, board}
   end
+  def handle_cast({:sweep, _, _} = msg, %Board{timer: nil} = board) do
+    {:ok, timer} = :timer.send_interval :timer.seconds(1), self(), :tick
+    handle_cast(msg, %Board{board | timer: timer})
+  end
   def handle_cast({:sweep, x, y}, %Board{cells: cells} = board) do
     case cells[y][x] do
+      {n, :show} when is_integer(n) and n > 0 ->
+        try do
+          {:noreply, check_discover(board, x, y)}
+        rescue
+          error in CaseClauseError ->
+            if error.term == {:mine, :hidden} do
+              send_to_all(board.consumers, :gameover)
+              {:noreply, %Board{board | status: :gameover}}
+            else
+              reraise error, __STACKTRACE__
+            end
+        end
       {_, :show} -> {:noreply, board}
       {_, :flag} -> {:noreply, board}
       {:mine, _} ->
@@ -256,6 +275,34 @@ defmodule Mine.Board do
   end
   def handle_info({:DOWN, _ref, :process, pid, _reason}, board) do
     {:noreply, %Board{board | consumers: board.consumers -- [pid]}}
+  end
+
+  defp check_discover(%Board{cells: cells} = board, x, y) do
+    points = [
+      {y-1, x-1, cells[y-1][x-1]},
+      {y, x-1, cells[y][x-1]},
+      {y+1, x-1, cells[y+1][x-1]},
+      {y+1, x, cells[y+1][x]},
+      {y+1, x+1, cells[y+1][x+1]},
+      {y, x+1, cells[y][x+1]},
+      {y-1, x+1, cells[y-1][x+1]},
+      {y-1, x, cells[y-1][x]},
+    ]
+    process = fn {y, x, {_, :hidden}}, {mines, acc} -> {mines, [{x, y}|acc]}
+                 {_y, _x, {_, :flag}}, {mines, acc} -> {mines + 1, acc}
+                 {_y, _x, _cell}, acc -> acc
+              end
+    {flags, to_discover} = List.foldl(points, {0, []}, process)
+    {cells, score} = case cells[y][x] do
+      {^flags, :show} ->
+        discover = fn {x, y}, {cells, score} ->
+          discover({cells, score}, y, x, board.width, board.height, board.time)
+        end
+        List.foldl(to_discover, {cells, board.score}, discover)
+      _ ->
+        {cells, board.score}
+    end
+    %Board{board | cells: cells, score: score}
   end
 
   defp send_to_all(pids, msg) do

@@ -22,13 +22,7 @@
     <script type="text/javascript" src="/js/index.js"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-6954758-10"></script>
-    <script><!--
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-6954758-10');
-    // --></script>
+    <script type="text/javascript" src="/js/google_analytics.js"></script>
     <!-- Go to www.addthis.com/dashboard to customize your tools -->
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cad355f0a4ac15b"></script>
 </head>
@@ -37,12 +31,20 @@
       <h5 class="my-0 mr-md-auto font-weight-normal">Mine <span id="vsn"></span></h5>
     </div>
     <div class="container text-center">
+      <div class="btn-group" role="group" aria-label="">
+          <button type="button" id="choose-mine" class="btn btn-warning">
+            <img src="/img/mine.png"/>
+          </button>
+          <button type="button" id="choose-flag" class="btn btn-outline-warning">
+            <img src="/img/flag.png"/>
+          </button>
+      </div>
       <a id="board-hiscore" class="btn btn-outline-success" href="#" data-toggle="modal" data-target="#hiscoreModal">HiScore</a>
       <a id="board-howtoplay" class="btn btn-outline-primary" href="#" data-toggle="modal" data-target="#howToPlayModal">How to play</a>
       <a id="board-restart" class="btn btn-outline-danger" href="#">Restart Game</a>
       <div id="board-score">Score: <span>0</span></div>
       <div id="board-flags">Flags: <span>0</span></div>
-      <div id="board-time">Time: <span>900</span></div>
+      <div id="board-time">Time: <span>999</span></div>
       <div id="board-msg"></div>
       <div id="board"></div>
     </div>

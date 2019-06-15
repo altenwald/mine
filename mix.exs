@@ -4,7 +4,7 @@ defmodule Mine.MixProject do
   def project do
     [
       app: :mine,
-      version: "0.3.0",
+      version: "0.4.0",
       elixir: "~> 1.8",
       start_permanent: Mix.env() == :prod,
       deps: deps()
@@ -27,6 +27,8 @@ defmodule Mine.MixProject do
       {:uuid, "~> 1.1"},
       {:etag_plug, "~> 0.2.0"},
       {:ecto_mnesia, "~> 0.9.1"},
+      {:number, "~> 1.0"},
+      {:timex, "~> 3.5.0"},
 
       # for releases
       {:distillery, "~> 2.0"},

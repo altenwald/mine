@@ -1,6 +1,7 @@
 var ws;
 var game_id;
 var gameover = false;
+var choose_mine = true;
 
 function draw_hiscore(html, position) {
     $("#hiscore").html(html);
@@ -23,7 +24,11 @@ function draw(html) {
         [row_id, col_id] = this.id.split("-", 2).map(function(chunk) {
             return parseInt(chunk.slice(3));
         });
-        send({type: "sweep", "x": col_id, "y": row_id});
+        if (choose_mine) {
+            send({type: "sweep", "x": col_id, "y": row_id});
+        } else {
+            send({"type": "flag", "x": col_id, "y": row_id});
+        }
     });
     $(".cell").on("contextmenu", function(event){
         var row_id, col_id;
@@ -129,5 +134,23 @@ $(document).ready(function(){
         $("#hiscoreNameModal").modal('hide');
         send({type: "hiscore"});
         $("#hiscoreModal").modal('show');
+    });
+    $("#choose-mine").on("click", function(event){
+        if (!choose_mine) {
+            choose_mine = true;
+            $("#choose-mine").removeClass("btn-outline-warning");
+            $("#choose-flag").removeClass("btn-warning");
+            $("#choose-mine").addClass("btn-warning");
+            $("#choose-flag").addClass("btn-outline-warning");
+        }
+    });
+    $("#choose-flag").on("click", function(event){
+        if (choose_mine) {
+            choose_mine = false;
+            $("#choose-mine").removeClass("btn-warning");
+            $("#choose-flag").removeClass("btn-outline-warning");
+            $("#choose-mine").addClass("btn-outline-warning");
+            $("#choose-flag").addClass("btn-warning");
+        }
     });
 });

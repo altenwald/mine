@@ -21,3 +21,9 @@ config :mnesia, dir: 'priv/data/mnesia' # Make sure this directory exists
 
 config :mine, Mine.Repo,
   adapter: EctoMnesia.Adapter
+
+config :number, delimit: [
+                  precision: 0,
+                  delimiter: ".",
+                  separator: ",",
+                ]
