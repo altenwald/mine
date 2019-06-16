@@ -2,6 +2,7 @@ var ws;
 var game_id;
 var gameover = false;
 var choose_mine = true;
+var pause = false;
 
 function draw_hiscore(html, position) {
     $("#hiscore").html(html);
@@ -151,6 +152,17 @@ $(document).ready(function(){
             $("#choose-flag").removeClass("btn-outline-warning");
             $("#choose-mine").addClass("btn-outline-warning");
             $("#choose-flag").addClass("btn-warning");
+        }
+    });
+    $("#board-pause").on("click", function(event) {
+        if (pause) {
+            pause = false;
+            $("#board-pause").html("<i class=\"fas fa-pause\"></i>");
+            send({type: "toggle-pause"});
+        } else {
+            pause = true;
+            $("#board-pause").html("<i class=\"fas fa-play\"></i>");
+            send({type: "toggle-pause"});
         }
     });
 });

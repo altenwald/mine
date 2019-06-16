@@ -41,7 +41,9 @@ defmodule Mine.Websocket do
     {:reply, {:text, msg}, state}
   end
   def websocket_info(:tick, %{board: board} = state) do
-    msg = %{"type" => "tick", "time" => Board.time(board)}
+    time = Timex.Duration.from_erl({0, Board.time(board), 0})
+           |> Timex.Format.Duration.Formatters.Humanized.format()
+    msg = %{"type" => "tick", "time" => time}
     {:reply, {:text, Jason.encode!(msg)}, state}
   end
   def websocket_info(:gameover, state) do
@@ -120,6 +122,15 @@ defmodule Mine.Websocket do
     {:ok, _} = Board.start(board)
     draw(state)
   end
+  defp process_data(%{"type" => "toggle-pause"}, %{board: board} = state) do
+    if Board.exists?(board) do
+      Board.toggle_pause(board)
+      draw(state)
+    else
+      msg = %{"type" => "gameover", "error" => true}
+      {:reply, {:text, Jason.encode!(msg)}, state}
+    end
+  end
   defp process_data(%{"type" => "stop"}, %{board: board} = state) do
     if Board.exists?(board), do: Board.stop(board)
     {:ok, state}
@@ -135,6 +146,7 @@ defmodule Mine.Websocket do
   defp draw(%{board: board} = state) do
     flags = Board.flags(board)
     score = Board.score(board)
+            |> Number.Delimit.number_to_delimited()
     msg = %{"type" => "draw",
             "html" => build_show(board),
             "score" => score,

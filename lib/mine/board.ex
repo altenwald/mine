@@ -70,6 +70,7 @@ defmodule Mine.Board do
   def hiscore(name, username, remote_ip) do
     GenServer.cast via(name), {:hiscore, username, remote_ip}
   end
+  def toggle_pause(name), do: GenServer.cast via(name), :toggle_pause
 
   @impl true
   def init([width, height, mines, time]) do
@@ -136,6 +137,9 @@ defmodule Mine.Board do
   end
 
   @impl true
+  def handle_call(:show, _from, %Board{status: :pause} = board) do
+    {:reply, [], board}
+  end
   def handle_call(:show, _from, board) do
     cells = for {_, rows} <- board.cells do
       for {_, cell} <- rows, do: cell
@@ -149,12 +153,21 @@ defmodule Mine.Board do
   def handle_call(:time, _from, board), do: {:reply, board.time, board}
 
   @impl true
+  def handle_cast(:toggle_pause, %Board{status: :play} = board) do
+    {:noreply, %Board{board | status: :pause}}
+  end
+  def handle_cast(:toggle_pause, %Board{status: :pause} = board) do
+    {:noreply, %Board{board | status: :play}}
+  end
   def handle_cast({:hiscore, username, remote_ip}, %Board{score: score, time: time} = board) do
     {:ok, hiscore} = HiScore.save(username, score, time, remote_ip)
     send_to_all(board.consumers, {:hiscore, HiScore.get_order(hiscore.id)})
     {:noreply, %Board{board | username: username}}
   end
   def handle_cast({:sweep, _, _}, %Board{status: :gameover} = board) do
+    {:noreply, board}
+  end
+  def handle_cast({:sweep, _, _}, %Board{status: :pause} = board) do
     {:noreply, board}
   end
   def handle_cast({:sweep, _, _} = msg, %Board{timer: nil} = board) do
@@ -205,6 +218,9 @@ defmodule Mine.Board do
   def handle_cast({:flag, _, _}, %Board{status: :gameover} = board) do
     {:noreply, board}
   end
+  def handle_cast({:flag, _, _}, %Board{status: :pause} = board) do
+    {:noreply, board}
+  end
   def handle_cast({:flag, x, y}, %Board{cells: cells} = board) do
     case cells[y][x] do
       {_, :flag} -> {:noreply, board}
@@ -224,6 +240,9 @@ defmodule Mine.Board do
   def handle_cast({:unflag, _, _}, %Board{status: :gameover} = board) do
     {:noreply, board}
   end
+  def handle_cast({:unflag, _, _}, %Board{status: :pause} = board) do
+    {:noreply, board}
+  end
   def handle_cast({:unflag, x, y}, %Board{cells: cells} = board) do
     case cells[y][x] do
       {value, :flag} ->
@@ -235,6 +254,9 @@ defmodule Mine.Board do
   end
 
   def handle_cast({:toggle_flag, _, _}, %Board{status: :gameover} = board) do
+    {:noreply, board}
+  end
+  def handle_cast({:toggle_flag, _, _}, %Board{status: :pause} = board) do
     {:noreply, board}
   end
   def handle_cast({:toggle_flag, x, y}, %Board{cells: cells} = board) do
@@ -263,6 +285,9 @@ defmodule Mine.Board do
   def handle_info(:tick, %Board{status: :gameover} = board) do
     :timer.cancel(board.timer)
     {:noreply, %Board{board | timer: nil}}
+  end
+  def handle_info(:tick, %Board{status: :pause} = board) do
+    {:noreply, board}
   end
   def handle_info(:tick, %Board{time: 1, consumers: pids} = board) do
     :timer.cancel(board.timer)

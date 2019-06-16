@@ -25,6 +25,7 @@
     <script type="text/javascript" src="/js/google_analytics.js"></script>
     <!-- Go to www.addthis.com/dashboard to customize your tools -->
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cad355f0a4ac15b"></script>
+    <script src="https://kit.fontawesome.com/7d70bbec1c.js"></script>
 </head>
 <body>
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
@@ -33,15 +34,24 @@
     <div class="container text-center">
       <div class="btn-group" role="group" aria-label="">
           <button type="button" id="choose-mine" class="btn btn-warning">
-            <img src="/img/mine.png"/>
+            <i class="fas fa-bomb"></i>
           </button>
           <button type="button" id="choose-flag" class="btn btn-outline-warning">
-            <img src="/img/flag.png"/>
+            <i class="far fa-flag"></i>
           </button>
       </div>
-      <a id="board-hiscore" class="btn btn-outline-success" href="#" data-toggle="modal" data-target="#hiscoreModal">HiScore</a>
-      <a id="board-howtoplay" class="btn btn-outline-primary" href="#" data-toggle="modal" data-target="#howToPlayModal">How to play</a>
-      <a id="board-restart" class="btn btn-outline-danger" href="#">Restart Game</a>
+      <a id="board-pause" class="btn btn-outline-info" href="#">
+        <i class="fas fa-pause"></i>
+      </a>
+      <a id="board-hiscore" class="btn btn-outline-success" href="#" data-toggle="modal" data-target="#hiscoreModal">
+        <i class="far fa-clipboard"></i>
+      </a>
+      <a id="board-howtoplay" class="btn btn-outline-primary" href="#" data-toggle="modal" data-target="#howToPlayModal">
+        <i class="fas fa-life-ring"></i>
+      </a>
+      <a id="board-restart" class="btn btn-outline-danger" href="#">
+        <i class="fas fa-sync"></i>
+      </a>
       <div id="board-score">Score: <span>0</span></div>
       <div id="board-flags">Flags: <span>0</span></div>
       <div id="board-time">Time: <span>999</span></div>

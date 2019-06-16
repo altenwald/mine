@@ -37,3 +37,6 @@ td.tile1 {
 td.tile2 {
     background-color: #fff;
 }
+.fas, .far {
+    font-size: 25px;
+}
