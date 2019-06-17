@@ -1,6 +1,7 @@
 defmodule Mine.Websocket do
   require Logger
   alias Mine.{Board, HiScore}
+  alias Mine.Board.OnePlayer
   
   @behaviour :cowboy_websocket
 
@@ -77,7 +78,7 @@ defmodule Mine.Websocket do
 
   defp process_data(%{"type" => "create"}, state) do
     board = UUID.uuid4()
-    {:ok, _board} = Board.start(board)
+    {:ok, _board} = OnePlayer.start(board)
     Board.subscribe(board)
     msg = %{"type" => "id", "id" => board}
     {:reply, {:text, Jason.encode!(msg)}, %{state | board: board}}
@@ -119,7 +120,7 @@ defmodule Mine.Websocket do
   end
   defp process_data(%{"type" => "restart"}, %{board: board} = state) do
     if Board.exists?(board), do: Board.stop(board)
-    {:ok, _} = Board.start(board)
+    {:ok, _} = OnePlayer.start(board)
     draw(state)
   end
   defp process_data(%{"type" => "toggle-pause"}, %{board: board} = state) do
@@ -176,7 +177,7 @@ defmodule Mine.Websocket do
   end
 
   defp to_top_entry({entry, position}) do
-    time = Timex.Duration.from_erl({0, Board.get_total_time() - entry.time, 0})
+    time = Timex.Duration.from_erl({0, OnePlayer.get_total_time() - entry.time, 0})
            |> Timex.Format.Duration.Formatters.Humanized.format()
     score = Number.Delimit.number_to_delimited(entry.score)
     """

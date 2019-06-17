@@ -1,52 +1,17 @@
 defmodule Mine.Board do
-  use GenServer
-  require Logger
-
-  alias Mine.{Board, HiScore}
+  alias Mine.Board
 
   @default_mines 40
   @default_height 16
   @default_width 16
-  @default_time 999
 
   defstruct cells: [],
-            mines: nil,
+            mines: 0,
             width: nil,
-            height: nil,
-            flags: 0,
-            score: 0,
-            status: :play,
-            timer: nil,
-            time: @default_time,
-            consumers: [],
-            username: nil
+            height: nil
 
-  def child_spec(init_args) do
-    %{
-      id: __MODULE__,
-      start: {__MODULE__, :start_link, [init_args]},
-      restart: :transient
-    }
-  end
-
-  defp via(board) do
+  def via(board) do
     {:via, Registry, {Mine.Board.Registry, board}}
-  end
-
-  def get_total_time do
-    Application.get_env(:mine, :total_time, @default_time)
-  end
-
-  def start_link(name) do
-    width = Application.get_env(:mine, :width, @default_width)
-    height = Application.get_env(:mine, :height, @default_height)
-    mines = Application.get_env(:mine, :mines, @default_mines)
-    time = get_total_time()
-    GenServer.start_link __MODULE__, [width, height, mines, time], name: via(name)
-  end
-
-  def start(board) do
-    DynamicSupervisor.start_child Mine.Boards, {__MODULE__, board}
   end
 
   def exists?(board) do
@@ -72,26 +37,71 @@ defmodule Mine.Board do
   end
   def toggle_pause(name), do: GenServer.cast via(name), :toggle_pause
 
-  @impl true
-  def init([width, height, mines, time]) do
-    cells = gen_clean(width, height)
-            |> place_mines(width, height, mines)
-            |> place_hints(width, height)
-    {:ok, %Board{cells: cells,
-                 width: width,
-                 height: height,
-                 mines: mines,
-                 time: time}}
+  def send_to_all(pids, msg) do
+    for pid <- pids, do: send(pid, msg)
   end
 
-  defp place_hints(cells, width, height) do
-    for i <- 1..height, into: %{} do
+  def init do
+    width = Application.get_env(:mine, :width, @default_width)
+    height = Application.get_env(:mine, :height, @default_height)
+    mines = Application.get_env(:mine, :mines, @default_mines)
+    gen_clean(width, height)
+    |> place_mines(mines)
+    |> place_hints()
+  end
+
+  def get_cell(%Board{cells: cells}, x, y) do
+    cells[y][x]
+  end
+
+  def put_cell(%Board{cells: cells} = board, x, y, value) do
+    cells = put_in(cells[y][x], value)
+    %Board{board | cells: cells}
+  end
+
+  def get_naive_cells(%Board{cells: cells}) do
+    for {_, rows} <- cells do
+      for {_, cell} <- rows, do: cell
+    end
+  end
+
+  def is_filled?(%Board{cells: cells}) do
+    Enum.all?(cells,
+              fn {_y, col} ->
+                Enum.all?(col,
+                          fn {_x, {_, :show}} -> true
+                             {_x, {:mine, _}} -> true
+                             {_x, {_, _}} -> false
+                          end)
+              end)
+  end
+
+  def check_around(%Board{cells: cells}, x, y) do
+    points = [
+      {y-1, x-1, cells[y-1][x-1]},
+      {y, x-1, cells[y][x-1]},
+      {y+1, x-1, cells[y+1][x-1]},
+      {y+1, x, cells[y+1][x]},
+      {y+1, x+1, cells[y+1][x+1]},
+      {y, x+1, cells[y][x+1]},
+      {y-1, x+1, cells[y-1][x+1]},
+      {y-1, x, cells[y-1][x]},
+    ]
+    process = fn {y, x, {_, :hidden}}, %{points: points} = acc -> Map.put(acc, :points, [{x, y}|points])
+                 {_y, _x, {_, :flag}}, %{flags: flags} = acc -> Map.put(acc, :flags, flags + 1)
+                 {_y, _x, _cell}, acc -> acc
+              end
+    List.foldl(points, %{points: [], flags: 0}, process)
+  end
+
+  defp place_hints(%Board{cells: cells, width: width, height: height} = board) do
+    cells = for i <- 1..height, into: %{} do
       {i, for j <- 1..width, into: %{} do
         case cells[i][j] do
           {:mine, status} ->
             {j, {:mine, status}}
           {0, status} ->
-            get_n = fn(x, y) -> get_n(cells, x, y, width, height) end
+            get_n = fn(x, y) -> get_n(board, x, y) end
             mines = get_n.(i-1, j-1) +
                     get_n.(i-1, j) +
                     get_n.(i-1, j+1) +
@@ -104,269 +114,63 @@ defmodule Mine.Board do
         end
       end}
     end
+    %Board{board | cells: cells}
   end
 
-  defp get_n(_cells, 0, _, _w, _h), do: 0
-  defp get_n(_cells, _, 0, _w, _h), do: 0
-  defp get_n(_cells, i, _, _w, h) when i > h, do: 0
-  defp get_n(_cells, _, j, w, _h) when j > w, do: 0
-  defp get_n(cells, i, j, _w, _h) do
+  defp get_n(_board, 0, _), do: 0
+  defp get_n(_board, _, 0), do: 0
+  defp get_n(%Board{height: h}, i, _) when i > h, do: 0
+  defp get_n(%Board{width: w}, _, j) when j > w, do: 0
+  defp get_n(%Board{cells: cells}, i, j) do
     case cells[i][j] do
       {:mine, _} -> 1
       {n, _} when is_integer(n) -> 0
     end
   end
 
-  defp place_mines(cells, _width, _height, 0), do: cells
-  defp place_mines(cells, width, height, i) do
+  defp place_mines(board, 0), do: board
+  defp place_mines(%Board{cells: cells, width: width, height: height} = board, i) do
     x = Enum.random(1..width)
     y = Enum.random(1..height)
     if cells[y][x] == {:mine, :hidden} do
-      place_mines(cells, width, height, i)
+      place_mines(board, i)
     else
-      cells
-      |> put_in([y, x], {:mine, :hidden})
-      |> place_mines(width, height, i - 1)
+      mines = board.mines + 1
+      cells = put_in(cells, [y, x], {:mine, :hidden})
+      %Board{board | cells: cells, mines: mines}
+      |> place_mines(i - 1)
     end
   end
 
   defp gen_clean(width, height) do
-    for y <- 1..height, into: %{} do
+    cells = for y <- 1..height, into: %{} do
       {y, for(x <- 1..width, into: %{}, do: {x, {0, :hidden}})}
     end
+    %Board{cells: cells, width: width, height: height}
   end
 
-  @impl true
-  def handle_call(:show, _from, %Board{status: :pause} = board) do
-    {:reply, [], board}
-  end
-  def handle_call(:show, _from, board) do
-    cells = for {_, rows} <- board.cells do
-      for {_, cell} <- rows, do: cell
-    end
-    {:reply, cells, board}
-  end
-
-  def handle_call(:flags, _from, board), do: {:reply, board.flags, board}
-  def handle_call(:score, _from, board), do: {:reply, board.score, board}
-  def handle_call(:status, _from, board), do: {:reply, board.status, board}
-  def handle_call(:time, _from, board), do: {:reply, board.time, board}
-
-  @impl true
-  def handle_cast(:toggle_pause, %Board{status: :play} = board) do
-    {:noreply, %Board{board | status: :pause}}
-  end
-  def handle_cast(:toggle_pause, %Board{status: :pause} = board) do
-    {:noreply, %Board{board | status: :play}}
-  end
-  def handle_cast({:hiscore, username, remote_ip}, %Board{score: score, time: time} = board) do
-    {:ok, hiscore} = HiScore.save(username, score, time, remote_ip)
-    send_to_all(board.consumers, {:hiscore, HiScore.get_order(hiscore.id)})
-    {:noreply, %Board{board | username: username}}
-  end
-  def handle_cast({:sweep, _, _}, %Board{status: :gameover} = board) do
-    {:noreply, board}
-  end
-  def handle_cast({:sweep, _, _}, %Board{status: :pause} = board) do
-    {:noreply, board}
-  end
-  def handle_cast({:sweep, _, _} = msg, %Board{timer: nil} = board) do
-    {:ok, timer} = :timer.send_interval :timer.seconds(1), self(), :tick
-    handle_cast(msg, %Board{board | timer: timer})
-  end
-  def handle_cast({:sweep, x, y}, %Board{cells: cells} = board) do
+  def discover(data, 0, _, _t), do: data
+  def discover(data, _, 0, _t), do: data
+  def discover({%Board{width: w}, _} = data, x, _, _t) when x > w, do: data
+  def discover({%Board{height: h}, _} = data, _, y, _t) when y > h, do: data
+  def discover({%Board{cells: cells} = board, score}, x, y, t) do
     case cells[y][x] do
-      {n, :show} when is_integer(n) and n > 0 ->
-        try do
-          {:noreply, check_discover(board, x, y)}
-        rescue
-          error in CaseClauseError ->
-            if error.term == {:mine, :hidden} do
-              send_to_all(board.consumers, :gameover)
-              {:noreply, %Board{board | status: :gameover}}
-            else
-              reraise error, __STACKTRACE__
-            end
-        end
-      {_, :show} -> {:noreply, board}
-      {_, :flag} -> {:noreply, board}
-      {:mine, _} ->
-        cells = put_in(cells[y][x], {:mine, :show})
-        send_to_all(board.consumers, :gameover)
-        {:noreply, %Board{board | cells: cells, status: :gameover}}
-      {0, _} ->
-        {cells, score} = discover({cells, board.score}, y, x, board.width, board.height, board.time)
-        status = if is_filled?(cells) do
-          send_to_all(board.consumers, :win)
-          :gameover
-        else
-          board.status
-        end
-        {:noreply, %Board{board | cells: cells, score: score, status: status}}
-      {n, _} ->
-        cells = put_in(cells[y][x], {n, :show})
-        status = if is_filled?(cells) do
-          send_to_all(board.consumers, :win)
-          :gameover
-        else
-          board.status
-        end
-        {:noreply, %Board{board | cells: cells, status: status}}
-    end
-  end
-
-  def handle_cast({:flag, _, _}, %Board{status: :gameover} = board) do
-    {:noreply, board}
-  end
-  def handle_cast({:flag, _, _}, %Board{status: :pause} = board) do
-    {:noreply, board}
-  end
-  def handle_cast({:flag, x, y}, %Board{cells: cells} = board) do
-    case cells[y][x] do
-      {_, :flag} -> {:noreply, board}
-      {_, :show} -> {:noreply, board}
-      {value, :hidden} ->
-        cells = put_in(cells[y][x], {value, :flag})
-        status = if is_filled?(cells) do
-          send_to_all(board.consumers, :win)
-          :gameover
-        else
-          board.status
-        end
-        {:noreply, %Board{board | cells: cells, flags: board.flags + 1, status: status}}
-    end
-  end
-
-  def handle_cast({:unflag, _, _}, %Board{status: :gameover} = board) do
-    {:noreply, board}
-  end
-  def handle_cast({:unflag, _, _}, %Board{status: :pause} = board) do
-    {:noreply, board}
-  end
-  def handle_cast({:unflag, x, y}, %Board{cells: cells} = board) do
-    case cells[y][x] do
-      {value, :flag} ->
-        cells = put_in(cells[y][x], {value, :hidden})
-        {:noreply, %Board{board | cells: cells, flags: board.flags - 1}}
-      {_, :show} -> {:noreply, board}
-      {_, :hidden} -> {:noreply, board}
-    end
-  end
-
-  def handle_cast({:toggle_flag, _, _}, %Board{status: :gameover} = board) do
-    {:noreply, board}
-  end
-  def handle_cast({:toggle_flag, _, _}, %Board{status: :pause} = board) do
-    {:noreply, board}
-  end
-  def handle_cast({:toggle_flag, x, y}, %Board{cells: cells} = board) do
-    case cells[y][x] do
-      {value, :flag} ->
-        cells = put_in(cells[y][x], {value, :hidden})
-        {:noreply, %Board{board | cells: cells, flags: board.flags - 1}}
-      {_, :show} -> {:noreply, board}
-      {value, :hidden} ->
-        cells = put_in(cells[y][x], {value, :flag})
-        status = if is_filled?(cells) do
-          send_to_all(board.consumers, :win)
-          :gameover
-        else
-          board.status
-        end
-        {:noreply, %Board{board | cells: cells, flags: board.flags + 1, status: status}}
-    end
-  end
-  def handle_cast({:subscribe, from}, %Board{consumers: pids} = board) do
-    Process.monitor(from)
-    {:noreply, %Board{board | consumers: [from|pids]}}
-  end
-
-  @impl true
-  def handle_info(:tick, %Board{status: :gameover} = board) do
-    :timer.cancel(board.timer)
-    {:noreply, %Board{board | timer: nil}}
-  end
-  def handle_info(:tick, %Board{status: :pause} = board) do
-    {:noreply, board}
-  end
-  def handle_info(:tick, %Board{time: 1, consumers: pids} = board) do
-    :timer.cancel(board.timer)
-    send_to_all(pids, :gameover)
-    {:noreply, %Board{board | time: 0, timer: nil, status: :gameover}}
-  end
-  def handle_info(:tick, %Board{time: time, consumers: pids} = board) do
-    send_to_all(pids, :tick)
-    {:noreply, %Board{board | time: time - 1}}
-  end
-  def handle_info({:DOWN, _ref, :process, pid, _reason}, board) do
-    {:noreply, %Board{board | consumers: board.consumers -- [pid]}}
-  end
-
-  defp check_discover(%Board{cells: cells} = board, x, y) do
-    points = [
-      {y-1, x-1, cells[y-1][x-1]},
-      {y, x-1, cells[y][x-1]},
-      {y+1, x-1, cells[y+1][x-1]},
-      {y+1, x, cells[y+1][x]},
-      {y+1, x+1, cells[y+1][x+1]},
-      {y, x+1, cells[y][x+1]},
-      {y-1, x+1, cells[y-1][x+1]},
-      {y-1, x, cells[y-1][x]},
-    ]
-    process = fn {y, x, {_, :hidden}}, {mines, acc} -> {mines, [{x, y}|acc]}
-                 {_y, _x, {_, :flag}}, {mines, acc} -> {mines + 1, acc}
-                 {_y, _x, _cell}, acc -> acc
-              end
-    {flags, to_discover} = List.foldl(points, {0, []}, process)
-    {cells, score} = case cells[y][x] do
-      {^flags, :show} ->
-        discover = fn {x, y}, {cells, score} ->
-          discover({cells, score}, y, x, board.width, board.height, board.time)
-        end
-        List.foldl(to_discover, {cells, board.score}, discover)
-      _ ->
-        {cells, board.score}
-    end
-    %Board{board | cells: cells, score: score}
-  end
-
-  defp send_to_all(pids, msg) do
-    for pid <- pids, do: send(pid, msg)
-  end
-
-  defp is_filled?(cells) do
-    Enum.all?(cells,
-              fn {_y, col} ->
-                Enum.all?(col,
-                          fn {_x, {_, :show}} -> true
-                             {_x, {:mine, _}} -> true
-                             {_x, {_, _}} -> false
-                          end)
-              end)
-  end
-
-  defp discover({cells, score}, 0, _, _w, _h, _t), do: {cells, score}
-  defp discover({cells, score}, _, 0, _w, _h, _t), do: {cells, score}
-  defp discover({cells, score}, i, _, _w, h, _t) when i > h, do: {cells, score}
-  defp discover({cells, score}, _, j, w, _h, _t) when j > w, do: {cells, score}
-  defp discover({cells, score}, i, j, w, h, t) do
-    case cells[i][j] do
       {0, :hidden} ->
         cells = cells
-                |> put_in([i, j], {0, :show})
-        {cells, score + t}
-        |> discover(i-1, j-1, w, h, t)
-        |> discover(i-1, j, w, h, t)
-        |> discover(i-1, j+1, w, h, t)
-        |> discover(i, j+1, w, h, t)
-        |> discover(i+1, j+1, w, h, t)
-        |> discover(i+1, j, w, h, t)
-        |> discover(i+1, j-1, w, h, t)
-        |> discover(i, j-1, w, h, t)
+                |> put_in([y, x], {0, :show})
+        {%Board{board | cells: cells}, score + t}
+        |> discover(x-1, y-1, t)
+        |> discover(x-1, y, t)
+        |> discover(x-1, y+1, t)
+        |> discover(x, y+1, t)
+        |> discover(x+1, y+1, t)
+        |> discover(x+1, y, t)
+        |> discover(x+1, y-1, t)
+        |> discover(x, y-1, t)
       {n, :hidden} when is_integer(n) ->
-        {put_in(cells[i][j], {n, :show}), score + t}
+        {%Board{board | cells: put_in(cells[y][x], {n, :show})}, score + t}
       {n, :show} when is_integer(n) ->
-        {cells, score}
+        {board, score}
     end
   end
 end

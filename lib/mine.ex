@@ -3,12 +3,13 @@ defmodule Mine do
   Documentation for Mine.
   """
 
+  alias Mine.Board.OnePlayer
   alias Mine.Board
 
   @name __MODULE__
 
   def start do
-    Board.start(@name)
+    OnePlayer.start(@name)
     show()
   end
 
