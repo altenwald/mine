@@ -29,6 +29,7 @@ defmodule Mine.MixProject do
       {:ecto_mnesia, "~> 0.9.1"},
       {:number, "~> 1.0"},
       {:timex, "~> 3.5.0"},
+      {:gen_state_machine, "~> 2.0"},
 
       # for releases
       {:distillery, "~> 2.0"},
