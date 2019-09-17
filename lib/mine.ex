@@ -48,6 +48,7 @@ defmodule Mine do
         case cell do
           {_, :hidden} -> hidden_text("[   ]")
           {_, :flag} -> hidden_text("[ ⛳ ]")
+          {_, :flag_error} -> hidden_text("[ 💥 ]")
           {:mine, _} -> show_text("[ ☠ ]")
           {0, _} -> show_text("[   ]")
           {n, _} -> show_text("[ #{n} ]")

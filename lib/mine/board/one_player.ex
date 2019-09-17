@@ -88,8 +88,9 @@ defmodule Mine.Board.OnePlayer do
         rescue
           error in CaseClauseError ->
             if error.term == {:mine, :hidden} do
+              board = Board.discover_error(board, x, y)
               send_to_all(state.consumers, :gameover)
-              {:noreply, %OnePlayer{state | status: :gameover}}
+              {:noreply, %OnePlayer{state | board: board, status: :gameover}}
             else
               reraise error, __STACKTRACE__
             end
@@ -205,7 +206,12 @@ defmodule Mine.Board.OnePlayer do
     {:noreply, %OnePlayer{state | time: time - 1}}
   end
   def handle_info({:DOWN, _ref, :process, pid, _reason}, state) do
-    {:noreply, %OnePlayer{state | consumers: state.consumers -- [pid]}}
+    consumers = state.consumers -- [pid]
+    if state.status == :gameover and consumers == [] do
+      {:stop, :normal, state}
+    else
+      {:noreply, %OnePlayer{state | consumers: consumers}}
+    end
   end
 
   defp check_discover(%OnePlayer{board: board, score: score} = state, x, y) do

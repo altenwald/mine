@@ -173,4 +173,25 @@ defmodule Mine.Board do
         {board, score}
     end
   end
+
+  def discover_error(%Board{cells: cells} = board, x, y) do
+    points = [
+      {y-1, x-1, cells[y-1][x-1]},
+      {y, x-1, cells[y][x-1]},
+      {y+1, x-1, cells[y+1][x-1]},
+      {y+1, x, cells[y+1][x]},
+      {y+1, x+1, cells[y+1][x+1]},
+      {y, x+1, cells[y][x+1]},
+      {y-1, x+1, cells[y-1][x+1]},
+      {y-1, x, cells[y-1][x]},
+    ]
+    discover =  fn {_y, _x, {:mine, :flag}}, cells -> cells
+                   {y, x, {n, :flag}}, cells -> put_in(cells[y][x], {n, :flag_error})
+                   {y, x, {n, :hidden}}, cells -> put_in(cells[y][x], {n, :show})
+                   {_y, _x, {_n, :show}}, cells -> cells
+                   {_y, _x, nil}, cells -> cells
+                end
+    cells = List.foldl(points, cells, discover)
+    %Board{board | cells: cells}
+  end
 end

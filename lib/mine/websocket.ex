@@ -201,6 +201,7 @@ defmodule Mine.Websocket do
   defp add(str1, str2), do: str1 <> str2
 
   defp img_src({_piece, :flag}), do: "img/cell_flag.png"
+  defp img_src({_piece, :flag_error}), do: "img/cell_flag_error.png"
   defp img_src({_piece, :mine}), do: "img/cell_mine.png"
   defp img_src({_piece, :hidden}), do: "img/cell_hidden.png"
   defp img_src({piece, :show}), do: "img/cell_#{piece}.png"
