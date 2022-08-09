@@ -4,7 +4,7 @@ Mine Sweeper typical game but using terminal and developed using Elixir.
 
 If you love this content and want we can generate more, you can support us:
 
-[![paypal](https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RC5F8STDA6AXE)
+[![paypal](https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate/?hosted_button_id=XK6Z5XATN77L2)
 
 ## Getting started
 
