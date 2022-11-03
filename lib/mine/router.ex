@@ -8,7 +8,6 @@ defmodule Mine.Router do
                      json_decoder: Jason
   plug :match
   plug :dispatch
-  plug ETag.Plug
 
   get "/" do
     priv_dir = :code.priv_dir(:mine)
