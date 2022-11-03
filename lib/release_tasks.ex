@@ -1,5 +1,5 @@
 defmodule Mine.ReleaseTasks do
-  @repos Application.get_env(:mine, :ecto_repos, [])
+  @repos Application.compile_env!(:mine, :ecto_repos)
 
   def run_migrations do
     Enum.each(@repos, &run_migrations_for/1)
@@ -15,7 +15,7 @@ defmodule Mine.ReleaseTasks do
     # Config environment
     System.put_env "MNESIA_HOST", to_string(node())
     File.mkdir_p! Application.get_env(:mnesia, :dir)
-    
+
     # Create database
     IO.puts "==> Creating database #{node()}"
     Mine.Repo.__adapter__.storage_up(Mine.Repo.config())

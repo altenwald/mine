@@ -2,7 +2,7 @@ defmodule Mine.Websocket do
   require Logger
   alias Mine.{Board, HiScore}
   alias Mine.Board.OnePlayer
-  
+
   @behaviour :cowboy_websocket
 
   def init(req, opts) do
@@ -77,7 +77,7 @@ defmodule Mine.Websocket do
   end
 
   defp process_data(%{"type" => "create"}, state) do
-    board = UUID.uuid4()
+    board = Ecto.UUID.generate()
     {:ok, _board} = OnePlayer.start(board)
     Board.subscribe(board)
     msg = %{"type" => "id", "id" => board}
@@ -90,7 +90,7 @@ defmodule Mine.Websocket do
     else
       msg = %{"type" => "gameover", "error" => true}
       {:reply, {:text, Jason.encode!(msg)}, state}
-    end  
+    end
   end
   defp process_data(%{"type" => "sweep", "x" => x, "y" => y}, %{board: board} = state) do
     if Board.exists?(board) do
@@ -98,7 +98,7 @@ defmodule Mine.Websocket do
       draw(state)
     else
       msg = %{"type" => "gameover", "error" => true}
-      {:reply, {:text, Jason.encode!(msg)}, state}  
+      {:reply, {:text, Jason.encode!(msg)}, state}
     end
   end
   defp process_data(%{"type" => "flag", "x" => x, "y" => y}, %{board: board} = state) do
@@ -107,7 +107,7 @@ defmodule Mine.Websocket do
       draw(state)
     else
       msg = %{"type" => "gameover", "error" => true}
-      {:reply, {:text, Jason.encode!(msg)}, state}  
+      {:reply, {:text, Jason.encode!(msg)}, state}
     end
   end
   defp process_data(%{"type" => "show"}, %{board: board} = state) do

@@ -7,8 +7,6 @@ defmodule Mine.Application do
   @default_port 4001
 
   def start(_type, _args) do
-    import Supervisor.Spec
-
     # List all child processes to be supervised
     port_number = Application.get_env(:mine, :port, @default_port)
 
@@ -16,7 +14,7 @@ defmodule Mine.Application do
 
     children = [
       # Start the Ecto repository
-      supervisor(Mine.Repo, []),
+      Mine.Repo,
       # Start the Registry for boards and the DynamicSupervisor
       {Registry, keys: :unique, name: Mine.Board.Registry},
       {DynamicSupervisor, strategy: :one_for_one, name: Mine.Boards},
