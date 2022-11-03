@@ -9,10 +9,10 @@ defmodule Mine.HiScore do
   @top_num 20
 
   schema "hi_score" do
-    field :name
-    field :score,       :integer
-    field :time,        :integer
-    field :remote_ip
+    field(:name)
+    field(:score, :integer)
+    field(:time, :integer)
+    field(:remote_ip)
 
     timestamps()
   end
@@ -27,15 +27,17 @@ defmodule Mine.HiScore do
   end
 
   def save(name, score, time, remote_ip) do
-    changeset(%HiScore{}, %{"name" => name,
-                            "score" => score,
-                            "time" => time,
-                            "remote_ip" => remote_ip})
+    changeset(%HiScore{}, %{
+      "name" => name,
+      "score" => score,
+      "time" => time,
+      "remote_ip" => remote_ip
+    })
     |> Repo.insert()
   end
 
   defp get_order_index([]), do: {:error, :notfound}
-  defp get_order_index([{%HiScore{}, order}|_]), do: {:ok, order}
+  defp get_order_index([{%HiScore{}, order} | _]), do: {:ok, order}
 
   def get_order(my_id) do
     from(h in HiScore, order_by: [desc: h.score])

@@ -19,13 +19,14 @@ defmodule Mine.Application do
       {Registry, keys: :unique, name: Mine.Board.Registry},
       {DynamicSupervisor, strategy: :one_for_one, name: Mine.Boards},
       # Start Plug for HTTP listener
-      Plug.Cowboy.child_spec(scheme: :http,
-                             plug: Mine.Router,
-                             options: [port: port_number,
-                                       dispatch: dispatch()]),
+      Plug.Cowboy.child_spec(
+        scheme: :http,
+        plug: Mine.Router,
+        options: [port: port_number, dispatch: dispatch()]
+      )
     ]
 
-    Logger.info "[app] initiated application"
+    Logger.info("[app] initiated application")
 
     opts = [strategy: :one_for_one, name: Mine.Supervisor]
     Supervisor.start_link(children, opts)
@@ -33,10 +34,11 @@ defmodule Mine.Application do
 
   defp dispatch do
     [
-      {:_, [
-        {"/websession", Mine.Websocket, []},
-        {:_, Plug.Cowboy.Handler, {Mine.Router, []}}
-      ]}
+      {:_,
+       [
+         {"/websession", Mine.Websocket, []},
+         {:_, Plug.Cowboy.Handler, {Mine.Router, []}}
+       ]}
     ]
   end
 end

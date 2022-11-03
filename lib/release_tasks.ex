@@ -7,18 +7,18 @@ defmodule Mine.ReleaseTasks do
 
   def drop_database do
     # Create database
-    IO.puts "==> Dropping database #{node()}"
-    Mine.Repo.__adapter__.storage_down(Mine.Repo.config())
+    IO.puts("==> Dropping database #{node()}")
+    Mine.Repo.__adapter__().storage_down(Mine.Repo.config())
   end
 
   def ensure_database_created do
     # Config environment
-    System.put_env "MNESIA_HOST", to_string(node())
-    File.mkdir_p! Application.get_env(:mnesia, :dir)
+    System.put_env("MNESIA_HOST", to_string(node()))
+    File.mkdir_p!(Application.get_env(:mnesia, :dir))
 
     # Create database
-    IO.puts "==> Creating database #{node()}"
-    Mine.Repo.__adapter__.storage_up(Mine.Repo.config())
+    IO.puts("==> Creating database #{node()}")
+    Mine.Repo.__adapter__().storage_up(Mine.Repo.config())
   end
 
   defp run_migrations_for(repo) do
