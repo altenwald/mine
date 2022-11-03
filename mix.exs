@@ -34,7 +34,7 @@ defmodule Mine.MixProject do
       {:plug_cowboy, "~> 2.6"},
       {:ecto_mnesia, github: "manuel-rubio/ecto_mnesia", branch: "support_for_ecto3"},
       {:number, "~> 1.0"},
-      {:timex, "~> 3.5.0"},
+      {:timex, "~> 3.7"},
 
       # for releases
       {:distillery, "~> 2.0"},
