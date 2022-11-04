@@ -1,4 +1,8 @@
 defmodule Mine.Board.OnePlayer do
+  @moduledoc """
+  Defines the interaction between the game and the player. It's intended
+  that this module let us play as a stand-alone user.
+  """
   use GenServer
   require Logger
 
@@ -87,59 +91,8 @@ defmodule Mine.Board.OnePlayer do
     handle_cast(msg, %OnePlayer{state | timer: timer})
   end
 
-  def handle_cast({:sweep, x, y}, %OnePlayer{board: board, status: status} = state) do
-    case Board.get_cell(board, x, y) do
-      {n, :show} when is_integer(n) and n > 0 ->
-        try do
-          {:noreply, check_discover(state, x, y)}
-        rescue
-          error in CaseClauseError ->
-            if error.term == {:mine, :hidden} do
-              board = Board.discover_error(board, x, y)
-              send_to_all(state.consumers, :gameover)
-              {:noreply, %OnePlayer{state | board: board, status: :gameover}}
-            else
-              reraise error, __STACKTRACE__
-            end
-        end
-
-      {_, :show} ->
-        {:noreply, state}
-
-      {_, :flag} ->
-        {:noreply, state}
-
-      {:mine, _} ->
-        board = Board.put_cell(board, x, y, {:mine, :show})
-        send_to_all(state.consumers, :gameover)
-        {:noreply, %OnePlayer{state | board: board, status: :gameover}}
-
-      {0, _} ->
-        {board, score} = Board.discover({board, state.score}, x, y, state.time)
-
-        status =
-          if Board.is_filled?(board) do
-            Board.send_to_all(state.consumers, :win)
-            :gameover
-          else
-            status
-          end
-
-        {:noreply, %OnePlayer{state | board: board, score: score, status: status}}
-
-      {n, _} ->
-        board = Board.put_cell(board, x, y, {n, :show})
-
-        status =
-          if Board.is_filled?(board) do
-            send_to_all(state.consumers, :win)
-            :gameover
-          else
-            status
-          end
-
-        {:noreply, %OnePlayer{state | board: board, status: status}}
-    end
+  def handle_cast({:sweep, x, y}, state) do
+    process_sweep(Board.get_cell(state.board, x, y), x, y, state)
   end
 
   def handle_cast({:flag, _, _}, %OnePlayer{status: :gameover} = state) do
@@ -260,6 +213,48 @@ defmodule Mine.Board.OnePlayer do
       {:stop, :normal, state}
     else
       {:noreply, %OnePlayer{state | consumers: consumers}}
+    end
+  end
+
+  defp process_sweep({n, :show}, x, y, %OnePlayer{board: board} = state) when is_integer(n) and n > 0 do
+    try do
+      {:noreply, check_discover(state, x, y)}
+    catch
+      :boom ->
+        board = Board.discover_error(board, x, y)
+        send_to_all(state.consumers, :gameover)
+        {:noreply, %OnePlayer{state | board: board, status: :gameover}}
+    end
+  end
+
+  defp process_sweep({_, :show}, _x, _y, state), do: {:noreply, state}
+
+  defp process_sweep({_, :flag}, _x, _y, state), do: {:noreply, state}
+
+  defp process_sweep({:mine, _}, x, y, %OnePlayer{board: board} = state) do
+    board = Board.put_cell(board, x, y, {:mine, :show})
+    send_to_all(state.consumers, :gameover)
+    {:noreply, %OnePlayer{state | board: board, status: :gameover}}
+  end
+
+  defp process_sweep({0, _}, x, y, %OnePlayer{board: board, status: status} = state) do
+    {board, score} = Board.discover({board, state.score}, x, y, state.time)
+    status = update_status(status, board, state.consumers)
+    {:noreply, %OnePlayer{state | board: board, score: score, status: status}}
+  end
+
+  defp process_sweep({n, _}, x, y, %OnePlayer{board: board, status: status} = state) do
+    board = Board.put_cell(board, x, y, {n, :show})
+    status = update_status(status, board, state.consumers)
+    {:noreply, %OnePlayer{state | board: board, status: status}}
+  end
+
+  defp update_status(status, board, consumers) do
+    if Board.is_filled?(board) do
+      send_to_all(consumers, :win)
+      :gameover
+    else
+      status
     end
   end
 

@@ -1,4 +1,7 @@
 defmodule Mine.HiScore do
+  @moduledoc """
+  Schema for storing the high scores from players.
+  """
   use Ecto.Schema
 
   import Ecto.Query, only: [from: 2]

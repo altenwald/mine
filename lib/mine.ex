@@ -30,36 +30,29 @@ defmodule Mine do
     IO.ANSI.black_background() <> IO.ANSI.white() <> text <> IO.ANSI.reset()
   end
 
+  defp num(num, leading_pad \\ 4, trailing_pad \\ 5) do
+    num
+    |> to_string()
+    |> String.pad_leading(leading_pad)
+    |> String.pad_trailing(trailing_pad)
+  end
+
   def show do
     IO.puts(IO.ANSI.clear() <> "Mine " <> to_string(Application.spec(:mine)[:vsn]))
     IO.puts(IO.ANSI.underline() <> "Score" <> IO.ANSI.reset() <> ": #{Board.score(@name)}")
     IO.puts(IO.ANSI.underline() <> "Flags" <> IO.ANSI.reset() <> ": #{Board.flags(@name)}")
     board = Board.show(@name)
 
-    for i <- 0..length(board) do
-      if i == 0 do
-        "\n     "
-      else
-        :io_lib.format(" ~2b  ", [i])
-      end
-    end
+    1..length(board)
+    |> Enum.reduce("\n     ", &"#{&2}#{num(&1, 3)}")
     |> IO.puts()
 
-    for {rows, i} <- Enum.with_index(board, 1) do
-      :io.format(" ~3b ", [i])
-
-      (for cell <- rows, into: "" do
-         case cell do
-           {_, :hidden} -> hidden_text("[   ]")
-           {_, :flag} -> hidden_text("[ ⛳ ]")
-           {_, :flag_error} -> hidden_text("[ 💥 ]")
-           {:mine, _} -> show_text("[ ☠ ]")
-           {0, _} -> show_text("[   ]")
-           {n, _} -> show_text("[ #{n} ]")
-         end
-       end <> to_string(:io_lib.format(" ~3b ", [i])))
-      |> IO.puts()
-    end
+    Enum.with_index(board, 1)
+    |> Enum.map(fn {rows, i} ->
+      header = num(i)
+      [header, Enum.map(rows, &to_cell/1), header, "\n"]
+    end)
+    |> IO.puts()
 
     IO.puts(IO.ANSI.reset())
 
@@ -69,6 +62,13 @@ defmodule Mine do
 
     :ok
   end
+
+  defp to_cell({_, :hidden}), do: hidden_text("[   ]")
+  defp to_cell({_, :flag}), do: hidden_text("[ ⛳ ]")
+  defp to_cell({_, :flag_error}), do: hidden_text("[ 💥 ]")
+  defp to_cell({:mine, _}), do: show_text("[ ☠ ]")
+  defp to_cell({0, _}), do: show_text("[   ]")
+  defp to_cell({n, _}), do: show_text("[ #{n} ]")
 
   def sweep(x, y) do
     Board.sweep(@name, x, y)

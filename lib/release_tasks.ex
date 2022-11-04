@@ -1,4 +1,7 @@
 defmodule Mine.ReleaseTasks do
+  @moduledoc """
+  Specific tasks to be performed from scripts in a release.
+  """
   @repos Application.compile_env!(:mine, :ecto_repos)
 
   def run_migrations do

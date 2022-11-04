@@ -1,5 +1,8 @@
 defmodule Mine.Board do
-  alias Mine.Board
+  @moduledoc """
+  Board abstraction have the abstraction functions to call the server where the
+  game logic is stored and functions for handling the board.
+  """
 
   @default_mines 40
   @default_height 16
@@ -53,22 +56,22 @@ defmodule Mine.Board do
     |> place_hints()
   end
 
-  def get_cell(%Board{cells: cells}, x, y) do
+  def get_cell(%__MODULE__{cells: cells}, x, y) do
     cells[y][x]
   end
 
-  def put_cell(%Board{cells: cells} = board, x, y, value) do
+  def put_cell(%__MODULE__{cells: cells} = board, x, y, value) do
     cells = put_in(cells[y][x], value)
-    %Board{board | cells: cells}
+    %__MODULE__{board | cells: cells}
   end
 
-  def get_naive_cells(%Board{cells: cells}) do
+  def get_naive_cells(%__MODULE__{cells: cells}) do
     for {_, rows} <- cells do
       for {_, cell} <- rows, do: cell
     end
   end
 
-  def is_filled?(%Board{cells: cells}) do
+  def is_filled?(%__MODULE__{cells: cells}) do
     Enum.all?(
       cells,
       fn {_y, col} ->
@@ -84,7 +87,7 @@ defmodule Mine.Board do
     )
   end
 
-  def check_around(%Board{cells: cells}, x, y) do
+  def check_around(%__MODULE__{cells: cells}, x, y) do
     points = [
       {y - 1, x - 1, cells[y - 1][x - 1]},
       {y, x - 1, cells[y][x - 1]},
@@ -105,7 +108,7 @@ defmodule Mine.Board do
     List.foldl(points, %{points: [], flags: 0}, process)
   end
 
-  defp place_hints(%Board{cells: cells, width: width, height: height} = board) do
+  defp place_hints(%__MODULE__{cells: cells, width: width, height: height} = board) do
     cells =
       for i <- 1..height, into: %{} do
         {i,
@@ -132,15 +135,15 @@ defmodule Mine.Board do
          end}
       end
 
-    %Board{board | cells: cells}
+    %__MODULE__{board | cells: cells}
   end
 
   defp get_n(_board, 0, _), do: 0
   defp get_n(_board, _, 0), do: 0
-  defp get_n(%Board{height: h}, i, _) when i > h, do: 0
-  defp get_n(%Board{width: w}, _, j) when j > w, do: 0
+  defp get_n(%__MODULE__{height: h}, i, _) when i > h, do: 0
+  defp get_n(%__MODULE__{width: w}, _, j) when j > w, do: 0
 
-  defp get_n(%Board{cells: cells}, i, j) do
+  defp get_n(%__MODULE__{cells: cells}, i, j) do
     case cells[i][j] do
       {:mine, _} -> 1
       {n, _} when is_integer(n) -> 0
@@ -149,7 +152,7 @@ defmodule Mine.Board do
 
   defp place_mines(board, 0), do: board
 
-  defp place_mines(%Board{cells: cells, width: width, height: height} = board, i) do
+  defp place_mines(%__MODULE__{cells: cells, width: width, height: height} = board, i) do
     x = Enum.random(1..width)
     y = Enum.random(1..height)
 
@@ -159,7 +162,7 @@ defmodule Mine.Board do
       mines = board.mines + 1
       cells = put_in(cells, [y, x], {:mine, :hidden})
 
-      %Board{board | cells: cells, mines: mines}
+      %__MODULE__{board | cells: cells, mines: mines}
       |> place_mines(i - 1)
     end
   end
@@ -170,22 +173,22 @@ defmodule Mine.Board do
         {y, for(x <- 1..width, into: %{}, do: {x, {0, :hidden}})}
       end
 
-    %Board{cells: cells, width: width, height: height}
+    %__MODULE__{cells: cells, width: width, height: height}
   end
 
   def discover(data, 0, _, _t), do: data
   def discover(data, _, 0, _t), do: data
-  def discover({%Board{width: w}, _} = data, x, _, _t) when x > w, do: data
-  def discover({%Board{height: h}, _} = data, _, y, _t) when y > h, do: data
+  def discover({%__MODULE__{width: w}, _} = data, x, _, _t) when x > w, do: data
+  def discover({%__MODULE__{height: h}, _} = data, _, y, _t) when y > h, do: data
 
-  def discover({%Board{cells: cells} = board, score}, x, y, t) do
+  def discover({%__MODULE__{cells: cells} = board, score}, x, y, t) do
     case cells[y][x] do
       {0, :hidden} ->
         cells =
           cells
           |> put_in([y, x], {0, :show})
 
-        {%Board{board | cells: cells}, score + t}
+        {%__MODULE__{board | cells: cells}, score + t}
         |> discover(x - 1, y - 1, t)
         |> discover(x - 1, y, t)
         |> discover(x - 1, y + 1, t)
@@ -195,15 +198,18 @@ defmodule Mine.Board do
         |> discover(x + 1, y - 1, t)
         |> discover(x, y - 1, t)
 
+      {:mine, _} ->
+        throw(:boom)
+
       {n, :hidden} when is_integer(n) ->
-        {%Board{board | cells: put_in(cells[y][x], {n, :show})}, score + t}
+        {%__MODULE__{board | cells: put_in(cells[y][x], {n, :show})}, score + t}
 
       {n, :show} when is_integer(n) ->
         {board, score}
     end
   end
 
-  def discover_error(%Board{cells: cells} = board, x, y) do
+  def discover_error(%__MODULE__{cells: cells} = board, x, y) do
     points = [
       {y - 1, x - 1, cells[y - 1][x - 1]},
       {y, x - 1, cells[y][x - 1]},
@@ -224,6 +230,6 @@ defmodule Mine.Board do
     end
 
     cells = List.foldl(points, cells, discover)
-    %Board{board | cells: cells}
+    %__MODULE__{board | cells: cells}
   end
 end

@@ -1,4 +1,8 @@
 defmodule Mine.Websocket do
+  @moduledoc """
+  Establish and handle the WebSocket connection in addition to hearing
+  also for incoming requests to be sent via the WebSocket.
+  """
   require Logger
   alias Mine.{Board, HiScore}
   alias Mine.Board.OnePlayer
@@ -190,8 +194,7 @@ defmodule Mine.Websocket do
     |> add(
       HiScore.top_list()
       |> Enum.with_index(1)
-      |> Enum.map(&to_top_entry/1)
-      |> Enum.join("</tr><tr>")
+      |> Enum.map_join("</tr><tr>", &to_top_entry/1)
     )
     |> add("</tr></tbody></table>")
   end
@@ -216,8 +219,7 @@ defmodule Mine.Websocket do
     |> add(
       cells
       |> Enum.with_index(1)
-      |> Enum.map(&to_img/1)
-      |> Enum.join("</tr><tr>")
+      |> Enum.map_join("</tr><tr>", &to_img/1)
     )
     |> add("</tr></table>")
   end
@@ -240,7 +242,6 @@ defmodule Mine.Websocket do
   defp to_img({col, y}) do
     col
     |> Enum.with_index(1)
-    |> Enum.map(fn {src, x} -> img(x, y, src) end)
-    |> Enum.join()
+    |> Enum.map_join(fn {src, x} -> img(x, y, src) end)
   end
 end
