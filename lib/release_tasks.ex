@@ -4,16 +4,26 @@ defmodule Mine.ReleaseTasks do
   """
   @repos Application.compile_env!(:mine, :ecto_repos)
 
+  @doc """
+  Run migrations. This function will be called from scripts
+  from the command-line.
+  """
   def run_migrations do
     Enum.each(@repos, &run_migrations_for/1)
   end
 
+  @doc """
+  Drop the mnesia database.
+  """
   def drop_database do
     # Create database
     IO.puts("==> Dropping database #{node()}")
     Mine.Repo.__adapter__().storage_down(Mine.Repo.config())
   end
 
+  @doc """
+  Ensure the database is created.
+  """
   def ensure_database_created do
     # Config environment
     System.put_env("MNESIA_HOST", to_string(node()))

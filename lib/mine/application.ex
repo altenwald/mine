@@ -6,6 +6,8 @@ defmodule Mine.Application do
 
   @default_port 4001
 
+  @impl Application
+  @doc false
   def start(_type, _args) do
     # List all child processes to be supervised
     port_number = Application.get_env(:mine, :port, @default_port)

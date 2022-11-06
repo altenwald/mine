@@ -1,4 +1,9 @@
 defmodule Mine.Router do
+  @moduledoc """
+  Router for handling the incoming HTTP requests. The router is part
+  of the Plug configuration, you can see the module `Mine.Application`
+  for further information.
+  """
   use Plug.Router
 
   plug(Plug.Logger, log: :debug)

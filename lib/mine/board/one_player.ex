@@ -8,9 +8,19 @@ defmodule Mine.Board.OnePlayer do
 
   alias Mine.{Board, HiScore}
   alias Mine.Board.OnePlayer
-  import Mine.Board, only: [via: 1, send_to_all: 2]
 
   @default_time 999
+
+  @type t() :: %__MODULE__{
+          board: Board.t(),
+          flags: non_neg_integer(),
+          score: Board.score(),
+          status: Board.game_status(),
+          timer: nil | :timer.tref(),
+          time: non_neg_integer(),
+          consumers: [pid()],
+          username: nil | String.t()
+        }
 
   defstruct board: %Board{},
             flags: 0,
@@ -21,6 +31,7 @@ defmodule Mine.Board.OnePlayer do
             consumers: [],
             username: nil
 
+  @doc false
   def child_spec(init_args) do
     %{
       id: __MODULE__,
@@ -29,26 +40,40 @@ defmodule Mine.Board.OnePlayer do
     }
   end
 
+  @doc """
+  Get the total time for a new game.
+  """
+  @spec get_total_time() :: non_neg_integer()
   def get_total_time do
     Application.get_env(:mine, :total_time, @default_time)
   end
 
+  @doc """
+  Start the server process.
+  """
+  @spec start_link(Board.board_id()) :: GenServer.on_start()
   def start_link(name) do
     time = get_total_time()
-    GenServer.start_link(__MODULE__, [time], name: via(name))
+    GenServer.start_link(__MODULE__, [time], name: Board.via(name))
   end
 
+  @doc """
+  Start a new process under the dynamic supervisor.
+  """
+  @spec start(Board.board_id()) :: DynamicSupervisor.on_start_child()
   def start(board) do
     DynamicSupervisor.start_child(Mine.Boards, {__MODULE__, board})
   end
 
   @impl true
+  @doc false
   def init([time]) do
     board = Board.init()
     {:ok, %OnePlayer{board: board, time: time}}
   end
 
   @impl true
+  @doc false
   def handle_call(:show, _from, %OnePlayer{status: :pause} = state) do
     {:reply, [], state}
   end
@@ -64,6 +89,7 @@ defmodule Mine.Board.OnePlayer do
   def handle_call(:time, _from, state), do: {:reply, state.time, state}
 
   @impl true
+  @doc false
   def handle_cast(:toggle_pause, %OnePlayer{status: :play} = state) do
     {:noreply, %OnePlayer{state | status: :pause}}
   end
@@ -74,7 +100,7 @@ defmodule Mine.Board.OnePlayer do
 
   def handle_cast({:hiscore, username, remote_ip}, %OnePlayer{score: score, time: time} = state) do
     {:ok, hiscore} = HiScore.save(username, score, time, remote_ip)
-    send_to_all(state.consumers, {:hiscore, HiScore.get_order(hiscore.id)})
+    Board.send_to_all(state.consumers, {:hiscore, HiScore.get_order(hiscore.id)})
     {:noreply, %OnePlayer{state | username: username}}
   end
 
@@ -186,6 +212,7 @@ defmodule Mine.Board.OnePlayer do
   end
 
   @impl true
+  @doc false
   def handle_info(:tick, %OnePlayer{status: :gameover} = state) do
     :timer.cancel(state.timer)
     {:noreply, %OnePlayer{state | timer: nil}}
@@ -216,13 +243,14 @@ defmodule Mine.Board.OnePlayer do
     end
   end
 
-  defp process_sweep({n, :show}, x, y, %OnePlayer{board: board} = state) when is_integer(n) and n > 0 do
+  defp process_sweep({n, :show}, x, y, %OnePlayer{board: board} = state)
+       when is_integer(n) and n > 0 do
     try do
       {:noreply, check_discover(state, x, y)}
     catch
       :boom ->
         board = Board.discover_error(board, x, y)
-        send_to_all(state.consumers, :gameover)
+        Board.send_to_all(state.consumers, :gameover)
         {:noreply, %OnePlayer{state | board: board, status: :gameover}}
     end
   end
@@ -233,7 +261,7 @@ defmodule Mine.Board.OnePlayer do
 
   defp process_sweep({:mine, _}, x, y, %OnePlayer{board: board} = state) do
     board = Board.put_cell(board, x, y, {:mine, :show})
-    send_to_all(state.consumers, :gameover)
+    Board.send_to_all(state.consumers, :gameover)
     {:noreply, %OnePlayer{state | board: board, status: :gameover}}
   end
 
@@ -251,7 +279,7 @@ defmodule Mine.Board.OnePlayer do
 
   defp update_status(status, board, consumers) do
     if Board.is_filled?(board) do
-      send_to_all(consumers, :win)
+      Board.send_to_all(consumers, :win)
       :gameover
     else
       status

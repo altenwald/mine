@@ -8,15 +8,27 @@ defmodule Mine do
 
   @name __MODULE__
 
+  @doc """
+  Start the one player game with a name.
+  """
+  @spec start :: :ok
   def start do
     OnePlayer.start(@name)
     show()
   end
 
+  @doc """
+  Stop a the game.
+  """
+  @spec stop :: :ok
   def stop do
     Board.stop(@name)
   end
 
+  @doc """
+  Perform a stop and start.
+  """
+  @spec restart :: :ok
   def restart do
     stop()
     start()
@@ -37,6 +49,10 @@ defmodule Mine do
     |> String.pad_trailing(trailing_pad)
   end
 
+  @doc """
+  Show the board in a pretty way.
+  """
+  @spec show :: :ok
   def show do
     IO.puts(IO.ANSI.clear() <> "Mine " <> to_string(Application.spec(:mine)[:vsn]))
     IO.puts(IO.ANSI.underline() <> "Score" <> IO.ANSI.reset() <> ": #{Board.score(@name)}")
@@ -70,11 +86,20 @@ defmodule Mine do
   defp to_cell({0, _}), do: show_text("[   ]")
   defp to_cell({n, _}), do: show_text("[ #{n} ]")
 
+  @doc """
+  Perform a sweep on the board. The sweep consist on unveil
+  all of the still hidden blocks when an shown number is clicked.
+  """
+  @spec sweep(x :: pos_integer(), y :: pos_integer()) :: :ok
   def sweep(x, y) do
     Board.sweep(@name, x, y)
     show()
   end
 
+  @doc """
+  Flag an unveil cell avoiding it could be revealed.
+  """
+  @spec flag(x :: pos_integer(), y :: pos_integer()) :: :ok
   def flag(x, y) do
     Board.flag(@name, x, y)
     show()

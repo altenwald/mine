@@ -9,6 +9,7 @@ defmodule Mine.Websocket do
 
   @behaviour :cowboy_websocket
 
+  @doc false
   def init(req, opts) do
     Logger.info("[websocket] init req => #{inspect(req)}")
 
@@ -24,12 +25,14 @@ defmodule Mine.Websocket do
     {:cowboy_websocket, req, [{:remote_ip, remote_ip} | opts]}
   end
 
+  @doc false
   def websocket_init(remote_ip: remote_ip) do
     vsn = to_string(Application.spec(:mine)[:vsn])
     send(self(), {:send, Jason.encode!(%{"type" => "vsn", "vsn" => vsn})})
     {:ok, %{board: nil, remote_ip: remote_ip}}
   end
 
+  @doc false
   def websocket_handle({:text, msg}, state) do
     msg
     |> Jason.decode!()
@@ -40,6 +43,7 @@ defmodule Mine.Websocket do
     {:reply, {:text, "eh?"}, state}
   end
 
+  @doc false
   def websocket_info({:send, data}, state) do
     {:reply, {:text, data}, state}
   end
@@ -76,6 +80,7 @@ defmodule Mine.Websocket do
     {:ok, state}
   end
 
+  @doc false
   def websocket_terminate(reason, _state) do
     Logger.info("reason => #{inspect(reason)}")
     :ok
