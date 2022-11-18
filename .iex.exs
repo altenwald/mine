@@ -1,0 +1,3 @@
+import Mine
+
+Mine.start()

@@ -80,8 +80,8 @@ defmodule Mine do
   end
 
   defp to_cell({_, :hidden}), do: hidden_text("[   ]")
-  defp to_cell({_, :flag}), do: hidden_text("[ ⛳ ]")
-  defp to_cell({_, :flag_error}), do: hidden_text("[ 💥 ]")
+  defp to_cell({_, :flag}), do: hidden_text("[ ⚑ ]")
+  defp to_cell({_, :flag_error}), do: hidden_text("[ ☀︎ ]")
   defp to_cell({:mine, _}), do: show_text("[ ☠ ]")
   defp to_cell({0, _}), do: show_text("[   ]")
   defp to_cell({n, _}), do: show_text("[ #{n} ]")
