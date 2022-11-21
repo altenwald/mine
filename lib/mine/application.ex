@@ -4,16 +4,12 @@ defmodule Mine.Application do
   use Application
   require Logger
 
-  @default_port 4001
-
   @impl Application
   @doc false
   def start(_type, _args) do
-    # List all child processes to be supervised
-    port_number = Application.get_env(:mine, :port, @default_port)
-
     {:ok, _} = EctoBootMigration.migrate(:mine)
 
+    # List all child processes to be supervised
     children = [
       # Start the Ecto repository
       Mine.Repo,
@@ -21,26 +17,12 @@ defmodule Mine.Application do
       {Registry, keys: :unique, name: Mine.Board.Registry},
       {DynamicSupervisor, strategy: :one_for_one, name: Mine.Boards},
       # Start Plug for HTTP listener
-      Plug.Cowboy.child_spec(
-        scheme: :http,
-        plug: Mine.Router,
-        options: [port: port_number, dispatch: dispatch()]
-      )
+      Mine.Http
     ]
 
     Logger.info("[app] initiated application")
 
     opts = [strategy: :one_for_one, name: Mine.Supervisor]
     Supervisor.start_link(children, opts)
-  end
-
-  defp dispatch do
-    [
-      {:_,
-       [
-         {"/websession", Mine.Websocket, []},
-         {:_, Plug.Cowboy.Handler, {Mine.Router, []}}
-       ]}
-    ]
   end
 end
