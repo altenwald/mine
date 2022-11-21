@@ -51,6 +51,12 @@ defmodule Mine.MixProject do
 
   defp aliases do
     [
+      release: [
+        "deps.get",
+        "compile",
+        "distillery.release --upgrade --env=prod",
+        "ecto.create"
+      ],
       check: [
         "ecto.create",
         "ecto.migrate",
