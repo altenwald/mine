@@ -16,8 +16,9 @@ defmodule Mine.Game do
     children = [
       # Start the Registry for boards and the DynamicSupervisor
       {Registry, keys: :unique, name: Mine.Board.Registry},
-      {DynamicSupervisor, strategy: :one_for_one, name: Mine.Boards},
+      {DynamicSupervisor, strategy: :one_for_one, name: Mine.Boards}
     ]
+
     options = [strategy: :one_for_all]
     Supervisor.init(children, options)
   end
@@ -25,7 +26,7 @@ defmodule Mine.Game do
   @doc """
   Start a new process under the dynamic supervisor.
   """
-  @spec start(Board.board_id()) :: DynamicSupervisor.on_start_child()
+  @spec start(Mine.Board.board_id()) :: DynamicSupervisor.on_start_child()
   def start(board) do
     DynamicSupervisor.start_child(Mine.Boards, {Mine.Board.OnePlayer, board})
   end
