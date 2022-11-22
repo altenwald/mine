@@ -13,9 +13,8 @@ defmodule Mine.Application do
     children = [
       # Start the Ecto repository
       Mine.Repo,
-      # Start the Registry for boards and the DynamicSupervisor
-      {Registry, keys: :unique, name: Mine.Board.Registry},
-      {DynamicSupervisor, strategy: :one_for_one, name: Mine.Boards},
+      # Supervisor
+      Mine.Game,
       # Start Plug for HTTP listener
       Mine.Http
     ]

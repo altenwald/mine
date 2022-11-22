@@ -3,7 +3,7 @@ defmodule Mine.Board.OnePlayer do
   Defines the interaction between the game and the player. It's intended
   that this module let us play as a stand-alone user.
   """
-  use GenServer
+  use GenServer, restart: :transient
   require Logger
 
   alias Mine.{Board, HiScore}
@@ -30,15 +30,6 @@ defmodule Mine.Board.OnePlayer do
             time: @default_time,
             consumers: [],
             username: nil
-
-  @doc false
-  def child_spec(init_args) do
-    %{
-      id: __MODULE__,
-      start: {__MODULE__, :start_link, [init_args]},
-      restart: :transient
-    }
-  end
 
   @doc """
   Get the total time for a new game.
