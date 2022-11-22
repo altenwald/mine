@@ -3,17 +3,16 @@ defmodule Mine do
   Documentation for Mine.
   """
 
-  alias Mine.Board.OnePlayer
-  alias Mine.Board
+  alias Mine.Game
 
-  @name __MODULE__
+  @game_id __MODULE__
 
   @doc """
   Start the one player game with a name.
   """
   @spec start :: :ok
   def start do
-    OnePlayer.start(@name)
+    Game.start(@game_id)
     show()
   end
 
@@ -22,7 +21,7 @@ defmodule Mine do
   """
   @spec stop :: :ok
   def stop do
-    Board.stop(@name)
+    Game.stop(@game_id)
   end
 
   @doc """
@@ -55,9 +54,9 @@ defmodule Mine do
   @spec show :: :ok
   def show do
     IO.puts(IO.ANSI.clear() <> "Mine " <> to_string(Application.spec(:mine)[:vsn]))
-    IO.puts(IO.ANSI.underline() <> "Score" <> IO.ANSI.reset() <> ": #{Board.score(@name)}")
-    IO.puts(IO.ANSI.underline() <> "Flags" <> IO.ANSI.reset() <> ": #{Board.flags(@name)}")
-    board = Board.show(@name)
+    IO.puts(IO.ANSI.underline() <> "Score" <> IO.ANSI.reset() <> ": #{Game.score(@game_id)}")
+    IO.puts(IO.ANSI.underline() <> "Flags" <> IO.ANSI.reset() <> ": #{Game.flags(@game_id)}")
+    board = Game.show(@game_id)
 
     1..length(board)
     |> Enum.reduce("\n     ", &"#{&2}#{num(&1, 3)}")
@@ -72,7 +71,7 @@ defmodule Mine do
 
     IO.puts(IO.ANSI.reset())
 
-    if Board.status(@name) == :gameover do
+    if Game.status(@game_id) == :gameover do
       IO.puts(IO.ANSI.blink_slow() <> "G A M E   O V E R ! ! !" <> IO.ANSI.blink_off())
     end
 
@@ -92,7 +91,7 @@ defmodule Mine do
   """
   @spec sweep(x :: pos_integer(), y :: pos_integer()) :: :ok
   def sweep(x, y) do
-    Board.sweep(@name, x, y)
+    Game.sweep(@game_id, x, y)
     show()
   end
 
@@ -101,7 +100,7 @@ defmodule Mine do
   """
   @spec flag(x :: pos_integer(), y :: pos_integer()) :: :ok
   def flag(x, y) do
-    Board.flag(@name, x, y)
+    Game.flag(@game_id, x, y)
     show()
   end
 end

@@ -26,8 +26,8 @@ defmodule Mine.Http do
     [
       {:_,
        [
-         {"/websession", Mine.Websocket, []},
-         {:_, Plug.Cowboy.Handler, {Mine.Router, []}}
+         {"/websession", Mine.Http.Websocket, []},
+         {:_, Plug.Cowboy.Handler, {Mine.Http.Router, []}}
        ]}
     ]
   end

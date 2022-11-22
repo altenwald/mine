@@ -1,12 +1,9 @@
-defmodule Mine.Board do
+defmodule Mine.Game.Board do
   @moduledoc """
-  Board abstraction have the abstraction functions to call the server where the
-  game logic is stored and functions for handling the board.
+  The board is the grid where the mines are placed and the information
+  regarding the amount of mines around a cell and if the cell was
+  unveil or flagged.
   """
-
-  @default_mines 40
-  @default_height 16
-  @default_width 16
 
   @typedoc """
   The content of the cell. It's a tuple with two elements: the number 0..9 or
@@ -20,24 +17,6 @@ defmodule Mine.Board do
   """
   @type board() :: [[cell()]]
 
-  @doc """
-  The board ID.
-  """
-  @type board_id() :: String.t() | atom()
-
-  @typedoc """
-  Status of the game. It could be play, pause, or gameover.
-  """
-  @type game_status() :: :play | :pause | :gameover
-
-  @typedoc """
-  The time spent in seconds.
-  """
-  @type time() :: non_neg_integer()
-
-  @typedoc """
-  Board structure is storing the cells, number of mines, and weight and height.
-  """
   @type t() :: %__MODULE__{
           cells: %{pos_integer() => %{pos_integer() => cell()}},
           mines: non_neg_integer(),
@@ -50,111 +29,7 @@ defmodule Mine.Board do
             width: nil,
             height: nil
 
-  @doc """
-  Get the via for locating the board process.
-  """
-  def via(board) do
-    {:via, Registry, {Mine.Board.Registry, board}}
-  end
-
-  @doc """
-  Check if the process exists returning a boolean value.
-  """
-  @spec exists?(board_id()) :: boolean()
-  def exists?(board) do
-    case Registry.lookup(Mine.Board.Registry, board) do
-      [{_pid, nil}] -> true
-      [] -> false
-    end
-  end
-
-  @doc """
-  Stop the board.
-  """
-  def stop(name), do: GenServer.stop(via(name))
-
-  @doc """
-  Show the board. It's returning the board in the format of a list of
-  lists of cells.
-  """
-  @spec show(board_id()) :: board()
-  def show(name), do: GenServer.call(via(name), :show)
-
-  @doc """
-  Perform a sweep for a shown cell.
-  """
-  def sweep(name, x, y), do: GenServer.cast(via(name), {:sweep, x, y})
-
-  @doc """
-  Flag the cell for a given position.
-  """
-  def flag(name, x, y), do: GenServer.cast(via(name), {:flag, x, y})
-
-  @doc """
-  Unflag the cell for a given position.
-  """
-  def unflag(name, x, y), do: GenServer.cast(via(name), {:unflag, x, y})
-
-  @doc """
-  Toggle flag content. If the position is flagged then it's removing the flag,
-  and if the cell wasn't flagged it's adding the flag.
-  """
-  def toggle_flag(name, x, y), do: GenServer.cast(via(name), {:toggle_flag, x, y})
-
-  @doc """
-  Returns the number of flags.
-  """
-  @spec flags(board_id()) :: non_neg_integer()
-  def flags(name), do: GenServer.call(via(name), :flags)
-
-  @doc """
-  Return the current score.
-  """
-  @spec score(board_id()) :: non_neg_integer()
-  def score(name), do: GenServer.call(via(name), :score)
-
-  @doc """
-  Return the status of the game.
-  """
-  @spec status(board_id()) :: game_status()
-  def status(name), do: GenServer.call(via(name), :status)
-
-  @doc """
-  Subscribe to the game to receive all of the updates.
-  """
-  def subscribe(name), do: GenServer.cast(via(name), {:subscribe, self()})
-
-  @doc """
-  Retrieve the time remained for the game.
-  """
-  @spec time(board_id()) :: non_neg_integer()
-  def time(name), do: GenServer.call(via(name), :time)
-
-  @doc """
-  Record a new score.
-  """
-  def hiscore(name, username, remote_ip) do
-    GenServer.cast(via(name), {:hiscore, username, remote_ip})
-  end
-
-  @doc """
-  Toggle the pause status.
-  """
-  def toggle_pause(name), do: GenServer.cast(via(name), :toggle_pause)
-
-  @doc """
-  Send a message to all of the PIDs.
-  """
-  def send_to_all(pids, msg) do
-    Enum.each(pids, &send(&1, msg))
-  end
-
-  @doc false
-  def init do
-    width = Application.get_env(:mine, :width, @default_width)
-    height = Application.get_env(:mine, :height, @default_height)
-    mines = Application.get_env(:mine, :mines, @default_mines)
-
+  def new(width, height, mines) do
     gen_clean(width, height)
     |> place_mines(mines)
     |> place_hints()

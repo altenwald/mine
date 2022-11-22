@@ -1,4 +1,4 @@
-defmodule Mine.Board.OnePlayer do
+defmodule Mine.Game.Worker do
   @moduledoc """
   Defines the interaction between the game and the player. It's intended
   that this module let us play as a stand-alone user.
@@ -6,52 +6,47 @@ defmodule Mine.Board.OnePlayer do
   use GenServer, restart: :transient
   require Logger
 
-  alias Mine.{Board, HiScore}
-  alias Mine.Board.OnePlayer
+  alias Mine.HiScore
+  alias Mine.Game
+  alias Mine.Game.Board
 
-  @default_time 999
+  @default_mines 40
+  @default_height 16
+  @default_width 16
 
   @type t() :: %__MODULE__{
           board: Board.t(),
           flags: non_neg_integer(),
           score: Board.score(),
-          status: Board.game_status(),
+          status: Game.game_status(),
           timer: nil | :timer.tref(),
           time: non_neg_integer(),
           consumers: [pid()],
           username: nil | String.t()
         }
 
-  defstruct board: %Board{},
+  defstruct board: nil,
             flags: 0,
             score: 0,
             status: :play,
             timer: nil,
-            time: @default_time,
+            time: nil,
             consumers: [],
             username: nil
 
   @doc """
-  Get the total time for a new game.
-  """
-  @spec get_total_time() :: non_neg_integer()
-  def get_total_time do
-    Application.get_env(:mine, :total_time, @default_time)
-  end
-
-  @doc """
   Start the server process.
   """
-  @spec start_link(Board.board_id()) :: GenServer.on_start()
+  @spec start_link(Game.game_id()) :: GenServer.on_start()
   def start_link(name) do
-    time = get_total_time()
-    GenServer.start_link(__MODULE__, [time], name: Board.via(name))
+    time = Game.get_total_time()
+    GenServer.start_link(__MODULE__, [time], name: Game.via(name))
   end
 
   @doc """
   Start a new process under the dynamic supervisor.
   """
-  @spec start(Board.board_id()) :: DynamicSupervisor.on_start_child()
+  @spec start(Game.game_id()) :: DynamicSupervisor.on_start_child()
   def start(board) do
     DynamicSupervisor.start_child(Mine.Boards, {__MODULE__, board})
   end
@@ -59,13 +54,16 @@ defmodule Mine.Board.OnePlayer do
   @impl true
   @doc false
   def init([time]) do
-    board = Board.init()
-    {:ok, %OnePlayer{board: board, time: time}}
+    width = Application.get_env(:mine, :width, @default_width)
+    height = Application.get_env(:mine, :height, @default_height)
+    mines = Application.get_env(:mine, :mines, @default_mines)
+    board = Board.new(width, height, mines)
+    {:ok, %__MODULE__{board: board, time: time}}
   end
 
   @impl true
   @doc false
-  def handle_call(:show, _from, %OnePlayer{status: :pause} = state) do
+  def handle_call(:show, _from, %__MODULE__{status: :pause} = state) do
     {:reply, [], state}
   end
 
@@ -79,48 +77,52 @@ defmodule Mine.Board.OnePlayer do
   def handle_call(:status, _from, state), do: {:reply, state.status, state}
   def handle_call(:time, _from, state), do: {:reply, state.time, state}
 
+  defp send_to_all(pids, msg) do
+    Enum.each(pids, &send(&1, msg))
+  end
+
   @impl true
   @doc false
-  def handle_cast(:toggle_pause, %OnePlayer{status: :play} = state) do
-    {:noreply, %OnePlayer{state | status: :pause}}
+  def handle_cast(:toggle_pause, %__MODULE__{status: :play} = state) do
+    {:noreply, %__MODULE__{state | status: :pause}}
   end
 
-  def handle_cast(:toggle_pause, %OnePlayer{status: :pause} = state) do
-    {:noreply, %OnePlayer{state | status: :play}}
+  def handle_cast(:toggle_pause, %__MODULE__{status: :pause} = state) do
+    {:noreply, %__MODULE__{state | status: :play}}
   end
 
-  def handle_cast({:hiscore, username, remote_ip}, %OnePlayer{score: score, time: time} = state) do
+  def handle_cast({:hiscore, username, remote_ip}, %__MODULE__{score: score, time: time} = state) do
     {:ok, hiscore} = HiScore.save(username, score, time, remote_ip)
-    Board.send_to_all(state.consumers, {:hiscore, HiScore.get_order(hiscore.id)})
-    {:noreply, %OnePlayer{state | username: username}}
+    send_to_all(state.consumers, {:hiscore, HiScore.get_order(hiscore.id)})
+    {:noreply, %__MODULE__{state | username: username}}
   end
 
-  def handle_cast({:sweep, _, _}, %OnePlayer{status: :gameover} = state) do
+  def handle_cast({:sweep, _, _}, %__MODULE__{status: :gameover} = state) do
     {:noreply, state}
   end
 
-  def handle_cast({:sweep, _, _}, %OnePlayer{status: :pause} = state) do
+  def handle_cast({:sweep, _, _}, %__MODULE__{status: :pause} = state) do
     {:noreply, state}
   end
 
-  def handle_cast({:sweep, _, _} = msg, %OnePlayer{timer: nil} = state) do
+  def handle_cast({:sweep, _, _} = msg, %__MODULE__{timer: nil} = state) do
     {:ok, timer} = :timer.send_interval(:timer.seconds(1), self(), :tick)
-    handle_cast(msg, %OnePlayer{state | timer: timer})
+    handle_cast(msg, %__MODULE__{state | timer: timer})
   end
 
   def handle_cast({:sweep, x, y}, state) do
     process_sweep(Board.get_cell(state.board, x, y), x, y, state)
   end
 
-  def handle_cast({:flag, _, _}, %OnePlayer{status: :gameover} = state) do
+  def handle_cast({:flag, _, _}, %__MODULE__{status: :gameover} = state) do
     {:noreply, state}
   end
 
-  def handle_cast({:flag, _, _}, %OnePlayer{status: :pause} = state) do
+  def handle_cast({:flag, _, _}, %__MODULE__{status: :pause} = state) do
     {:noreply, state}
   end
 
-  def handle_cast({:flag, x, y}, %OnePlayer{board: board} = state) do
+  def handle_cast({:flag, x, y}, %__MODULE__{board: board} = state) do
     case Board.get_cell(board, x, y) do
       {_, :flag} ->
         {:noreply, state}
@@ -133,29 +135,29 @@ defmodule Mine.Board.OnePlayer do
 
         status =
           if Board.is_filled?(board) do
-            Board.send_to_all(state.consumers, :win)
+            send_to_all(state.consumers, :win)
             :gameover
           else
             state.status
           end
 
-        {:noreply, %OnePlayer{state | board: board, flags: state.flags + 1, status: status}}
+        {:noreply, %__MODULE__{state | board: board, flags: state.flags + 1, status: status}}
     end
   end
 
-  def handle_cast({:unflag, _, _}, %OnePlayer{status: :gameover} = state) do
+  def handle_cast({:unflag, _, _}, %__MODULE__{status: :gameover} = state) do
     {:noreply, state}
   end
 
-  def handle_cast({:unflag, _, _}, %OnePlayer{status: :pause} = state) do
+  def handle_cast({:unflag, _, _}, %__MODULE__{status: :pause} = state) do
     {:noreply, state}
   end
 
-  def handle_cast({:unflag, x, y}, %OnePlayer{board: board} = state) do
+  def handle_cast({:unflag, x, y}, %__MODULE__{board: board} = state) do
     case Board.get_cell(board, x, y) do
       {value, :flag} ->
         board = Board.put_cell(board, x, y, {value, :hidden})
-        {:noreply, %OnePlayer{state | board: board, flags: state.flags - 1}}
+        {:noreply, %__MODULE__{state | board: board, flags: state.flags - 1}}
 
       {_, :show} ->
         {:noreply, state}
@@ -165,19 +167,19 @@ defmodule Mine.Board.OnePlayer do
     end
   end
 
-  def handle_cast({:toggle_flag, _, _}, %OnePlayer{status: :gameover} = state) do
+  def handle_cast({:toggle_flag, _, _}, %__MODULE__{status: :gameover} = state) do
     {:noreply, state}
   end
 
-  def handle_cast({:toggle_flag, _, _}, %OnePlayer{status: :pause} = state) do
+  def handle_cast({:toggle_flag, _, _}, %__MODULE__{status: :pause} = state) do
     {:noreply, state}
   end
 
-  def handle_cast({:toggle_flag, x, y}, %OnePlayer{board: board} = state) do
+  def handle_cast({:toggle_flag, x, y}, %__MODULE__{board: board} = state) do
     case Board.get_cell(board, x, y) do
       {value, :flag} ->
         board = Board.put_cell(board, x, y, {value, :hidden})
-        {:noreply, %OnePlayer{state | board: board, flags: state.flags - 1}}
+        {:noreply, %__MODULE__{state | board: board, flags: state.flags - 1}}
 
       {_, :show} ->
         {:noreply, state}
@@ -187,41 +189,41 @@ defmodule Mine.Board.OnePlayer do
 
         status =
           if Board.is_filled?(board) do
-            Board.send_to_all(state.consumers, :win)
+            send_to_all(state.consumers, :win)
             :gameover
           else
             state.status
           end
 
-        {:noreply, %OnePlayer{state | board: board, flags: state.flags + 1, status: status}}
+        {:noreply, %__MODULE__{state | board: board, flags: state.flags + 1, status: status}}
     end
   end
 
-  def handle_cast({:subscribe, from}, %OnePlayer{consumers: pids} = state) do
+  def handle_cast({:subscribe, from}, %__MODULE__{consumers: pids} = state) do
     Process.monitor(from)
-    {:noreply, %OnePlayer{state | consumers: [from | pids]}}
+    {:noreply, %__MODULE__{state | consumers: [from | pids]}}
   end
 
   @impl true
   @doc false
-  def handle_info(:tick, %OnePlayer{status: :gameover} = state) do
+  def handle_info(:tick, %__MODULE__{status: :gameover} = state) do
     :timer.cancel(state.timer)
-    {:noreply, %OnePlayer{state | timer: nil}}
+    {:noreply, %__MODULE__{state | timer: nil}}
   end
 
-  def handle_info(:tick, %OnePlayer{status: :pause} = state) do
+  def handle_info(:tick, %__MODULE__{status: :pause} = state) do
     {:noreply, state}
   end
 
-  def handle_info(:tick, %OnePlayer{time: 1, consumers: pids} = state) do
+  def handle_info(:tick, %__MODULE__{time: 1, consumers: pids} = state) do
     :timer.cancel(state.timer)
-    Board.send_to_all(pids, :gameover)
-    {:noreply, %OnePlayer{state | time: 0, timer: nil, status: :gameover}}
+    send_to_all(pids, :gameover)
+    {:noreply, %__MODULE__{state | time: 0, timer: nil, status: :gameover}}
   end
 
-  def handle_info(:tick, %OnePlayer{time: time, consumers: pids} = state) do
-    Board.send_to_all(pids, :tick)
-    {:noreply, %OnePlayer{state | time: time - 1}}
+  def handle_info(:tick, %__MODULE__{time: time, consumers: pids} = state) do
+    send_to_all(pids, :tick)
+    {:noreply, %__MODULE__{state | time: time - 1}}
   end
 
   def handle_info({:DOWN, _ref, :process, pid, _reason}, state) do
@@ -230,19 +232,19 @@ defmodule Mine.Board.OnePlayer do
     if state.status == :gameover and consumers == [] do
       {:stop, :normal, state}
     else
-      {:noreply, %OnePlayer{state | consumers: consumers}}
+      {:noreply, %__MODULE__{state | consumers: consumers}}
     end
   end
 
-  defp process_sweep({n, :show}, x, y, %OnePlayer{board: board} = state)
+  defp process_sweep({n, :show}, x, y, %__MODULE__{board: board} = state)
        when is_integer(n) and n > 0 do
     try do
       {:noreply, check_discover(state, x, y)}
     catch
       :boom ->
         board = Board.discover_error(board, x, y)
-        Board.send_to_all(state.consumers, :gameover)
-        {:noreply, %OnePlayer{state | board: board, status: :gameover}}
+        send_to_all(state.consumers, :gameover)
+        {:noreply, %__MODULE__{state | board: board, status: :gameover}}
     end
   end
 
@@ -250,34 +252,34 @@ defmodule Mine.Board.OnePlayer do
 
   defp process_sweep({_, :flag}, _x, _y, state), do: {:noreply, state}
 
-  defp process_sweep({:mine, _}, x, y, %OnePlayer{board: board} = state) do
+  defp process_sweep({:mine, _}, x, y, %__MODULE__{board: board} = state) do
     board = Board.put_cell(board, x, y, {:mine, :show})
-    Board.send_to_all(state.consumers, :gameover)
-    {:noreply, %OnePlayer{state | board: board, status: :gameover}}
+    send_to_all(state.consumers, :gameover)
+    {:noreply, %__MODULE__{state | board: board, status: :gameover}}
   end
 
-  defp process_sweep({0, _}, x, y, %OnePlayer{board: board, status: status} = state) do
+  defp process_sweep({0, _}, x, y, %__MODULE__{board: board, status: status} = state) do
     {board, score} = Board.discover({board, state.score}, x, y, state.time)
     status = update_status(status, board, state.consumers)
-    {:noreply, %OnePlayer{state | board: board, score: score, status: status}}
+    {:noreply, %__MODULE__{state | board: board, score: score, status: status}}
   end
 
-  defp process_sweep({n, _}, x, y, %OnePlayer{board: board, status: status} = state) do
+  defp process_sweep({n, _}, x, y, %__MODULE__{board: board, status: status} = state) do
     board = Board.put_cell(board, x, y, {n, :show})
     status = update_status(status, board, state.consumers)
-    {:noreply, %OnePlayer{state | board: board, status: status}}
+    {:noreply, %__MODULE__{state | board: board, status: status}}
   end
 
   defp update_status(status, board, consumers) do
     if Board.is_filled?(board) do
-      Board.send_to_all(consumers, :win)
+      send_to_all(consumers, :win)
       :gameover
     else
       status
     end
   end
 
-  defp check_discover(%OnePlayer{board: board, score: score} = state, x, y) do
+  defp check_discover(%__MODULE__{board: board, score: score} = state, x, y) do
     %{flags: flags, points: to_discover} = Board.check_around(board, x, y)
 
     {board, score} =
@@ -293,6 +295,6 @@ defmodule Mine.Board.OnePlayer do
           {board, score}
       end
 
-    %OnePlayer{state | board: board, score: score}
+    %__MODULE__{state | board: board, score: score}
   end
 end

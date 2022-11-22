@@ -7,7 +7,8 @@ defmodule Mine.HiScore do
   import Ecto.Query, only: [from: 2]
   import Ecto.Changeset
 
-  alias Mine.{Board, HiScore, Repo}
+  alias Mine.{Game, HiScore, Repo}
+  alias Mine.Game.Board
 
   @top_num 20
 
@@ -45,7 +46,7 @@ defmodule Mine.HiScore do
   @doc """
   Save a high score entry.
   """
-  @spec save(String.t(), Board.score(), Board.time(), String.t()) :: {:ok, t()} | {:error, term()}
+  @spec save(String.t(), Board.score(), Game.time(), String.t()) :: {:ok, t()} | {:error, term()}
   def save(name, score, time, remote_ip) do
     changeset(%HiScore{}, %{
       "name" => name,

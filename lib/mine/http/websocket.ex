@@ -1,11 +1,10 @@
-defmodule Mine.Websocket do
+defmodule Mine.Http.Websocket do
   @moduledoc """
   Establish and handle the WebSocket connection in addition to hearing
   also for incoming requests to be sent via the WebSocket.
   """
   require Logger
-  alias Mine.{Board, HiScore}
-  alias Mine.Board.OnePlayer
+  alias Mine.{Game, HiScore}
 
   @behaviour :cowboy_websocket
 
@@ -29,7 +28,7 @@ defmodule Mine.Websocket do
   def websocket_init(remote_ip: remote_ip) do
     vsn = to_string(Application.spec(:mine)[:vsn])
     send(self(), {:send, Jason.encode!(%{"type" => "vsn", "vsn" => vsn})})
-    {:ok, %{board: nil, remote_ip: remote_ip}}
+    {:ok, %{game_id: nil, remote_ip: remote_ip}}
   end
 
   @doc false
@@ -52,9 +51,9 @@ defmodule Mine.Websocket do
     {:reply, {:text, msg}, state}
   end
 
-  def websocket_info(:tick, %{board: board} = state) do
+  def websocket_info(:tick, %{game_id: game_id} = state) do
     time =
-      Timex.Duration.from_erl({0, Board.time(board), 0})
+      Timex.Duration.from_erl({0, Game.time(game_id), 0})
       |> Timex.Format.Duration.Formatters.Humanized.format()
 
     msg = %{"type" => "tick", "time" => time}
@@ -92,26 +91,26 @@ defmodule Mine.Websocket do
   end
 
   defp process_data(%{"type" => "create"}, state) do
-    board = Ecto.UUID.generate()
-    {:ok, _board} = OnePlayer.start(board)
-    Board.subscribe(board)
-    msg = %{"type" => "id", "id" => board}
-    {:reply, {:text, Jason.encode!(msg)}, %{state | board: board}}
+    game_id = Ecto.UUID.generate()
+    {:ok, _game} = Game.start(game_id)
+    Game.subscribe(game_id)
+    msg = %{"type" => "id", "id" => game_id}
+    {:reply, {:text, Jason.encode!(msg)}, %{state | game_id: game_id}}
   end
 
-  defp process_data(%{"type" => "join", "id" => board}, state) do
-    if Board.exists?(board) do
-      Board.subscribe(board)
-      {:ok, %{state | board: board}}
+  defp process_data(%{"type" => "join", "id" => game_id}, state) do
+    if Game.exists?(game_id) do
+      Game.subscribe(game_id)
+      {:ok, %{state | game_id: game_id}}
     else
       msg = %{"type" => "gameover", "error" => true}
       {:reply, {:text, Jason.encode!(msg)}, state}
     end
   end
 
-  defp process_data(%{"type" => "sweep", "x" => x, "y" => y}, %{board: board} = state) do
-    if Board.exists?(board) do
-      Board.sweep(board, x, y)
+  defp process_data(%{"type" => "sweep", "x" => x, "y" => y}, %{game_id: game_id} = state) do
+    if Game.exists?(game_id) do
+      Game.sweep(game_id, x, y)
       draw(state)
     else
       msg = %{"type" => "gameover", "error" => true}
@@ -119,9 +118,9 @@ defmodule Mine.Websocket do
     end
   end
 
-  defp process_data(%{"type" => "flag", "x" => x, "y" => y}, %{board: board} = state) do
-    if Board.exists?(board) do
-      Board.toggle_flag(board, x, y)
+  defp process_data(%{"type" => "flag", "x" => x, "y" => y}, %{game_id: game_id} = state) do
+    if Game.exists?(game_id) do
+      Game.toggle_flag(game_id, x, y)
       draw(state)
     else
       msg = %{"type" => "gameover", "error" => true}
@@ -129,8 +128,8 @@ defmodule Mine.Websocket do
     end
   end
 
-  defp process_data(%{"type" => "show"}, %{board: board} = state) do
-    if Board.exists?(board) do
+  defp process_data(%{"type" => "show"}, %{game_id: game_id} = state) do
+    if Game.exists?(game_id) do
       draw(state)
     else
       msg = %{"type" => "gameover", "error" => true}
@@ -138,15 +137,15 @@ defmodule Mine.Websocket do
     end
   end
 
-  defp process_data(%{"type" => "restart"}, %{board: board} = state) do
-    if Board.exists?(board), do: Board.stop(board)
-    {:ok, _} = OnePlayer.start(board)
+  defp process_data(%{"type" => "restart"}, %{game_id: game_id} = state) do
+    if Game.exists?(game_id), do: Game.stop(game_id)
+    {:ok, _} = Game.start(game_id)
     draw(state)
   end
 
-  defp process_data(%{"type" => "toggle-pause"}, %{board: board} = state) do
-    if Board.exists?(board) do
-      Board.toggle_pause(board)
+  defp process_data(%{"type" => "toggle-pause"}, %{game_id: game_id} = state) do
+    if Game.exists?(game_id) do
+      Game.toggle_pause(game_id)
       draw(state)
     else
       msg = %{"type" => "gameover", "error" => true}
@@ -154,8 +153,8 @@ defmodule Mine.Websocket do
     end
   end
 
-  defp process_data(%{"type" => "stop"}, %{board: board} = state) do
-    if Board.exists?(board), do: Board.stop(board)
+  defp process_data(%{"type" => "stop"}, %{game_id: game_id} = state) do
+    if Game.exists?(game_id), do: Game.stop(game_id)
     {:ok, state}
   end
 
@@ -164,18 +163,18 @@ defmodule Mine.Websocket do
   end
 
   defp process_data(%{"type" => "set-hiscore-name", "name" => username}, state) do
-    Board.hiscore(state.board, username, state.remote_ip)
+    Game.hiscore(state.game_id, username, state.remote_ip)
     {:ok, state}
   end
 
-  defp draw(%{board: board} = state) do
-    flags = Board.flags(board)
+  defp draw(%{game_id: game_id} = state) do
+    flags = Game.flags(game_id)
 
     score =
-      Board.score(board)
+      Game.score(game_id)
       |> Number.Delimit.number_to_delimited()
 
-    msg = %{"type" => "draw", "html" => build_show(board), "score" => score, "flags" => flags}
+    msg = %{"type" => "draw", "html" => build_show(game_id), "score" => score, "flags" => flags}
     {:reply, {:text, Jason.encode!(msg)}, state}
   end
 
@@ -203,7 +202,7 @@ defmodule Mine.Websocket do
 
   defp to_top_entry({entry, position}) do
     time =
-      Timex.Duration.from_erl({0, OnePlayer.get_total_time() - entry.time, 0})
+      Timex.Duration.from_erl({0, Game.get_total_time() - entry.time, 0})
       |> Timex.Format.Duration.Formatters.Humanized.format()
 
     score = Number.Delimit.number_to_delimited(entry.score)
@@ -217,7 +216,7 @@ defmodule Mine.Websocket do
   end
 
   defp build_show(cells) when is_list(cells) do
-    "<table id='board'><tr>"
+    "<table id='game_id'><tr>"
     |> add(
       cells
       |> Enum.with_index(1)
@@ -226,7 +225,7 @@ defmodule Mine.Websocket do
     |> add("</tr></table>")
   end
 
-  defp build_show(board), do: build_show(Board.show(board))
+  defp build_show(game_id), do: build_show(Game.show(game_id))
 
   defp add(str1, str2), do: str1 <> str2
 
