@@ -29,6 +29,7 @@ defmodule Mine.Game.Board do
             width: nil,
             height: nil
 
+  @spec new(width :: pos_integer(), height :: pos_integer(), mines :: pos_integer() | [point()]) :: t()
   def new(width, height, mines) do
     gen_clean(width, height)
     |> place_mines(mines)
@@ -123,7 +124,7 @@ defmodule Mine.Game.Board do
       {_y, _x, _cell}, acc -> acc
     end
 
-    List.foldl(points, %{points: [], flags: 0}, process)
+    Enum.reduce(points, %{points: [], flags: 0}, process)
   end
 
   defp place_hints(%__MODULE__{cells: cells, width: width, height: height} = board) do
@@ -136,17 +137,18 @@ defmodule Mine.Game.Board do
                {j, {:mine, status}}
 
              {0, status} ->
-               get_n = fn x, y -> get_n(board, x, y) end
+               get_rel_n =
+                fn {x, y}, acc ->
+                  acc + get_n(board, i + x, j + y)
+                end
 
                mines =
-                 get_n.(i - 1, j - 1) +
-                   get_n.(i - 1, j) +
-                   get_n.(i - 1, j + 1) +
-                   get_n.(i, j + 1) +
-                   get_n.(i + 1, j + 1) +
-                   get_n.(i + 1, j) +
-                   get_n.(i + 1, j - 1) +
-                   get_n.(i, j - 1)
+                [
+                  {-1, -1}, {0, -1}, {1, -1},
+                  {-1, 0}, {1, 0},
+                  {-1, 1}, {0, 1}, {1, 1}
+                ]
+                |> Enum.reduce(0, get_rel_n)
 
                {j, {mines, status}}
            end
@@ -168,21 +170,31 @@ defmodule Mine.Game.Board do
     end
   end
 
-  defp place_mines(board, 0), do: board
+  @default_tries 1_000
 
-  defp place_mines(%__MODULE__{cells: cells, width: width, height: height} = board, i) do
+  defp get_positions(0, _tries, _width, _height, positions), do: positions
+
+  defp get_positions(_n, 0, _width, _height, _positions), do: throw(:exhausted)
+
+  defp get_positions(n, tries, width, height, positions) do
     x = Enum.random(1..width)
     y = Enum.random(1..height)
 
-    if cells[y][x] == {:mine, :hidden} do
-      place_mines(board, i)
+    if {x, y} not in positions do
+      get_positions(n - 1, @default_tries, width, height, [{x, y} | positions])
     else
-      mines = board.mines + 1
-      cells = put_in(cells, [y, x], {:mine, :hidden})
-
-      %__MODULE__{board | cells: cells, mines: mines}
-      |> place_mines(i - 1)
+      get_positions(n, tries - 1, width, height, positions)
     end
+  end
+
+  defp place_mines(board, number) when is_integer(number) do
+    place_mines(board, get_positions(number, @default_tries, board.width, board.height, []))
+  end
+
+  defp place_mines(board, positions) when is_list(positions) do
+    Enum.reduce(positions, %__MODULE__{board | mines: length(positions)}, fn {x, y}, board ->
+      %__MODULE__{board | cells: put_in(board.cells, [y, x], {:mine, :hidden})}
+    end)
   end
 
   defp gen_clean(width, height) do
