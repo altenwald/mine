@@ -29,7 +29,8 @@ defmodule Mine.Game.Board do
             width: nil,
             height: nil
 
-  @spec new(width :: pos_integer(), height :: pos_integer(), mines :: pos_integer() | [point()]) :: t()
+  @spec new(width :: pos_integer(), height :: pos_integer(), mines :: pos_integer() | [point()]) ::
+          t()
   def new(width, height, mines) do
     gen_clean(width, height)
     |> place_mines(mines)
@@ -137,18 +138,22 @@ defmodule Mine.Game.Board do
                {j, {:mine, status}}
 
              {0, status} ->
-               get_rel_n =
-                fn {x, y}, acc ->
-                  acc + get_n(board, i + x, j + y)
-                end
+               get_rel_n = fn {x, y}, acc ->
+                 acc + get_n(board, i + x, j + y)
+               end
 
                mines =
-                [
-                  {-1, -1}, {0, -1}, {1, -1},
-                  {-1, 0}, {1, 0},
-                  {-1, 1}, {0, 1}, {1, 1}
-                ]
-                |> Enum.reduce(0, get_rel_n)
+                 [
+                   {-1, -1},
+                   {0, -1},
+                   {1, -1},
+                   {-1, 0},
+                   {1, 0},
+                   {-1, 1},
+                   {0, 1},
+                   {1, 1}
+                 ]
+                 |> Enum.reduce(0, get_rel_n)
 
                {j, {mines, status}}
            end
@@ -180,10 +185,10 @@ defmodule Mine.Game.Board do
     x = Enum.random(1..width)
     y = Enum.random(1..height)
 
-    if {x, y} not in positions do
-      get_positions(n - 1, @default_tries, width, height, [{x, y} | positions])
-    else
+    if {x, y} in positions do
       get_positions(n, tries - 1, width, height, positions)
+    else
+      get_positions(n - 1, @default_tries, width, height, [{x, y} | positions])
     end
   end
 

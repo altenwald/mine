@@ -40,16 +40,18 @@ defmodule Mine.Game.BoardTest do
   describe "build board" do
     test "providing positions" do
       board = Board.new(4, 4, [{1, 1}, {2, 2}, {3, 3}, {4, 4}])
+
       assert """
-      MH 2H 1H 0H
-      2H MH 2H 1H
-      1H 2H MH 2H
-      0H 1H 2H MH
-      """ == tr(board)
+             MH 2H 1H 0H
+             2H MH 2H 1H
+             1H 2H MH 2H
+             0H 1H 2H MH
+             """ == tr(board)
     end
 
     test "random generation" do
       board = Board.new(4, 4, 4)
+
       mines =
         board
         |> Board.get_naive_cells()
@@ -64,12 +66,14 @@ defmodule Mine.Game.BoardTest do
     test "4x4 4 mines block" do
       board = Board.new(4, 4, [{1, 1}, {2, 2}, {3, 3}, {4, 4}])
       {board, score} = Board.discover({board, 10}, 4, 1, 100)
+
       assert """
-      ??1_
-      ??21
-      ????
-      ????
-      """ == tr_hidden(board)
+             ??1_
+             ??21
+             ????
+             ????
+             """ == tr_hidden(board)
+
       assert 410 == score
     end
   end
