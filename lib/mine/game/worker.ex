@@ -282,19 +282,17 @@ defmodule Mine.Game.Worker do
   defp check_discover(%__MODULE__{board: board, score: score} = state, x, y) do
     %{flags: flags, points: to_discover} = Board.check_around(board, x, y)
 
-    {board, score} =
-      case Board.get_cell(board, x, y) do
-        {^flags, :show} ->
-          discover = fn {x, y}, {board, score} ->
-            Board.discover({board, score}, x, y, state.time)
-          end
+    case Board.get_cell(board, x, y) do
+      {^flags, :show} ->
+        discover = fn {x, y}, {board, score} ->
+          Board.discover({board, score}, x, y, state.time)
+        end
 
-          List.foldl(to_discover, {board, score}, discover)
+       {board, score} = Enum.reduce(to_discover, {board, score}, discover)
+        %__MODULE__{state | board: board, score: score}
 
-        _ ->
-          {board, score}
-      end
-
-    %__MODULE__{state | board: board, score: score}
+      _ ->
+        state
+    end
   end
 end

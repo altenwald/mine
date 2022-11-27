@@ -284,7 +284,7 @@ defmodule Mine.Game.Board do
       {_y, _x, nil}, cells -> cells
     end
 
-    cells = List.foldl(points, cells, discover)
+    cells = Enum.reduce(points, cells, discover)
     %__MODULE__{board | cells: cells}
   end
 end
