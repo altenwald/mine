@@ -12,8 +12,12 @@ defmodule Mine.BoardHelper do
   @doc """
   Translate board to a text format.
   """
-  def tr(board) do
-    for row <- Board.get_naive_cells(board) do
+  def tr(%Board{} = board) do
+    tr(Board.get_naive_cells(board))
+  end
+
+  def tr([[_|_] | _] = table) do
+    for row <- table do
       for {content, visibility} <- row do
         content(content) <> visibility(visibility)
       end

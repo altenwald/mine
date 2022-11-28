@@ -1,4 +1,4 @@
-defmodule Mine.Game.BoardTest do
+defmodule Mine.GameTest do
   use ExUnit.Case
   alias Mine.Game.Board
   import Mine.BoardHelper
@@ -60,11 +60,11 @@ defmodule Mine.Game.BoardTest do
       {board, score1} = Board.discover({board, 10}, 1, 3, 100)
 
       assert """
-              ????
-              ????
-              1???
-              ????
-              """ == tr_hidden(board)
+             ????
+             ????
+             1???
+             ????
+             """ == tr_hidden(board)
 
       {board, score2} = Board.discover({board, 10}, 1, 4, 100)
 
@@ -119,7 +119,10 @@ defmodule Mine.Game.BoardTest do
       board = Board.new(4, 4, [{1, 1}, {2, 2}, {3, 3}, {4, 4}])
       {board, score} = Board.discover({board, 0}, 4, 1, 100)
       board = Board.put_cell(board, 2, 2, {:mine, :flag})
-      assert %{points: [{4, 3}, {3, 3}, {2, 3}, {2, 1}], flags: 1} == Board.check_around(board, 3, 2)
+
+      assert %{points: [{4, 3}, {3, 3}, {2, 3}, {2, 1}], flags: 1} ==
+               Board.check_around(board, 3, 2)
+
       assert 400 == score
     end
   end
@@ -183,7 +186,6 @@ defmodule Mine.Game.BoardTest do
              0H 0H 0H 0H
              0H 0H 0H 0H
              """ == tr(board)
-
     end
   end
 end

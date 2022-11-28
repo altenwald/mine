@@ -288,7 +288,7 @@ defmodule Mine.Game.Worker do
           Board.discover({board, score}, x, y, state.time)
         end
 
-       {board, score} = Enum.reduce(to_discover, {board, score}, discover)
+        {board, score} = Enum.reduce(to_discover, {board, score}, discover)
         %__MODULE__{state | board: board, score: score}
 
       _ ->

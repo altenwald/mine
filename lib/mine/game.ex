@@ -147,7 +147,7 @@ defmodule Mine.Game do
   Start a new process under the dynamic supervisor.
   """
   @spec start(game_id()) :: DynamicSupervisor.on_start_child()
-  def start(board) do
-    DynamicSupervisor.start_child(@dynsup_name, {Mine.Game.Worker, board})
+  def start(game_id) do
+    DynamicSupervisor.start_child(@dynsup_name, {Mine.Game.Worker, game_id})
   end
 end
