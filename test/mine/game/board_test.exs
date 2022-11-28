@@ -82,16 +82,59 @@ defmodule Mine.Game.BoardTest do
       board = Board.new(4, 4, [{1, 1}, {2, 2}, {3, 3}, {4, 4}])
       assert catch_throw(Board.discover({board, 10}, 1, 1, 100)) == :boom
     end
+
+    test "4x4 filled" do
+      board = Board.new(4, 4, [{1, 1}])
+      refute Board.is_filled?(board)
+      {board, score} = Board.discover({board, 0}, 4, 4, 100)
+
+      assert """
+             ?1__
+             11__
+             ____
+             ____
+             """ == tr_hidden(board)
+
+      assert 1500 == score
+      assert Board.is_filled?(board)
+    end
+  end
+
+  describe "check around" do
+    test "4x4 4 mines check around" do
+      board = Board.new(4, 4, [{1, 1}, {2, 2}, {3, 3}, {4, 4}])
+      board = Board.put_cell(board, 2, 2, {:mine, :flag})
+
+      assert """
+             ????
+             ?F??
+             ????
+             ????
+             """ == tr_hidden(board)
+
+      assert %{points: [{2, 1}, {1, 2}], flags: 1} == Board.check_around(board, 1, 1)
+    end
+
+    test "4x4 4 mines check around partially discovered" do
+      board = Board.new(4, 4, [{1, 1}, {2, 2}, {3, 3}, {4, 4}])
+      {board, score} = Board.discover({board, 0}, 4, 1, 100)
+      board = Board.put_cell(board, 2, 2, {:mine, :flag})
+      assert %{points: [{4, 3}, {3, 3}, {2, 3}, {2, 1}], flags: 1} == Board.check_around(board, 3, 2)
+      assert 400 == score
+    end
   end
 
   describe "discover error" do
     test "4x4 4 mines discover error (1,1)" do
       board =
         Board.new(4, 4, [{1, 1}, {2, 2}, {3, 3}, {4, 4}])
+        |> Board.put_cell(1, 1, {:mine, :flag})
+        |> Board.put_cell(2, 1, {2, :flag})
+        |> Board.put_cell(1, 3, {1, :show})
         |> Board.discover_error(1, 2)
 
       assert """
-             X2??
+             F2??
              ?X??
              12??
              ????
@@ -115,6 +158,32 @@ defmodule Mine.Game.BoardTest do
       assert {:mine, :hidden} = Board.get_cell(board, 2, 4)
       assert {3, :hidden} = Board.get_cell(board, 2, 2)
       assert {0, :hidden} = Board.get_cell(board, 4, 4)
+    end
+
+    test "put cells" do
+      board = Board.new(4, 4, 0)
+
+      assert """
+             0H 0H 0H 0H
+             0H 0H 0H 0H
+             0H 0H 0H 0H
+             0H 0H 0H 0H
+             """ == tr(board)
+
+      board =
+        board
+        |> Board.put_cell(1, 1, {:mine, :hidden})
+        |> Board.put_cell(1, 2, {1, :hidden})
+        |> Board.put_cell(2, 1, {1, :hidden})
+        |> Board.put_cell(2, 2, {1, :hidden})
+
+      assert """
+             MH 1H 0H 0H
+             1H 1H 0H 0H
+             0H 0H 0H 0H
+             0H 0H 0H 0H
+             """ == tr(board)
+
     end
   end
 end
