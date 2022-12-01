@@ -16,7 +16,7 @@ defmodule Mine.BoardHelper do
     tr(Board.get_naive_cells(board))
   end
 
-  def tr([[_|_] | _] = table) do
+  def tr([[_ | _] | _] = table) do
     for row <- table do
       for {content, visibility} <- row do
         content(content) <> visibility(visibility)

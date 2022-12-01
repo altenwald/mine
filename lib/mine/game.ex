@@ -136,7 +136,7 @@ defmodule Mine.Game do
     children = [
       # Start the Registry for boards and the DynamicSupervisor
       {Registry, keys: :unique, name: @registry_name},
-      {DynamicSupervisor, strategy: :one_for_one, name: @dynsup_name}
+      {PartitionSupervisor, child_spec: DynamicSupervisor, name: @dynsup_name}
     ]
 
     options = [strategy: :one_for_all]
@@ -148,6 +148,9 @@ defmodule Mine.Game do
   """
   @spec start(game_id()) :: DynamicSupervisor.on_start_child()
   def start(game_id) do
-    DynamicSupervisor.start_child(@dynsup_name, {Mine.Game.Worker, game_id})
+    DynamicSupervisor.start_child(
+      {:via, PartitionSupervisor, {@dynsup_name, game_id}},
+      {Mine.Game.Worker, game_id}
+    )
   end
 end

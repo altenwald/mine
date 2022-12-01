@@ -45,7 +45,7 @@ defmodule Mine.Game.BoardTest do
       Application.put_env(:mine, :width, 4)
       Application.put_env(:mine, :height, 4)
       Application.put_env(:mine, :mines, 17)
-      assert  {:error, {:bad_return_value, :exhausted}} = Game.start(game_id)
+      assert {:error, {:bad_return_value, :exhausted}} = Game.start(game_id)
     end
   end
 end
