@@ -42,9 +42,17 @@ defmodule Mine.Game do
   """
   @spec exists?(game_id()) :: boolean()
   def exists?(game_id) do
+    is_pid(get_pid(game_id))
+  end
+
+  @doc """
+  Retrieve the process ID for the specified game (if any).
+  """
+  @spec get_pid(game_id()) :: pid() | nil
+  def get_pid(game_id) do
     case Registry.lookup(@registry_name, game_id) do
-      [{_pid, nil}] -> true
-      [] -> false
+      [{pid, nil}] -> pid
+      [] -> nil
     end
   end
 

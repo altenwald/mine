@@ -6,9 +6,9 @@ defmodule Mine.Game.Worker do
   use GenServer, restart: :transient
   require Logger
 
-  alias Mine.HiScore
   alias Mine.Game
   alias Mine.Game.Board
+  alias Mine.HiScore
 
   @default_mines 40
   @default_height 16
@@ -41,14 +41,6 @@ defmodule Mine.Game.Worker do
   def start_link(name) do
     time = Game.get_total_time()
     GenServer.start_link(__MODULE__, [time], name: Game.via(name))
-  end
-
-  @doc """
-  Start a new process under the dynamic supervisor.
-  """
-  @spec start(Game.game_id()) :: DynamicSupervisor.on_start_child()
-  def start(board) do
-    DynamicSupervisor.start_child(Mine.Boards, {__MODULE__, board})
   end
 
   @impl true
@@ -132,16 +124,7 @@ defmodule Mine.Game.Worker do
 
       {value, :hidden} ->
         board = Board.put_cell(board, x, y, {value, :flag})
-
-        status =
-          if Board.is_filled?(board) do
-            send_to_all(state.consumers, :win)
-            :gameover
-          else
-            state.status
-          end
-
-        {:noreply, %__MODULE__{state | board: board, flags: state.flags + 1, status: status}}
+        {:noreply, %__MODULE__{state | board: board, flags: state.flags + 1}}
     end
   end
 
@@ -186,16 +169,7 @@ defmodule Mine.Game.Worker do
 
       {value, :hidden} ->
         board = Board.put_cell(board, x, y, {value, :flag})
-
-        status =
-          if Board.is_filled?(board) do
-            send_to_all(state.consumers, :win)
-            :gameover
-          else
-            state.status
-          end
-
-        {:noreply, %__MODULE__{state | board: board, flags: state.flags + 1, status: status}}
+        {:noreply, %__MODULE__{state | board: board, flags: state.flags + 1}}
     end
   end
 
@@ -238,14 +212,12 @@ defmodule Mine.Game.Worker do
 
   defp process_sweep({n, :show}, x, y, %__MODULE__{board: board} = state)
        when is_integer(n) and n > 0 do
-    try do
-      {:noreply, check_discover(state, x, y)}
-    catch
-      :boom ->
-        board = Board.discover_error(board, x, y)
-        send_to_all(state.consumers, :gameover)
-        {:noreply, %__MODULE__{state | board: board, status: :gameover}}
-    end
+    {:noreply, check_discover(state, x, y)}
+  catch
+    :boom ->
+      board = Board.discover_error(board, x, y)
+      send_to_all(state.consumers, :gameover)
+      {:noreply, %__MODULE__{state | board: board, status: :gameover}}
   end
 
   defp process_sweep({_, :show}, _x, _y, state), do: {:noreply, state}

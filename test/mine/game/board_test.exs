@@ -4,6 +4,10 @@ defmodule Mine.GameTest do
   import Mine.BoardHelper
 
   describe "build board" do
+    test "empty board" do
+      assert %_{cells: []} = %Mine.Game.Board{}
+    end
+
     test "providing positions" do
       board = Board.new(4, 4, [{1, 1}, {2, 2}, {3, 3}, {4, 4}])
 
@@ -142,6 +146,13 @@ defmodule Mine.GameTest do
              12??
              ????
              """ == tr_hidden(board)
+
+      assert """
+             MF 2X 1H 0H
+             2H MS 2H 1H
+             1S 2S MH 2H
+             0H 1H 2H MH
+             """ == tr(board)
     end
   end
 

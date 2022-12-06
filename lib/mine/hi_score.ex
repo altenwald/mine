@@ -37,7 +37,7 @@ defmodule Mine.HiScore do
   @optional_fields []
 
   @doc false
-  def changeset(model, params \\ %{}) do
+  def changeset(model, params) do
     model
     |> cast(params, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
@@ -76,5 +76,10 @@ defmodule Mine.HiScore do
   def top_list do
     from(h in HiScore, order_by: [desc: h.score, desc: h.time], limit: @top_num)
     |> Repo.all()
+  end
+
+  @doc false
+  def delete_all do
+    Repo.delete_all(__MODULE__)
   end
 end

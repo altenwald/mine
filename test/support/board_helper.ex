@@ -4,6 +4,7 @@ defmodule Mine.BoardHelper do
 
   defp visibility(:hidden), do: "H"
   defp visibility(:flag), do: "F"
+  defp visibility(:flag_error), do: "X"
   defp visibility(:show), do: "S"
 
   defp content(n) when n in 0..9, do: to_string(n)
@@ -30,8 +31,12 @@ defmodule Mine.BoardHelper do
   @doc """
   Translate board to a hidden text format.
   """
-  def tr_hidden(board) do
-    for row <- Board.get_naive_cells(board) do
+  def tr_hidden(%Board{} = board) do
+    tr_hidden(Board.get_naive_cells(board))
+  end
+
+  def tr_hidden([[_ | _] | _] = table) do
+    for row <- table do
       for {content, visibility} <- row do
         cond do
           visibility == :hidden -> "?"

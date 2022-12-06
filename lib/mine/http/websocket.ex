@@ -5,6 +5,7 @@ defmodule Mine.Http.Websocket do
   """
   require Logger
   alias Mine.{Game, HiScore}
+  alias Timex.Format.Duration.Formatters.Humanized
 
   @behaviour :cowboy_websocket
 
@@ -54,7 +55,7 @@ defmodule Mine.Http.Websocket do
   def websocket_info(:tick, %{game_id: game_id} = state) do
     time =
       Timex.Duration.from_erl({0, Game.time(game_id), 0})
-      |> Timex.Format.Duration.Formatters.Humanized.format()
+      |> Humanized.format()
 
     msg = %{"type" => "tick", "time" => time}
     {:reply, {:text, Jason.encode!(msg)}, state}
@@ -203,7 +204,7 @@ defmodule Mine.Http.Websocket do
   defp to_top_entry({entry, position}) do
     time =
       Timex.Duration.from_erl({0, Game.get_total_time() - entry.time, 0})
-      |> Timex.Format.Duration.Formatters.Humanized.format()
+      |> Humanized.format()
 
     score = Number.Delimit.number_to_delimited(entry.score)
 

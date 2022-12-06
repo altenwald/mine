@@ -44,6 +44,9 @@ defmodule Mine.MixProject do
       {:distillery, "~> 2.0"},
       {:ecto_boot_migration, "~> 0.3"},
 
+      # for test
+      {:websockex, "~> 0.4", only: :test},
+
       # tooling for quality check
       {:dialyxir, ">= 0.0.0", only: [:dev, :test], runtime: false},
       {:credo, ">= 0.0.0", only: [:dev, :test], runtime: false},
