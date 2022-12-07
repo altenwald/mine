@@ -2,6 +2,7 @@ defmodule Mine.Http.WebsocketTest do
   use ExUnit.Case, async: false
   import Mine.WSCLI
   alias Mine.Game
+  alias Mine.Http.Websocket
 
   @url "http://localhost:4001/websession"
 
@@ -56,8 +57,7 @@ defmodule Mine.Http.WebsocketTest do
       version: :"HTTP/1.1"
     }
 
-    assert {:cowboy_websocket, _req, [{:remote_ip, "8.8.8.8"}]} =
-             Mine.Http.Websocket.init(req, [])
+    assert {:cowboy_websocket, _req, [{:remote_ip, "8.8.8.8"}]} = Websocket.init(req, [])
   end
 
   test "sending ping" do

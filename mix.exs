@@ -4,7 +4,7 @@ defmodule Mine.MixProject do
   def project do
     [
       app: :mine,
-      version: "1.0.0",
+      version: "1.0.1",
       elixir: "~> 1.8",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
@@ -73,8 +73,7 @@ defmodule Mine.MixProject do
       release: [
         "deps.get",
         "compile",
-        "distillery.release --upgrade --env=prod",
-        "ecto.create"
+        "distillery.release --upgrade --env=prod"
       ],
       check: [
         "ecto.create",

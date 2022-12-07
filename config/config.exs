@@ -9,18 +9,11 @@ config :mine,
 
 config :mine, ecto_repos: [Mine.Repo]
 
-config :ecto_mnesia,
-  host: {:system, :atom, "MNESIA_HOST", Kernel.node()},
-  storage_type: {:system, :atom, "MNESIA_STORAGE_TYPE", :disc_copies}
-
-# Make sure this directory exists
-config :mnesia, dir: 'priv/data/mnesia'
-
-config :mine, Mine.Repo, adapter: EctoMnesia.Adapter
-
 config :number,
   delimit: [
     precision: 0,
     delimiter: ".",
     separator: ","
   ]
+
+import_config("#{config_env()}.exs")

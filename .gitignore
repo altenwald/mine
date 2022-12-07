@@ -24,3 +24,4 @@ mine-*.tar
 
 .DS_Store
 priv/data/mnesia
+.envrc
