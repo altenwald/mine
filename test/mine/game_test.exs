@@ -24,6 +24,7 @@ defmodule Mine.Game.BoardTest do
       assert :ok = Game.stop(game_id)
       assert_receive {:DOWN, ^ref, :process, ^pid, _reason}
       refute Game.exists?(game_id)
+
       Enum.reduce_while(1..1_000, nil, fn _, _ ->
         if Game.get_pid(game_id), do: {:cont, :still_alive!}, else: {:halt, :ok}
       end)

@@ -2,12 +2,15 @@ defmodule MineTest do
   use ExUnit.Case, async: true
   import ExUnit.CaptureIO
 
+  @vsn Application.spec(:mine, :vsn)
+
   test "start and stop game" do
     Application.put_env(:mine, :width, 4)
     Application.put_env(:mine, :height, 4)
     Application.put_env(:mine, :mines, [{1, 1}, {2, 2}])
+
     assert """
-           Mine 0.6.0
+           Mine #{@vsn}
            Score: 0
            Flags: 0
            1    2    3    4
@@ -28,7 +31,7 @@ defmodule MineTest do
     Application.put_env(:mine, :mines, [{1, 1}, {2, 2}])
 
     assert """
-           Mine 0.6.0
+           Mine #{@vsn}
            Score: 0
            Flags: 0
            1    2    3    4
@@ -39,7 +42,7 @@ defmodule MineTest do
            """ == Mine.ANSI.clean(capture_io(fn -> Mine.start() end))
 
     assert """
-           Mine 0.6.0
+           Mine #{@vsn}
            Score: 999
            Flags: 0
            1    2    3    4
@@ -50,7 +53,7 @@ defmodule MineTest do
            """ == Mine.ANSI.clean(capture_io(fn -> Mine.sweep(3, 1) end))
 
     assert """
-           Mine 0.6.0
+           Mine #{@vsn}
            Score: 1998
            Flags: 0
            1    2    3    4
@@ -61,7 +64,7 @@ defmodule MineTest do
            """ == Mine.ANSI.clean(capture_io(fn -> Mine.sweep(3, 2) end))
 
     assert """
-           Mine 0.6.0
+           Mine #{@vsn}
            Score: 0
            Flags: 0
            1    2    3    4
@@ -80,8 +83,9 @@ defmodule MineTest do
     Application.put_env(:mine, :width, 4)
     Application.put_env(:mine, :height, 4)
     Application.put_env(:mine, :mines, [{1, 1}, {2, 2}])
+
     assert """
-           Mine 0.6.0
+           Mine #{@vsn}
            Score: 0
            Flags: 0
            1    2    3    4
@@ -92,7 +96,7 @@ defmodule MineTest do
            """ == Mine.ANSI.clean(capture_io(fn -> Mine.start() end))
 
     assert """
-           Mine 0.6.0
+           Mine #{@vsn}
            Score: 0
            Flags: 0
            1    2    3    4
@@ -112,8 +116,9 @@ defmodule MineTest do
     Application.put_env(:mine, :width, 4)
     Application.put_env(:mine, :height, 4)
     Application.put_env(:mine, :mines, [{1, 1}, {2, 2}])
+
     assert """
-           Mine 0.6.0
+           Mine #{@vsn}
            Score: 0
            Flags: 0
            1    2    3    4
@@ -124,7 +129,7 @@ defmodule MineTest do
            """ == Mine.ANSI.clean(capture_io(fn -> Mine.start() end))
 
     assert """
-           Mine 0.6.0
+           Mine #{@vsn}
            Score: 999
            Flags: 0
            1    2    3    4
@@ -135,7 +140,7 @@ defmodule MineTest do
            """ == Mine.ANSI.clean(capture_io(fn -> Mine.sweep(3, 1) end))
 
     assert """
-           Mine 0.6.0
+           Mine #{@vsn}
            Score: 999
            Flags: 1
            1    2    3    4
@@ -146,7 +151,7 @@ defmodule MineTest do
            """ == Mine.ANSI.clean(capture_io(fn -> Mine.flag(4, 1) end))
 
     assert """
-           Mine 0.6.0
+           Mine #{@vsn}
            Score: 999
            Flags: 1
            1    2    3    4
@@ -166,8 +171,9 @@ defmodule MineTest do
     Application.put_env(:mine, :width, 4)
     Application.put_env(:mine, :height, 4)
     Application.put_env(:mine, :mines, [{1, 1}, {2, 2}])
+
     assert """
-           Mine 0.6.0
+           Mine #{@vsn}
            Score: 0
            Flags: 0
            1    2    3    4
@@ -178,7 +184,7 @@ defmodule MineTest do
            """ == Mine.ANSI.clean(capture_io(fn -> Mine.start() end))
 
     assert """
-           Mine 0.6.0
+           Mine #{@vsn}
            Score: 11988
            Flags: 0
            1    2    3    4
@@ -189,7 +195,7 @@ defmodule MineTest do
            """ == Mine.ANSI.clean(capture_io(fn -> Mine.sweep(1, 4) end))
 
     assert """
-           Mine 0.6.0
+           Mine #{@vsn}
            Score: 11988
            Flags: 1
            1    2    3    4
@@ -200,7 +206,7 @@ defmodule MineTest do
            """ == Mine.ANSI.clean(capture_io(fn -> Mine.flag(2, 2) end))
 
     assert """
-           Mine 0.6.0
+           Mine #{@vsn}
            Score: 12987
            Flags: 1
            1    2    3    4
@@ -211,7 +217,7 @@ defmodule MineTest do
            """ == Mine.ANSI.clean(capture_io(fn -> Mine.sweep(1, 2) end))
 
     assert """
-           Mine 0.6.0
+           Mine #{@vsn}
            Score: 13986
            Flags: 1
            1    2    3    4

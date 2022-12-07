@@ -29,7 +29,7 @@ defmodule Mine.Http.Websocket do
 
   @doc false
   def websocket_init(remote_ip: remote_ip) do
-    vsn = to_string(Application.spec(:mine)[:vsn])
+    vsn = to_string(Application.spec(:mine, :vsn))
     msg = %{"type" => "vsn", "vsn" => vsn}
     {:reply, {:text, Jason.encode!(msg)}, %{game_id: nil, remote_ip: remote_ip}}
   end

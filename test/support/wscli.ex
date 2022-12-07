@@ -40,7 +40,10 @@ defmodule Mine.WSCLI do
   @doc false
   defmacro assert_ws_json_receive(expression, timeout \\ 100) do
     quote do
-      assert_receive {:text, msg}, unquote(timeout), "Not matching expression\ninbox: #{inspect(recv_all([]))}"
+      assert_receive {:text, msg},
+                     unquote(timeout),
+                     "Not matching expression\ninbox: #{inspect(recv_all([]))}"
+
       assert unquote(expression) = Jason.decode!(msg)
     end
   end
@@ -48,15 +51,18 @@ defmodule Mine.WSCLI do
   @doc false
   def recv_all(msgs) do
     receive do
-      msg -> recv_all([msg|msgs])
-    after 0 -> msgs
+      msg -> recv_all([msg | msgs])
+    after
+      0 -> msgs
     end
   end
 
   @doc false
   defmacro assert_ws_text_receive(expression, timeout \\ 100) do
     quote do
-      assert_receive {:text, unquote(expression)}, unquote(timeout), "Not matching expression\ninbox: #{inspect(recv_all([]))}"
+      assert_receive {:text, unquote(expression)},
+                     unquote(timeout),
+                     "Not matching expression\ninbox: #{inspect(recv_all([]))}"
     end
   end
 end

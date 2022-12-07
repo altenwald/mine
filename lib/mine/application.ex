@@ -7,7 +7,8 @@ defmodule Mine.Application do
   @impl Application
   @doc false
   def start(_type, _args) do
-    {:ok, _} = EctoBootMigration.migrate(:mine)
+    # FIXME: start of the boot migrations is broken
+    # {:ok, _} = EctoBootMigration.migrate(:mine)
 
     # List all child processes to be supervised
     children = [

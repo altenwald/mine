@@ -4,7 +4,7 @@ defmodule Mine.MixProject do
   def project do
     [
       app: :mine,
-      version: "0.6.0",
+      version: "1.0.0",
       elixir: "~> 1.8",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
@@ -52,7 +52,7 @@ defmodule Mine.MixProject do
       {:timex, "~> 3.7"},
 
       # for releases
-      {:distillery, "~> 2.0"},
+      {:distillery, github: "bors-ng/distillery"},
       {:ecto_boot_migration, "~> 0.3"},
 
       # for test
@@ -63,7 +63,8 @@ defmodule Mine.MixProject do
       {:credo, ">= 0.0.0", only: [:dev, :test], runtime: false},
       {:doctor, ">= 0.0.0", only: [:dev, :test], runtime: false},
       {:ex_check, "~> 0.14", only: [:dev, :test], runtime: false},
-      {:ex_doc, ">= 0.0.0", only: [:dev, :test], runtime: false}
+      {:ex_doc, ">= 0.0.0", only: [:dev, :test], runtime: false},
+      {:mix_audit, ">= 0.0.0", only: [:dev, :test], runtime: false}
     ]
   end
 
