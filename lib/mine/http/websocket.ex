@@ -5,6 +5,7 @@ defmodule Mine.Http.Websocket do
   """
   require Logger
   alias Mine.{Game, HiScore}
+  alias Timex.Duration
   alias Timex.Format.Duration.Formatters.Humanized
 
   @behaviour :cowboy_websocket
@@ -22,14 +23,15 @@ defmodule Mine.Http.Websocket do
           to_string(:inet.ntoa(remote_ip))
       end
 
+    Logger.notice("[websocket] incoming connection #{remote_ip}")
     {:cowboy_websocket, req, [{:remote_ip, remote_ip} | opts]}
   end
 
   @doc false
   def websocket_init(remote_ip: remote_ip) do
     vsn = to_string(Application.spec(:mine)[:vsn])
-    send(self(), {:send, Jason.encode!(%{"type" => "vsn", "vsn" => vsn})})
-    {:ok, %{game_id: nil, remote_ip: remote_ip}}
+    msg = %{"type" => "vsn", "vsn" => vsn}
+    {:reply, {:text, Jason.encode!(msg)}, %{game_id: nil, remote_ip: remote_ip}}
   end
 
   @doc false
@@ -44,17 +46,10 @@ defmodule Mine.Http.Websocket do
   end
 
   @doc false
-  def websocket_info({:send, data}, state) do
-    {:reply, {:text, data}, state}
-  end
-
-  def websocket_info({:timeout, _ref, msg}, state) do
-    {:reply, {:text, msg}, state}
-  end
-
   def websocket_info(:tick, %{game_id: game_id} = state) do
     time =
-      Timex.Duration.from_erl({0, Game.time(game_id), 0})
+      Game.time(game_id)
+      |> Duration.from_seconds()
       |> Humanized.format()
 
     msg = %{"type" => "tick", "time" => time}
@@ -73,17 +68,6 @@ defmodule Mine.Http.Websocket do
 
   def websocket_info({:hiscore, {:ok, order}}, state) do
     send_hiscore(order, state)
-  end
-
-  def websocket_info(info, state) do
-    Logger.info("info => #{inspect(info)}")
-    {:ok, state}
-  end
-
-  @doc false
-  def websocket_terminate(reason, _state) do
-    Logger.info("reason => #{inspect(reason)}")
-    :ok
   end
 
   defp send_hiscore(order \\ nil, state) do
@@ -203,7 +187,8 @@ defmodule Mine.Http.Websocket do
 
   defp to_top_entry({entry, position}) do
     time =
-      Timex.Duration.from_erl({0, Game.get_total_time() - entry.time, 0})
+      (Game.get_total_time() - entry.time)
+      |> Duration.from_seconds()
       |> Humanized.format()
 
     score = Number.Delimit.number_to_delimited(entry.score)
@@ -232,7 +217,6 @@ defmodule Mine.Http.Websocket do
 
   defp img_src({_piece, :flag}), do: "img/cell_flag.png"
   defp img_src({_piece, :flag_error}), do: "img/cell_flag_error.png"
-  defp img_src({_piece, :mine}), do: "img/cell_mine.png"
   defp img_src({_piece, :hidden}), do: "img/cell_hidden.png"
   defp img_src({piece, :show}), do: "img/cell_#{piece}.png"
 

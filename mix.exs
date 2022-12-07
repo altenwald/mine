@@ -10,11 +10,22 @@ defmodule Mine.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       aliases: aliases(),
+      test_coverage: test_coverage(),
       preferred_cli_env: [
         check: :test,
         credo: :test,
         dialyzer: :test,
         doctor: :test
+      ]
+    ]
+  end
+
+  defp test_coverage do
+    [
+      ignore_modules: [
+        Mine.ANSI,
+        Mine.BoardHelper,
+        Mine.WSCLI
       ]
     ]
   end

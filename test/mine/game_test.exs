@@ -23,13 +23,10 @@ defmodule Mine.Game.BoardTest do
       ref = Process.monitor(pid)
       assert :ok = Game.stop(game_id)
       assert_receive {:DOWN, ^ref, :process, ^pid, _reason}
-      refute Process.alive?(pid)
-
-      Stream.unfold(1000, fn i ->
-        if Game.exists?(game_id), do: {i, i - 1}
+      refute Game.exists?(game_id)
+      Enum.reduce_while(1..1_000, nil, fn _, _ ->
+        if Game.get_pid(game_id), do: {:cont, :still_alive!}, else: {:halt, :ok}
       end)
-      |> Enum.at(-1)
-      |> then(&assert &1 > 0)
     end
 
     test "providing positions" do
@@ -251,7 +248,7 @@ defmodule Mine.Game.BoardTest do
              _1??
              """ == tr_hidden(Game.show(game_id))
 
-      assert 2997 == Game.score(game_id)
+      assert 3996 == Game.score(game_id)
       Game.stop(game_id)
     end
 
@@ -303,7 +300,7 @@ defmodule Mine.Game.BoardTest do
              _1??
              """ == tr_hidden(Game.show(game_id))
 
-      assert 3996 == Game.score(game_id)
+      assert 4995 == Game.score(game_id)
       Game.stop(game_id)
     end
 

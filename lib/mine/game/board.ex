@@ -251,6 +251,9 @@ defmodule Mine.Game.Board do
       {:mine, _} ->
         throw(:boom)
 
+      {n, :flag} when is_integer(n) ->
+        throw(:boom)
+
       {n, :hidden} when is_integer(n) ->
         {%__MODULE__{board | cells: put_in(cells[y][x], {n, :show})}, score + t}
 

@@ -42,7 +42,8 @@ defmodule Mine.Game do
   """
   @spec exists?(game_id()) :: boolean()
   def exists?(game_id) do
-    is_pid(get_pid(game_id))
+    pid = get_pid(game_id)
+    is_pid(pid) and Process.alive?(pid)
   end
 
   @doc """

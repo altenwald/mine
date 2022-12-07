@@ -230,16 +230,10 @@ defmodule Mine.Game.Worker do
     {:noreply, %__MODULE__{state | board: board, status: :gameover}}
   end
 
-  defp process_sweep({0, _}, x, y, %__MODULE__{board: board, status: status} = state) do
+  defp process_sweep({n, _}, x, y, %__MODULE__{board: board, status: status} = state) when is_integer(n) do
     {board, score} = Board.discover({board, state.score}, x, y, state.time)
     status = update_status(status, board, state.consumers)
     {:noreply, %__MODULE__{state | board: board, score: score, status: status}}
-  end
-
-  defp process_sweep({n, _}, x, y, %__MODULE__{board: board, status: status} = state) do
-    board = Board.put_cell(board, x, y, {n, :show})
-    status = update_status(status, board, state.consumers)
-    {:noreply, %__MODULE__{state | board: board, status: status}}
   end
 
   defp update_status(status, board, consumers) do
@@ -261,7 +255,8 @@ defmodule Mine.Game.Worker do
         end
 
         {board, score} = Enum.reduce(to_discover, {board, score}, discover)
-        %__MODULE__{state | board: board, score: score}
+        status = update_status(state.status, board, state.consumers)
+        %__MODULE__{state | board: board, score: score, status: status}
 
       _ ->
         state
