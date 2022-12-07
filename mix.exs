@@ -6,10 +6,32 @@ defmodule Mine.MixProject do
       app: :mine,
       version: "0.6.0",
       elixir: "~> 1.8",
+      elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      aliases: aliases(),
+      test_coverage: test_coverage(),
+      preferred_cli_env: [
+        check: :test,
+        credo: :test,
+        dialyzer: :test,
+        doctor: :test
+      ]
     ]
   end
+
+  defp test_coverage do
+    [
+      ignore_modules: [
+        Mine.ANSI,
+        Mine.BoardHelper,
+        Mine.WSCLI
+      ]
+    ]
+  end
+
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
 
   # Run "mix help compile.app" to learn about applications.
   def application do
@@ -22,17 +44,42 @@ defmodule Mine.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:jason, "~> 1.1"},
-      {:plug_cowboy, "~> 2.0"},
-      {:uuid, "~> 1.1"},
-      {:etag_plug, "~> 0.2.0"},
-      {:ecto_mnesia, "~> 0.9.1"},
+      {:jason, "~> 1.4"},
+      {:plug, "~> 1.14"},
+      {:plug_cowboy, "~> 2.6"},
+      {:ecto_mnesia, github: "manuel-rubio/ecto_mnesia", branch: "support_for_ecto3"},
       {:number, "~> 1.0"},
-      {:timex, "~> 3.5.0"},
+      {:timex, "~> 3.7"},
 
       # for releases
       {:distillery, "~> 2.0"},
-      {:ecto_boot_migration, "~> 0.1.1"},
+      {:ecto_boot_migration, "~> 0.3"},
+
+      # for test
+      {:websockex, "~> 0.4", only: :test},
+
+      # tooling for quality check
+      {:dialyxir, ">= 0.0.0", only: [:dev, :test], runtime: false},
+      {:credo, ">= 0.0.0", only: [:dev, :test], runtime: false},
+      {:doctor, ">= 0.0.0", only: [:dev, :test], runtime: false},
+      {:ex_check, "~> 0.14", only: [:dev, :test], runtime: false},
+      {:ex_doc, ">= 0.0.0", only: [:dev, :test], runtime: false}
+    ]
+  end
+
+  defp aliases do
+    [
+      release: [
+        "deps.get",
+        "compile",
+        "distillery.release --upgrade --env=prod",
+        "ecto.create"
+      ],
+      check: [
+        "ecto.create",
+        "ecto.migrate",
+        "check"
+      ]
     ]
   end
 end
