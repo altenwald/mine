@@ -43,7 +43,7 @@ defmodule Mine.Game.Worker do
     GenServer.start_link(__MODULE__, [time], name: Game.via(name))
   end
 
-  @impl true
+  @impl GenServer
   @doc false
   def init([time]) do
     width = Application.get_env(:mine, :width, @default_width)
@@ -53,7 +53,15 @@ defmodule Mine.Game.Worker do
     {:ok, %__MODULE__{board: board, time: time}}
   end
 
-  @impl true
+  @impl GenServer
+  @doc false
+  def format_status(_reason, [_pdict, state]) do
+    %__MODULE__{state |
+      board: if(board = state.board, do: Board.get_naive_cells(board))
+    }
+  end
+
+  @impl GenServer
   @doc false
   def handle_call(:show, _from, %__MODULE__{status: :pause} = state) do
     {:reply, [], state}
@@ -73,7 +81,7 @@ defmodule Mine.Game.Worker do
     Enum.each(pids, &send(&1, msg))
   end
 
-  @impl true
+  @impl GenServer
   @doc false
   def handle_cast(:toggle_pause, %__MODULE__{status: :play} = state) do
     {:noreply, %__MODULE__{state | status: :pause}}
@@ -178,7 +186,7 @@ defmodule Mine.Game.Worker do
     {:noreply, %__MODULE__{state | consumers: [from | pids]}}
   end
 
-  @impl true
+  @impl GenServer
   @doc false
   def handle_info(:tick, %__MODULE__{status: :gameover} = state) do
     :timer.cancel(state.timer)
