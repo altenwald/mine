@@ -71,7 +71,7 @@ defmodule Mine.Game.BoardTest do
       Application.put_env(:mine, :width, 4)
       Application.put_env(:mine, :height, 4)
       Application.put_env(:mine, :mines, 17)
-      assert {:error, {:bad_return_value, :exhausted}} = Game.start(game_id)
+      assert {:error, {:bad_return_from_init, :exhausted}} = Game.start(game_id)
     end
   end
 
@@ -121,12 +121,9 @@ defmodule Mine.Game.BoardTest do
       Game.subscribe(game_id)
 
       Game.sweep(game_id, 1, 1)
-      assert %Game.Worker{timer: timer_ref} = :sys.get_state(pid)
-      assert timer_ref != nil
+      assert {:gameover, %Game.Worker{}} = :sys.get_state(pid)
 
       assert_receive :gameover
-      send(pid, :tick)
-      assert %Game.Worker{timer: nil} = :sys.get_state(pid)
 
       Game.stop(game_id)
     end
@@ -137,12 +134,11 @@ defmodule Mine.Game.BoardTest do
       Application.put_env(:mine, :height, 4)
       Application.put_env(:mine, :mines, [{1, 1}, {2, 2}, {3, 3}, {4, 4}])
       Application.put_env(:mine, :total_time, 1)
-      assert {:ok, pid} = Game.start(game_id)
+      assert {:ok, _pid} = Game.start(game_id)
       Game.subscribe(game_id)
       Game.sweep(game_id, 1, 2)
 
-      send(pid, :tick)
-      assert_receive :gameover
+      assert_receive :gameover, 1_500
 
       Game.stop(game_id)
     end
@@ -539,7 +535,7 @@ defmodule Mine.Game.BoardTest do
 
       assert :play == Game.status(game_id)
 
-      assert %Game.Worker{timer: nil} = :sys.get_state(pid)
+      assert {:clean, %Game.Worker{}} = :sys.get_state(pid)
       assert time == Game.time(game_id)
 
       Game.stop(game_id)
@@ -580,13 +576,13 @@ defmodule Mine.Game.BoardTest do
       Game.toggle_pause(game_id)
       assert :pause == Game.status(game_id)
 
-      assert %Game.Worker{} = state = :sys.get_state(pid)
+      assert {:pause, %Game.Worker{} = state} = :sys.get_state(pid)
       Game.toggle_flag(game_id, 1, 1)
-      assert %Game.Worker{} = ^state = :sys.get_state(pid)
+      assert {:pause, %Game.Worker{} = ^state} = :sys.get_state(pid)
       Game.flag(game_id, 1, 1)
-      assert %Game.Worker{} = ^state = :sys.get_state(pid)
+      assert {:pause, %Game.Worker{} = ^state} = :sys.get_state(pid)
       Game.unflag(game_id, 1, 1)
-      assert %Game.Worker{} = ^state = :sys.get_state(pid)
+      assert {:pause, %Game.Worker{} = ^state} = :sys.get_state(pid)
 
       Game.stop(game_id)
     end
@@ -606,9 +602,9 @@ defmodule Mine.Game.BoardTest do
       Game.toggle_pause(game_id)
       assert :pause == Game.status(game_id)
 
-      assert %Game.Worker{} = state = :sys.get_state(pid)
+      assert {:pause, %Game.Worker{} = state} = :sys.get_state(pid)
       Game.sweep(game_id, 1, 1)
-      assert %Game.Worker{} = ^state = :sys.get_state(pid)
+      assert {:pause, %Game.Worker{} = ^state} = :sys.get_state(pid)
 
       Game.stop(game_id)
     end
@@ -618,7 +614,8 @@ defmodule Mine.Game.BoardTest do
       Application.put_env(:mine, :width, 4)
       Application.put_env(:mine, :height, 4)
       Application.put_env(:mine, :mines, [{1, 1}, {2, 2}, {3, 3}, {4, 4}])
-      assert {:ok, pid} = Game.start(game_id)
+      assert {:ok, _pid} = Game.start(game_id)
+      Game.subscribe(game_id)
       time = Game.time(game_id)
 
       # starting timer with our first sweep
@@ -629,13 +626,13 @@ defmodule Mine.Game.BoardTest do
       Game.toggle_pause(game_id)
       assert :pause == Game.status(game_id)
 
-      send(pid, :tick)
+      refute_receive :tick, 1_500
       assert time == Game.time(game_id)
 
       Game.toggle_pause(game_id)
       assert :play == Game.status(game_id)
 
-      send(pid, :tick)
+      assert_receive :tick, 1_500
       assert time > Game.time(game_id)
 
       Game.stop(game_id)

@@ -80,7 +80,11 @@ defmodule Mine.Http.WebsocketTest do
     send_ws_json(pid, %{"type" => "create"})
     assert_ws_json_receive(%{"type" => "id", "id" => game_id})
 
-    send(Game.get_pid(game_id), :tick)
+    send_ws_json(pid, %{"type" => "sweep", "x" => 2, "y" => 1})
+    assert_ws_json_receive(%{"type" => "draw", "flags" => 0, "score" => "999", "html" => _html})
+
+    Game.subscribe(game_id)
+    assert_receive :tick, 1_500
 
     assert_ws_json_receive(%{"type" => "tick", "time" => "16 minutes, 38 seconds"})
 

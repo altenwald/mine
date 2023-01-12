@@ -3,7 +3,7 @@ defmodule Mine.Game.Worker do
   Defines the interaction between the game and the player. It's intended
   that this module let us play as a stand-alone user.
   """
-  use GenServer, restart: :transient
+  use GenStateMachine, callback_mode: :handle_event_function, restart: :transient
   require Logger
 
   alias Mine.Game
@@ -18,8 +18,6 @@ defmodule Mine.Game.Worker do
           board: Board.t(),
           flags: non_neg_integer(),
           score: Board.score(),
-          status: Game.game_status(),
-          timer: nil | :timer.tref(),
           time: non_neg_integer(),
           consumers: [pid()],
           username: nil | String.t()
@@ -28,8 +26,6 @@ defmodule Mine.Game.Worker do
   defstruct board: nil,
             flags: 0,
             score: 0,
-            status: :play,
-            timer: nil,
             time: nil,
             consumers: [],
             username: nil
@@ -40,235 +36,273 @@ defmodule Mine.Game.Worker do
   @spec start_link(Game.game_id()) :: GenServer.on_start()
   def start_link(name) do
     time = Game.get_total_time()
-    GenServer.start_link(__MODULE__, [time], name: Game.via(name))
+    GenStateMachine.start_link(__MODULE__, [time], name: Game.via(name))
   end
 
-  @impl GenServer
+  @impl GenStateMachine
   @doc false
   def init([time]) do
     width = Application.get_env(:mine, :width, @default_width)
     height = Application.get_env(:mine, :height, @default_height)
     mines = Application.get_env(:mine, :mines, @default_mines)
     board = Board.new(width, height, mines)
-    {:ok, %__MODULE__{board: board, time: time}}
+    {:ok, :clean, %__MODULE__{board: board, time: time}}
   end
 
-  @impl GenServer
+  @impl GenStateMachine
   @doc false
   def format_status(_reason, [_pdict, state]) do
-    %__MODULE__{state |
-      board: if(board = state.board, do: Board.get_naive_cells(board))
-    }
+    %__MODULE__{state | board: if(board = state.board, do: Board.get_naive_cells(board))}
   end
-
-  @impl GenServer
-  @doc false
-  def handle_call(:show, _from, %__MODULE__{status: :pause} = state) do
-    {:reply, [], state}
-  end
-
-  def handle_call(:show, _from, state) do
-    cells = Board.get_naive_cells(state.board)
-    {:reply, cells, state}
-  end
-
-  def handle_call(:flags, _from, state), do: {:reply, state.flags, state}
-  def handle_call(:score, _from, state), do: {:reply, state.score, state}
-  def handle_call(:status, _from, state), do: {:reply, state.status, state}
-  def handle_call(:time, _from, state), do: {:reply, state.time, state}
 
   defp send_to_all(pids, msg) do
     Enum.each(pids, &send(&1, msg))
   end
 
-  @impl GenServer
+  defguard is_playing?(state_name) when state_name in ~w[ playing clean ]a
+
+  @impl GenStateMachine
   @doc false
-  def handle_cast(:toggle_pause, %__MODULE__{status: :play} = state) do
-    {:noreply, %__MODULE__{state | status: :pause}}
+  def handle_event({:call, from}, :show, :pause, _state_data) do
+    {:keep_state_and_data, [{:reply, from, []}]}
   end
 
-  def handle_cast(:toggle_pause, %__MODULE__{status: :pause} = state) do
-    {:noreply, %__MODULE__{state | status: :play}}
+  def handle_event({:call, from}, :show, _state_name, state_data) do
+    cells = Board.get_naive_cells(state_data.board)
+    {:keep_state_and_data, [{:reply, from, cells}]}
   end
 
-  def handle_cast({:hiscore, username, remote_ip}, %__MODULE__{score: score, time: time} = state) do
+  def handle_event({:call, from}, :flags, _state_name, state_data) do
+    {:keep_state_and_data, [{:reply, from, state_data.flags}]}
+  end
+
+  def handle_event({:call, from}, :score, _state_name, state_data) do
+    {:keep_state_and_data, [{:reply, from, state_data.score}]}
+  end
+
+  def handle_event({:call, from}, :status, state_name, _state_data) do
+    state_name =
+      case state_name do
+        :clean -> :play
+        :playing -> :play
+        :pause -> :pause
+        :gameover -> :gameover
+      end
+
+    {:keep_state_and_data, [{:reply, from, state_name}]}
+  end
+
+  def handle_event({:call, from}, :time, _state_name, state_data) do
+    {:keep_state_and_data, [{:reply, from, state_data.time}]}
+  end
+
+  def handle_event(:cast, :toggle_pause, :playing, state_data) do
+    {:next_state, :pause, state_data}
+  end
+
+  def handle_event(:cast, :toggle_pause, :pause, state_data) do
+    {:next_state, :playing, state_data}
+  end
+
+  def handle_event(:cast, :toggle_pause, _state_name, _state_data) do
+    :keep_state_and_data
+  end
+
+  def handle_event(
+        :cast,
+        {:hiscore, username, remote_ip},
+        _state_name,
+        %__MODULE__{score: score, time: time} = state
+      ) do
     {:ok, hiscore} = HiScore.save(username, score, time, remote_ip)
     send_to_all(state.consumers, {:hiscore, HiScore.get_order(hiscore.id)})
-    {:noreply, %__MODULE__{state | username: username}}
+    {:keep_state, %__MODULE__{state | username: username}}
   end
 
-  def handle_cast({:sweep, _, _}, %__MODULE__{status: :gameover} = state) do
-    {:noreply, state}
+  def handle_event(:cast, {:sweep, _, _}, state_name, _state_data)
+      when not is_playing?(state_name) do
+    :keep_state_and_data
   end
 
-  def handle_cast({:sweep, _, _}, %__MODULE__{status: :pause} = state) do
-    {:noreply, state}
+  def handle_event(:cast, {:sweep, _, _}, :clean, state_data) do
+    actions = [
+      :postpone,
+      {{:timeout, :clock}, :timer.seconds(1), :tick}
+    ]
+
+    {:next_state, :playing, state_data, actions}
   end
 
-  def handle_cast({:sweep, _, _} = msg, %__MODULE__{timer: nil} = state) do
-    {:ok, timer} = :timer.send_interval(:timer.seconds(1), self(), :tick)
-    handle_cast(msg, %__MODULE__{state | timer: timer})
+  def handle_event(:cast, {:sweep, x, y}, :playing, state_data) do
+    process_sweep(Board.get_cell(state_data.board, x, y), x, y, state_data)
   end
 
-  def handle_cast({:sweep, x, y}, state) do
-    process_sweep(Board.get_cell(state.board, x, y), x, y, state)
+  def handle_event(:cast, {:flag, _, _}, state_name, _state_data)
+      when not is_playing?(state_name) do
+    :keep_state_and_data
   end
 
-  def handle_cast({:flag, _, _}, %__MODULE__{status: :gameover} = state) do
-    {:noreply, state}
-  end
-
-  def handle_cast({:flag, _, _}, %__MODULE__{status: :pause} = state) do
-    {:noreply, state}
-  end
-
-  def handle_cast({:flag, x, y}, %__MODULE__{board: board} = state) do
+  def handle_event(:cast, {:flag, x, y}, _state_name, %__MODULE__{board: board} = state_data) do
     case Board.get_cell(board, x, y) do
       {_, :flag} ->
-        {:noreply, state}
+        :keep_state_and_data
 
       {_, :show} ->
-        {:noreply, state}
+        :keep_state_and_data
 
       {value, :hidden} ->
         board = Board.put_cell(board, x, y, {value, :flag})
-        {:noreply, %__MODULE__{state | board: board, flags: state.flags + 1}}
+        {:keep_state, %__MODULE__{state_data | board: board, flags: state_data.flags + 1}}
     end
   end
 
-  def handle_cast({:unflag, _, _}, %__MODULE__{status: :gameover} = state) do
-    {:noreply, state}
+  def handle_event(:cast, {:unflag, _, _}, state_name, _state_data)
+      when not is_playing?(state_name) do
+    :keep_state_and_data
   end
 
-  def handle_cast({:unflag, _, _}, %__MODULE__{status: :pause} = state) do
-    {:noreply, state}
-  end
-
-  def handle_cast({:unflag, x, y}, %__MODULE__{board: board} = state) do
+  def handle_event(:cast, {:unflag, x, y}, _state_name, %__MODULE__{board: board} = state_data) do
     case Board.get_cell(board, x, y) do
       {value, :flag} ->
         board = Board.put_cell(board, x, y, {value, :hidden})
-        {:noreply, %__MODULE__{state | board: board, flags: state.flags - 1}}
+        {:keep_state, %__MODULE__{state_data | board: board, flags: state_data.flags - 1}}
 
       {_, :show} ->
-        {:noreply, state}
+        :keep_state_and_data
 
       {_, :hidden} ->
-        {:noreply, state}
+        :keep_state_and_data
     end
   end
 
-  def handle_cast({:toggle_flag, _, _}, %__MODULE__{status: :gameover} = state) do
-    {:noreply, state}
+  def handle_event(:cast, {:toggle_flag, _, _}, state_name, _state_data)
+      when not is_playing?(state_name) do
+    :keep_state_and_data
   end
 
-  def handle_cast({:toggle_flag, _, _}, %__MODULE__{status: :pause} = state) do
-    {:noreply, state}
-  end
-
-  def handle_cast({:toggle_flag, x, y}, %__MODULE__{board: board} = state) do
+  def handle_event(
+        :cast,
+        {:toggle_flag, x, y},
+        _state_name,
+        %__MODULE__{board: board} = state_data
+      ) do
     case Board.get_cell(board, x, y) do
       {value, :flag} ->
         board = Board.put_cell(board, x, y, {value, :hidden})
-        {:noreply, %__MODULE__{state | board: board, flags: state.flags - 1}}
+        {:keep_state, %__MODULE__{state_data | board: board, flags: state_data.flags - 1}}
 
       {_, :show} ->
-        {:noreply, state}
+        :keep_state_and_data
 
       {value, :hidden} ->
         board = Board.put_cell(board, x, y, {value, :flag})
-        {:noreply, %__MODULE__{state | board: board, flags: state.flags + 1}}
+        {:keep_state, %__MODULE__{state_data | board: board, flags: state_data.flags + 1}}
     end
   end
 
-  def handle_cast({:subscribe, from}, %__MODULE__{consumers: pids} = state) do
+  def handle_event(
+        :cast,
+        {:subscribe, from},
+        _state_name,
+        %__MODULE__{consumers: pids} = state_data
+      ) do
     Process.monitor(from)
-    {:noreply, %__MODULE__{state | consumers: [from | pids]}}
+    {:keep_state, %__MODULE__{state_data | consumers: [from | pids]}}
   end
 
-  @impl GenServer
-  @doc false
-  def handle_info(:tick, %__MODULE__{status: :gameover} = state) do
-    :timer.cancel(state.timer)
-    {:noreply, %__MODULE__{state | timer: nil}}
+  def handle_event({:timeout, :clock}, :tick, :gameover, _state_data) do
+    :keep_state_and_data
   end
 
-  def handle_info(:tick, %__MODULE__{status: :pause} = state) do
-    {:noreply, state}
+  def handle_event({:timeout, :clock}, :tick, :pause, state_data) do
+    actions = [{{:timeout, :clock}, :timer.seconds(1), :tick}]
+    {:keep_state, state_data, actions}
   end
 
-  def handle_info(:tick, %__MODULE__{time: 1, consumers: pids} = state) do
-    :timer.cancel(state.timer)
-    send_to_all(pids, :gameover)
-    {:noreply, %__MODULE__{state | time: 0, timer: nil, status: :gameover}}
+  def handle_event({:timeout, :clock}, :tick, :playing, %__MODULE__{time: 1} = state_data) do
+    send_to_all(state_data.consumers, :gameover)
+    actions = [{{:timeout, :clock}, :timer.seconds(1), :tick}]
+    {:next_state, :gameover, %__MODULE__{state_data | time: 0}, actions}
   end
 
-  def handle_info(:tick, %__MODULE__{time: time, consumers: pids} = state) do
-    send_to_all(pids, :tick)
-    {:noreply, %__MODULE__{state | time: time - 1}}
+  def handle_event({:timeout, :clock}, :tick, :playing, %__MODULE__{time: time} = state_data) do
+    send_to_all(state_data.consumers, :tick)
+    actions = [{{:timeout, :clock}, :timer.seconds(1), :tick}]
+    {:keep_state, %__MODULE__{state_data | time: time - 1}, actions}
   end
 
-  def handle_info({:DOWN, _ref, :process, pid, _reason}, state) do
-    consumers = state.consumers -- [pid]
+  def handle_event(:info, {:DOWN, _ref, :process, pid, _reason}, state_name, state_data) do
+    consumers = state_data.consumers -- [pid]
 
-    if state.status == :gameover and consumers == [] do
-      {:stop, :normal, state}
+    if state_name == :gameover and consumers == [] do
+      :stop
     else
-      {:noreply, %__MODULE__{state | consumers: consumers}}
+      {:keep_state, %__MODULE__{state_data | consumers: consumers}}
     end
   end
 
-  defp process_sweep({n, :show}, x, y, %__MODULE__{board: board} = state)
+  defp process_sweep({n, :show}, x, y, %__MODULE__{board: board} = state_data)
        when is_integer(n) and n > 0 do
-    {:noreply, check_discover(state, x, y)}
+    {state_name, state_data} = check_discover(state_data, x, y)
+
+    if state_name != :playing do
+      {:next_state, state_name, state_data}
+    else
+      {:keep_state, state_data}
+    end
   catch
     :boom ->
       board = Board.discover_error(board, x, y)
-      send_to_all(state.consumers, :gameover)
-      {:noreply, %__MODULE__{state | board: board, status: :gameover}}
+      send_to_all(state_data.consumers, :gameover)
+      {:next_state, :gameover, %__MODULE__{state_data | board: board}}
   end
 
-  defp process_sweep({_, :show}, _x, _y, state), do: {:noreply, state}
+  defp process_sweep({_, :show}, _x, _y, _state_data), do: :keep_state_and_data
 
-  defp process_sweep({_, :flag}, _x, _y, state), do: {:noreply, state}
+  defp process_sweep({_, :flag}, _x, _y, _state_data), do: :keep_state_and_data
 
-  defp process_sweep({:mine, _}, x, y, %__MODULE__{board: board} = state) do
+  defp process_sweep({:mine, _}, x, y, %__MODULE__{board: board} = state_data) do
     board = Board.put_cell(board, x, y, {:mine, :show})
-    send_to_all(state.consumers, :gameover)
-    {:noreply, %__MODULE__{state | board: board, status: :gameover}}
+    send_to_all(state_data.consumers, :gameover)
+    {:next_state, :gameover, %__MODULE__{state_data | board: board}}
   end
 
-  defp process_sweep({n, _}, x, y, %__MODULE__{board: board, status: status} = state)
+  defp process_sweep({n, _}, x, y, %__MODULE__{board: board} = state_data)
        when is_integer(n) do
-    {board, score} = Board.discover({board, state.score}, x, y, state.time)
-    status = update_status(status, board, state.consumers)
-    {:noreply, %__MODULE__{state | board: board, score: score, status: status}}
+    {board, score} = Board.discover({board, state_data.score}, x, y, state_data.time)
+    state_name = update_state_name(board, state_data.consumers)
+
+    if state_name == :playing do
+      {:keep_state, %__MODULE__{state_data | board: board, score: score}}
+    else
+      {:next_state, state_name, %__MODULE__{state_data | board: board, score: score}}
+    end
   end
 
-  defp update_status(status, board, consumers) do
+  defp update_state_name(board, consumers) do
     if Board.is_filled?(board) do
       send_to_all(consumers, :win)
       :gameover
     else
-      status
+      :playing
     end
   end
 
-  defp check_discover(%__MODULE__{board: board, score: score} = state, x, y) do
+  defp check_discover(%__MODULE__{board: board, score: score} = state_data, x, y) do
     %{flags: flags, points: to_discover} = Board.check_around(board, x, y)
 
     case Board.get_cell(board, x, y) do
       {^flags, :show} ->
         discover = fn {x, y}, {board, score} ->
-          Board.discover({board, score}, x, y, state.time)
+          Board.discover({board, score}, x, y, state_data.time)
         end
 
         {board, score} = Enum.reduce(to_discover, {board, score}, discover)
-        status = update_status(state.status, board, state.consumers)
-        %__MODULE__{state | board: board, score: score, status: status}
+        state_name = update_state_name(board, state_data.consumers)
+        {state_name, %__MODULE__{state_data | board: board, score: score}}
 
       _ ->
-        state
+        {:playing, state_data}
     end
   end
 end
