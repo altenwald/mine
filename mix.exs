@@ -10,12 +10,21 @@ defmodule Mine.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       aliases: aliases(),
+      releases: releases(),
       test_coverage: test_coverage(),
       preferred_cli_env: [
         check: :test,
         credo: :test,
         dialyzer: :test,
         doctor: :test
+      ]
+    ]
+  end
+
+  defp releases do
+    [
+      mine: [
+        steps: [:assemble, :tar]
       ]
     ]
   end
@@ -53,7 +62,6 @@ defmodule Mine.MixProject do
       {:timex, "~> 3.7"},
 
       # for releases
-      {:distillery, github: "bors-ng/distillery"},
       {:ecto_boot_migration, "~> 0.3"},
 
       # for test
@@ -74,7 +82,7 @@ defmodule Mine.MixProject do
       release: [
         "deps.get",
         "compile",
-        "distillery.release --upgrade --env=prod"
+        "release"
       ],
       check: [
         "ecto.create",

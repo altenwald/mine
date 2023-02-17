@@ -1,5 +1,8 @@
 # Mine
 
+> **Warning**
+> This branch was created to illustrate the content for the book: [Elixir/OTP](https://altenwald.com/book/elixir-otp).
+
 Mine Sweeper typical game but it uses the terminal and it's developed using Elixir.
 
 If you love this content and want we can generate more, you can support us:
