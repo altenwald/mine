@@ -11,6 +11,7 @@ defmodule Mine.HttpTest do
 
     assert conn.state == :file
     assert conn.status == 200
+    assert get_resp_header(conn, "content-type") == ["text/html; charset=utf-8"]
     assert conn.resp_body =~ "<title>Mine</title>"
   end
 
