@@ -4,7 +4,6 @@ defmodule Mine.Game.Worker do
   that this module let us play as a stand-alone user.
   """
   use GenStateMachine, callback_mode: :handle_event_function, restart: :transient
-  require Logger
 
   alias Mine.Game
   alias Mine.Game.Board
@@ -51,7 +50,7 @@ defmodule Mine.Game.Worker do
 
   @impl GenStateMachine
   @doc false
-  def format_status(_reason, [_pdict, state]) do
+  def format_status(_reason, [_pdict, %__MODULE__{} = state]) do
     %__MODULE__{state | board: if(board = state.board, do: Board.get_naive_cells(board))}
   end
 
@@ -231,7 +230,12 @@ defmodule Mine.Game.Worker do
     {:keep_state, %__MODULE__{state_data | time: time - 1}, actions}
   end
 
-  def handle_event(:info, {:DOWN, _ref, :process, pid, _reason}, state_name, state_data) do
+  def handle_event(
+        :info,
+        {:DOWN, _ref, :process, pid, _reason},
+        state_name,
+        %__MODULE__{} = state_data
+      ) do
     consumers = state_data.consumers -- [pid]
 
     if state_name == :gameover and consumers == [] do
@@ -280,7 +284,7 @@ defmodule Mine.Game.Worker do
   end
 
   defp update_state_name(board, consumers) do
-    if Board.is_filled?(board) do
+    if Board.filled?(board) do
       send_to_all(consumers, :win)
       :gameover
     else

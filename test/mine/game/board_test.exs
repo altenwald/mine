@@ -89,7 +89,7 @@ defmodule Mine.GameTest do
 
     test "4x4 filled" do
       board = Board.new(4, 4, [{1, 1}])
-      refute Board.is_filled?(board)
+      refute Board.filled?(board)
       {board, score} = Board.discover({board, 0}, 4, 4, 100)
 
       assert """
@@ -100,7 +100,7 @@ defmodule Mine.GameTest do
              """ == tr_hidden(board)
 
       assert 1500 == score
-      assert Board.is_filled?(board)
+      assert Board.filled?(board)
     end
   end
 

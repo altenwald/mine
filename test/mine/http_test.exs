@@ -34,4 +34,21 @@ defmodule Mine.HttpTest do
     assert conn.state == :sent
     assert conn.status == 404
   end
+
+  test "forwarded client addresses are only accepted from trusted proxies" do
+    local = conn(:get, "/") |> put_req_header("x-forwarded-for", "203.0.113.5")
+    assert Router.remote_ip(local) == "203.0.113.5"
+
+    direct = %{
+      local
+      | adapter:
+          {Plug.Adapters.Test.Conn,
+           %{
+             elem(local.adapter, 1)
+             | peer_data: %{address: {198, 51, 100, 7}, port: 1234, ssl_cert: nil}
+           }}
+    }
+
+    assert Router.remote_ip(direct) == "198.51.100.7"
+  end
 end

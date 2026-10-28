@@ -1,57 +1,22 @@
 defmodule Mine.ReleaseTasks do
   @moduledoc """
-  Specific tasks to be performed from scripts in a release.
+  Database tasks for native Elixir releases, without Mix.
+
+      bin/mine eval 'Mine.ReleaseTasks.run_migrations()'
   """
-  @repos Application.compile_env!(:mine, :ecto_repos)
 
   @doc """
-  Run migrations. This function will be called from scripts
-  from the command-line.
+  Applies all pending migrations, starting the repository if necessary.
   """
+  @spec run_migrations() :: :ok
   def run_migrations do
-    Enum.each(@repos, &run_migrations_for/1)
-  end
+    :ok = Application.ensure_loaded(:mine)
 
-  @doc """
-  Drop the mnesia database.
-  """
-  def drop_database do
-    # Create database
-    IO.puts("==> Dropping database #{node()}")
-    Mine.Repo.__adapter__().storage_down(Mine.Repo.config())
-  end
+    for repo <- Application.fetch_env!(:mine, :ecto_repos) do
+      {:ok, _, _} =
+        Ecto.Migrator.with_repo(repo, &Ecto.Migrator.run(&1, :up, all: true), pool_size: 1)
+    end
 
-  @doc """
-  Ensure the database is created.
-  """
-  def ensure_database_created do
-    # Config environment
-    System.put_env("MNESIA_HOST", to_string(node()))
-    File.mkdir_p!(Application.get_env(:mnesia, :dir))
-
-    # Create database
-    IO.puts("==> Creating database #{node()}")
-    Mine.Repo.__adapter__().storage_up(Mine.Repo.config())
-  end
-
-  defp run_migrations_for(repo) do
-    app = Keyword.get(repo.config, :otp_app)
-    IO.puts("Running migrations for #{app}")
-    migrations_path = priv_path_for(repo, "migrations")
-    Ecto.Migrator.run(repo, migrations_path, :up, all: true)
-  end
-
-  defp priv_path_for(repo, filename) do
-    app = Keyword.get(repo.config, :otp_app)
-
-    repo_underscore =
-      repo
-      |> Module.split()
-      |> List.last()
-      |> Macro.underscore()
-
-    priv_dir = "#{:code.priv_dir(app)}"
-
-    Path.join([priv_dir, repo_underscore, filename])
+    :ok
   end
 end

@@ -3,76 +3,58 @@ defmodule Mine.Http.Websocket do
   Establish and handle the WebSocket connection in addition to hearing
   also for incoming requests to be sent via the WebSocket.
   """
-  require Logger
   alias Mine.{Game, HiScore}
   alias Timex.Duration
   alias Timex.Format.Duration.Formatters.Humanized
 
-  @behaviour :cowboy_websocket
+  @behaviour WebSock
 
   @doc false
-  def init(req, opts) do
-    Logger.info("[websocket] init req => #{inspect(req)}")
-
-    remote_ip =
-      case :cowboy_req.peer(req) do
-        {{127, 0, 0, 1}, _} ->
-          :cowboy_req.header("x-forwarded-for", req, "127.0.0.1")
-
-        {remote_ip, _} ->
-          to_string(:inet.ntoa(remote_ip))
-      end
-
-    Logger.notice("[websocket] incoming connection #{remote_ip}")
-    {:cowboy_websocket, req, [{:remote_ip, remote_ip} | opts]}
-  end
-
-  @doc false
-  def websocket_init(remote_ip: remote_ip) do
+  def init(remote_ip: remote_ip) do
     vsn = to_string(Application.spec(:mine, :vsn))
     msg = %{"type" => "vsn", "vsn" => vsn}
-    {:reply, {:text, Jason.encode!(msg)}, %{game_id: nil, remote_ip: remote_ip}}
+    {:push, {:text, Jason.encode!(msg)}, %{game_id: nil, remote_ip: remote_ip}}
   end
 
   @doc false
-  def websocket_handle({:text, msg}, state) do
+  def handle_in({msg, [opcode: :text]}, state) do
     msg
     |> Jason.decode!()
     |> process_data(state)
   end
 
-  def websocket_handle(_any, state) do
-    {:reply, {:text, "eh?"}, state}
+  def handle_in(_any, state) do
+    {:push, {:text, "eh?"}, state}
   end
 
   @doc false
-  def websocket_info(:tick, %{game_id: game_id} = state) do
+  def handle_info(:tick, %{game_id: game_id} = state) do
     time =
       Game.time(game_id)
       |> Duration.from_seconds()
       |> Humanized.format()
 
     msg = %{"type" => "tick", "time" => time}
-    {:reply, {:text, Jason.encode!(msg)}, state}
+    {:push, {:text, Jason.encode!(msg)}, state}
   end
 
-  def websocket_info(:gameover, state) do
+  def handle_info(:gameover, state) do
     msg = %{"type" => "gameover"}
-    {:reply, {:text, Jason.encode!(msg)}, state}
+    {:push, {:text, Jason.encode!(msg)}, state}
   end
 
-  def websocket_info(:win, state) do
+  def handle_info(:win, state) do
     msg = %{"type" => "win"}
-    {:reply, {:text, Jason.encode!(msg)}, state}
+    {:push, {:text, Jason.encode!(msg)}, state}
   end
 
-  def websocket_info({:hiscore, {:ok, order}}, state) do
+  def handle_info({:hiscore, {:ok, order}}, state) do
     send_hiscore(order, state)
   end
 
   defp send_hiscore(order \\ nil, state) do
     msg = %{"type" => "hiscore", "top_list" => build_top_list(), "position" => order}
-    {:reply, {:text, Jason.encode!(msg)}, state}
+    {:push, {:text, Jason.encode!(msg)}, state}
   end
 
   defp process_data(%{"type" => "create"}, state) do
@@ -80,7 +62,7 @@ defmodule Mine.Http.Websocket do
     {:ok, _game} = Game.start(game_id)
     Game.subscribe(game_id)
     msg = %{"type" => "id", "id" => game_id}
-    {:reply, {:text, Jason.encode!(msg)}, %{state | game_id: game_id}}
+    {:push, {:text, Jason.encode!(msg)}, %{state | game_id: game_id}}
   end
 
   defp process_data(%{"type" => "join", "id" => game_id}, state) do
@@ -89,7 +71,7 @@ defmodule Mine.Http.Websocket do
       {:ok, %{state | game_id: game_id}}
     else
       msg = %{"type" => "gameover", "error" => true}
-      {:reply, {:text, Jason.encode!(msg)}, state}
+      {:push, {:text, Jason.encode!(msg)}, state}
     end
   end
 
@@ -99,7 +81,7 @@ defmodule Mine.Http.Websocket do
       draw(state)
     else
       msg = %{"type" => "gameover", "error" => true}
-      {:reply, {:text, Jason.encode!(msg)}, state}
+      {:push, {:text, Jason.encode!(msg)}, state}
     end
   end
 
@@ -109,7 +91,7 @@ defmodule Mine.Http.Websocket do
       draw(state)
     else
       msg = %{"type" => "gameover", "error" => true}
-      {:reply, {:text, Jason.encode!(msg)}, state}
+      {:push, {:text, Jason.encode!(msg)}, state}
     end
   end
 
@@ -118,7 +100,7 @@ defmodule Mine.Http.Websocket do
       draw(state)
     else
       msg = %{"type" => "gameover", "error" => true}
-      {:reply, {:text, Jason.encode!(msg)}, state}
+      {:push, {:text, Jason.encode!(msg)}, state}
     end
   end
 
@@ -134,7 +116,7 @@ defmodule Mine.Http.Websocket do
       draw(state)
     else
       msg = %{"type" => "gameover", "error" => true}
-      {:reply, {:text, Jason.encode!(msg)}, state}
+      {:push, {:text, Jason.encode!(msg)}, state}
     end
   end
 
@@ -157,10 +139,20 @@ defmodule Mine.Http.Websocket do
 
     score =
       Game.score(game_id)
-      |> Number.Delimit.number_to_delimited()
+      |> format_score()
 
     msg = %{"type" => "draw", "html" => build_show(game_id), "score" => score, "flags" => flags}
-    {:reply, {:text, Jason.encode!(msg)}, state}
+    {:push, {:text, Jason.encode!(msg)}, state}
+  end
+
+  defp format_score(score) do
+    score
+    |> Integer.to_string()
+    |> String.reverse()
+    |> String.graphemes()
+    |> Enum.chunk_every(3)
+    |> Enum.map_join(".", &Enum.join/1)
+    |> String.reverse()
   end
 
   defp build_top_list do
@@ -191,7 +183,7 @@ defmodule Mine.Http.Websocket do
       |> Duration.from_seconds()
       |> Humanized.format()
 
-    score = Number.Delimit.number_to_delimited(entry.score)
+    score = format_score(entry.score)
 
     """
     <th scope="row">#{position}</td>

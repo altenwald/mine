@@ -11,6 +11,7 @@ defmodule Mine.Application do
     children = [
       # Start the Ecto repository
       Mine.Repo,
+      {Ecto.Migrator, repos: [Mine.Repo]},
       # Supervisor
       Mine.Game,
       # Start Plug for HTTP listener

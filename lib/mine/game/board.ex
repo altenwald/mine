@@ -65,8 +65,8 @@ defmodule Mine.Game.Board do
   @doc """
   Return if the board is filled, or the whole cells shown.
   """
-  @spec is_filled?(t()) :: boolean()
-  def is_filled?(%__MODULE__{cells: cells}) do
+  @spec filled?(t()) :: boolean()
+  def filled?(%__MODULE__{cells: cells}) do
     Enum.all?(
       cells,
       fn {_y, col} ->
@@ -196,8 +196,9 @@ defmodule Mine.Game.Board do
     place_mines(board, get_positions(number, @default_tries, board.width, board.height, []))
   end
 
-  defp place_mines(board, positions) when is_list(positions) do
-    Enum.reduce(positions, %__MODULE__{board | mines: length(positions)}, fn {x, y}, board ->
+  defp place_mines(%__MODULE__{} = board, positions) when is_list(positions) do
+    Enum.reduce(positions, %__MODULE__{board | mines: length(positions)}, fn {x, y},
+                                                                             %__MODULE__{} = board ->
       %__MODULE__{board | cells: put_in(board.cells, [y, x], {:mine, :hidden})}
     end)
   end

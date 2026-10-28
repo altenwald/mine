@@ -37,18 +37,15 @@ defmodule Mine.BoardHelper do
 
   def tr_hidden([[_ | _] | _] = table) do
     for row <- table do
-      for {content, visibility} <- row do
-        cond do
-          visibility == :hidden -> "?"
-          visibility == :flag -> "F"
-          content == :mine -> "X"
-          content == 0 -> "_"
-          :else -> to_string(content)
-        end
-      end
-      |> Enum.join()
+      Enum.map_join(row, &hidden_cell/1)
       |> String.replace_suffix("", "\n")
     end
     |> Enum.join()
   end
+
+  defp hidden_cell({_, :hidden}), do: "?"
+  defp hidden_cell({_, :flag}), do: "F"
+  defp hidden_cell({:mine, _}), do: "X"
+  defp hidden_cell({0, _}), do: "_"
+  defp hidden_cell({content, _}), do: to_string(content)
 end

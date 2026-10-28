@@ -5,20 +5,30 @@ defmodule Mine.MixProject do
     [
       app: :mine,
       version: "1.1.0",
-      elixir: "~> 1.8",
+      elixir: "~> 1.18",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       aliases: aliases(),
       releases: releases(),
       test_coverage: test_coverage(),
-      preferred_cli_env: [
-        check: :test,
-        credo: :test,
-        dialyzer: :test,
-        doctor: :test
-      ]
+      dialyzer: dialyzer()
     ]
+  end
+
+  def cli do
+    [preferred_envs: [check: :test, credo: :test, dialyzer: :test, doctor: :test]]
+  end
+
+  defp dialyzer do
+    case System.get_env("DIALYZER_PLT_DIR") do
+      nil ->
+        []
+
+      directory ->
+        path = Path.join(directory, to_string(:erlang.system_info(:system_architecture)))
+        [plt_local_path: path, plt_core_path: path]
+    end
   end
 
   defp releases do
@@ -31,6 +41,7 @@ defmodule Mine.MixProject do
 
   defp test_coverage do
     [
+      summary: [threshold: 90],
       ignore_modules: [
         Mine.ANSI,
         Mine.BoardHelper,
@@ -45,7 +56,7 @@ defmodule Mine.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger, :mnesia],
+      extra_applications: [:logger],
       mod: {Mine.Application, []}
     ]
   end
@@ -56,13 +67,11 @@ defmodule Mine.MixProject do
       {:gen_state_machine, "~> 3.0"},
       {:jason, "~> 1.4"},
       {:plug, "~> 1.14"},
-      {:plug_cowboy, "~> 2.6"},
-      {:ecto_mnesia, github: "manuel-rubio/ecto_mnesia", branch: "support_for_ecto3"},
-      {:number, "~> 1.0"},
+      {:bandit, "~> 1.8"},
+      {:websock_adapter, "~> 0.5"},
+      {:ecto_sql, "~> 3.13"},
+      {:ecto_sqlite3, "~> 0.26.0"},
       {:timex, "~> 3.7"},
-
-      # for releases
-      {:ecto_boot_migration, "~> 0.3"},
 
       # for test
       {:websockex, "~> 0.4", only: :test},
@@ -72,17 +81,16 @@ defmodule Mine.MixProject do
       {:credo, ">= 0.0.0", only: [:dev, :test], runtime: false},
       {:doctor, ">= 0.0.0", only: [:dev, :test], runtime: false},
       {:ex_check, "~> 0.14", only: [:dev, :test], runtime: false},
-      {:ex_doc, ">= 0.0.0", only: [:dev, :test], runtime: false},
-      {:mix_audit, ">= 0.0.0", only: [:dev, :test], runtime: false}
+      {:ex_doc, ">= 0.0.0", only: [:dev, :test], runtime: false}
     ]
   end
 
   defp aliases do
     [
       release: [
-        "deps.get",
+        "deps.get --only prod",
         "compile",
-        "release"
+        "release --overwrite"
       ],
       check: [
         "ecto.create",

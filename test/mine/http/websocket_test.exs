@@ -4,7 +4,13 @@ defmodule Mine.Http.WebsocketTest do
   alias Mine.Game
   alias Mine.Http.Websocket
 
-  @url "http://localhost:4001/websession"
+  defp url do
+    {_, pid, _, _} =
+      Enum.find(Supervisor.which_children(Mine.Supervisor), &(elem(&1, 0) == Mine.Http))
+
+    {:ok, {_, port}} = ThousandIsland.listener_info(pid)
+    "ws://127.0.0.1:#{port}/websession"
+  end
 
   setup do
     Mine.HiScore.delete_all()
@@ -16,7 +22,7 @@ defmodule Mine.Http.WebsocketTest do
     Application.put_env(:mine, :height, 4)
     Application.put_env(:mine, :mines, [{1, 1}, {2, 2}, {3, 3}, {4, 4}])
 
-    assert {:ok, pid} = connect_ws(@url)
+    assert {:ok, pid} = connect_ws(url())
     assert_ws_json_receive(%{"type" => "vsn", "vsn" => _})
 
     send_ws_json(pid, %{"type" => "create"})
@@ -30,41 +36,18 @@ defmodule Mine.Http.WebsocketTest do
     refute_receive _
   end
 
-  test "connecting from other IP" do
-    req = %{
-      bindings: %{},
-      body_length: 0,
-      cert: :undefined,
-      has_body: false,
-      headers: %{
-        "connection" => "Upgrade",
-        "host" => "localhost",
-        "upgrade" => "websocket"
-      },
-      host: "localhost",
-      host_info: :undefined,
-      method: "GET",
-      path: "/websession",
-      path_info: :undefined,
-      peer: {{8, 8, 8, 8}, 63_304},
-      pid: self(),
-      port: 80,
-      qs: "",
-      ref: Mine.Router.HTTP,
-      scheme: "http",
-      sock: {{127, 0, 0, 1}, 4_001},
-      streamid: 1,
-      version: :"HTTP/1.1"
-    }
+  test "initializes WebSock state" do
+    assert {:push, {:text, payload}, %{remote_ip: "8.8.8.8", game_id: nil}} =
+             Websocket.init(remote_ip: "8.8.8.8")
 
-    assert {:cowboy_websocket, _req, [{:remote_ip, "8.8.8.8"}]} = Websocket.init(req, [])
+    assert %{"type" => "vsn"} = Jason.decode!(payload)
   end
 
   test "sending ping" do
-    assert {:ok, pid} = connect_ws(@url)
+    assert {:ok, pid} = connect_ws(url())
     assert_ws_json_receive(%{"type" => "vsn", "vsn" => _})
     send_ping(pid)
-    assert_ws_text_receive("eh?")
+    assert_receive :pong
     disconnect_ws(pid)
     refute_receive _
   end
@@ -74,7 +57,7 @@ defmodule Mine.Http.WebsocketTest do
     Application.put_env(:mine, :height, 4)
     Application.put_env(:mine, :mines, [{1, 1}, {2, 2}, {3, 3}, {4, 4}])
 
-    assert {:ok, pid} = connect_ws(@url)
+    assert {:ok, pid} = connect_ws(url())
     assert_ws_json_receive(%{"type" => "vsn", "vsn" => _})
 
     send_ws_json(pid, %{"type" => "create"})
@@ -98,7 +81,7 @@ defmodule Mine.Http.WebsocketTest do
     Application.put_env(:mine, :mines, [{4, 4}])
 
     game_id = Ecto.UUID.generate()
-    assert {:ok, pid} = connect_ws(@url)
+    assert {:ok, pid} = connect_ws(url())
     assert_ws_json_receive(%{"type" => "vsn", "vsn" => _})
 
     assert {:ok, _game_pid} = Game.start(game_id)
@@ -112,7 +95,7 @@ defmodule Mine.Http.WebsocketTest do
   end
 
   test "cannot join" do
-    assert {:ok, pid} = connect_ws(@url)
+    assert {:ok, pid} = connect_ws(url())
     assert_ws_json_receive(%{"type" => "vsn", "vsn" => _})
 
     game_id = Ecto.UUID.generate()
@@ -124,7 +107,7 @@ defmodule Mine.Http.WebsocketTest do
   end
 
   test "cannot sweep" do
-    assert {:ok, pid} = connect_ws(@url)
+    assert {:ok, pid} = connect_ws(url())
     assert_ws_json_receive(%{"type" => "vsn", "vsn" => _})
 
     send_ws_json(pid, %{"type" => "sweep", "x" => 1, "y" => 1})
@@ -135,7 +118,7 @@ defmodule Mine.Http.WebsocketTest do
   end
 
   test "cannot flag" do
-    assert {:ok, pid} = connect_ws(@url)
+    assert {:ok, pid} = connect_ws(url())
     assert_ws_json_receive(%{"type" => "vsn", "vsn" => _})
 
     send_ws_json(pid, %{"type" => "flag", "x" => 1, "y" => 1})
@@ -146,7 +129,7 @@ defmodule Mine.Http.WebsocketTest do
   end
 
   test "cannot show" do
-    assert {:ok, pid} = connect_ws(@url)
+    assert {:ok, pid} = connect_ws(url())
     assert_ws_json_receive(%{"type" => "vsn", "vsn" => _})
 
     send_ws_json(pid, %{"type" => "show", "x" => 1, "y" => 1})
@@ -157,7 +140,7 @@ defmodule Mine.Http.WebsocketTest do
   end
 
   test "cannot toggle pause" do
-    assert {:ok, pid} = connect_ws(@url)
+    assert {:ok, pid} = connect_ws(url())
     assert_ws_json_receive(%{"type" => "vsn", "vsn" => _})
 
     send_ws_json(pid, %{"type" => "toggle-pause"})
@@ -170,7 +153,7 @@ defmodule Mine.Http.WebsocketTest do
   test "stop game" do
     game_id = Ecto.UUID.generate()
     assert {:ok, _game_pid} = Game.start(game_id)
-    assert {:ok, pid} = connect_ws(@url)
+    assert {:ok, pid} = connect_ws(url())
     assert_ws_json_receive(%{"type" => "vsn", "vsn" => _})
     send_ws_json(pid, %{"type" => "join", "id" => game_id})
     send_ws_json(pid, %{"type" => "stop"})
@@ -186,7 +169,7 @@ defmodule Mine.Http.WebsocketTest do
     Application.put_env(:mine, :height, 4)
     Application.put_env(:mine, :mines, [{4, 4}])
 
-    assert {:ok, pid} = connect_ws(@url)
+    assert {:ok, pid} = connect_ws(url())
     assert_ws_json_receive(%{"type" => "vsn", "vsn" => _})
 
     send_ws_json(pid, %{"type" => "create"})
@@ -194,7 +177,12 @@ defmodule Mine.Http.WebsocketTest do
 
     send_ws_json(pid, %{"type" => "sweep", "x" => 1, "y" => 1})
 
-    assert_ws_json_receive(%{"type" => "draw", "flags" => 0, "score" => "14.985", "html" => _html})
+    assert_ws_json_receive(%{
+      "type" => "draw",
+      "flags" => 0,
+      "score" => "14.985",
+      "html" => _html
+    })
 
     assert_ws_json_receive(%{"type" => "win"})
 
@@ -210,7 +198,7 @@ defmodule Mine.Http.WebsocketTest do
     Application.put_env(:mine, :height, 4)
     Application.put_env(:mine, :mines, [{4, 4}])
 
-    assert {:ok, pid} = connect_ws(@url)
+    assert {:ok, pid} = connect_ws(url())
     assert_ws_json_receive(%{"type" => "vsn", "vsn" => _})
 
     send_ws_json(pid, %{"type" => "create"})
@@ -218,7 +206,12 @@ defmodule Mine.Http.WebsocketTest do
 
     send_ws_json(pid, %{"type" => "sweep", "x" => 1, "y" => 1})
 
-    assert_ws_json_receive(%{"type" => "draw", "flags" => 0, "score" => "14.985", "html" => _html})
+    assert_ws_json_receive(%{
+      "type" => "draw",
+      "flags" => 0,
+      "score" => "14.985",
+      "html" => _html
+    })
 
     assert_ws_json_receive(%{"type" => "win"})
 
@@ -231,7 +224,11 @@ defmodule Mine.Http.WebsocketTest do
 
     send_ws_json(pid, %{"type" => "hiscore"})
 
-    assert_ws_json_receive(%{"type" => "hiscore", "position" => nil, "top_list" => "<table " <> _})
+    assert_ws_json_receive(%{
+      "type" => "hiscore",
+      "position" => nil,
+      "top_list" => "<table " <> _
+    })
 
     disconnect_ws(pid)
     refute_receive _
@@ -242,7 +239,7 @@ defmodule Mine.Http.WebsocketTest do
     Application.put_env(:mine, :height, 4)
     Application.put_env(:mine, :mines, [{4, 4}])
 
-    assert {:ok, pid} = connect_ws(@url)
+    assert {:ok, pid} = connect_ws(url())
     assert_ws_json_receive(%{"type" => "vsn", "vsn" => _})
 
     send_ws_json(pid, %{"type" => "create"})
@@ -263,7 +260,7 @@ defmodule Mine.Http.WebsocketTest do
     Application.put_env(:mine, :height, 4)
     Application.put_env(:mine, :mines, [{1, 1}, {2, 2}, {3, 3}, {4, 4}])
 
-    assert {:ok, pid} = connect_ws(@url)
+    assert {:ok, pid} = connect_ws(url())
     assert_ws_json_receive(%{"type" => "vsn", "vsn" => _})
 
     send_ws_json(pid, %{"type" => "create"})
@@ -290,7 +287,7 @@ defmodule Mine.Http.WebsocketTest do
     Application.put_env(:mine, :height, 4)
     Application.put_env(:mine, :mines, [{4, 4}])
 
-    assert {:ok, pid} = connect_ws(@url)
+    assert {:ok, pid} = connect_ws(url())
     assert_ws_json_receive(%{"type" => "vsn", "vsn" => _})
 
     send_ws_json(pid, %{"type" => "create"})
@@ -311,7 +308,7 @@ defmodule Mine.Http.WebsocketTest do
     Application.put_env(:mine, :height, 4)
     Application.put_env(:mine, :mines, [{1, 1}, {2, 2}, {3, 3}, {4, 4}])
 
-    assert {:ok, pid} = connect_ws(@url)
+    assert {:ok, pid} = connect_ws(url())
     assert_ws_json_receive(%{"type" => "vsn", "vsn" => _})
 
     send_ws_json(pid, %{"type" => "create"})

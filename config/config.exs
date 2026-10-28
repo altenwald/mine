@@ -1,7 +1,7 @@
 import Config
 
 config :mine,
-  port: 4001,
+  port: if(config_env() == :test, do: 0, else: 4001),
   mines: 40,
   height: 16,
   width: 16,
@@ -9,11 +9,7 @@ config :mine,
 
 config :mine, ecto_repos: [Mine.Repo]
 
-config :number,
-  delimit: [
-    precision: 0,
-    delimiter: ".",
-    separator: ","
-  ]
-
-import_config("#{config_env()}.exs")
+config :mine, Mine.Repo,
+  database: Path.expand("../data/mine_#{config_env()}.db", __DIR__),
+  pool_size: 1,
+  busy_timeout: 5_000

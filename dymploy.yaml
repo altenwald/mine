@@ -1,0 +1,91 @@
+# Validate locally with dymploy validate. dymploy try builds without deploying.
+version: 1
+
+build:
+  image:
+    dockerfile: ci/Dockerfile.build
+    context: ci
+  env:
+    MIX_ENV: prod
+    ERL_FLAGS: "+Q 65536"
+    MIX_HOME: /cache/mix
+    HEX_HOME: /cache/hex
+    DIALYZER_PLT_DIR: /cache/plt
+  cache:
+    - {name: mix, path: /cache/mix}
+    - {name: hex, path: /cache/hex}
+    - {name: plt, path: /cache/plt}
+  limits: {cpus: 2, memory: 2g, timeout: 10m, nofile: 65536}
+  steps:
+    - name: dependencies
+      run: |
+        mix local.hex --force
+        mix local.rebar --force
+        MIX_ENV=test mix deps.get
+    - name: quality gate and coverage
+      env:
+        MIX_ENV: test
+        PORT: "0"
+        DATABASE_PATH: /work/data/gate.db
+      run: mix check --no-retry
+    - name: release
+      run: mix release
+    - name: verify packaged SQLite and initial scores
+      run: sh ci/check_release.sh
+
+artifact:
+  name: mine
+  paths: [_build/prod/rel/mine]
+
+deploy:
+  # Must be provisioned on the dymploy server before the first deployment.
+  target: rowan-mine
+  timeout: 5m
+  steps:
+    - name: install the release
+      run: |
+        new="$HOME/releases/$DYMPLOY_SHORT_COMMIT"
+        test ! -e "$new"
+        mkdir -p "$new"
+        tar -xzf "$DYMPLOY_ARTIFACT" -C "$new" --strip-components=1
+    - name: install the environment
+      run: |
+        umask 027
+        cat > "$HOME/mine.env.new" <<'ENV'
+        PORT=4013
+        DATABASE_PATH=/var/lib/mine/mine.db
+        TRUSTED_PROXIES=192.168.1.40
+        RELEASE_DISTRIBUTION=none
+        RELEASE_TMP=/var/lib/mine/tmp
+        LANG=C.UTF-8
+        ENV
+        chgrp mine "$HOME/mine.env.new"
+        chmod 0640 "$HOME/mine.env.new"
+        mv -f "$HOME/mine.env.new" "$HOME/mine.env"
+    - name: activate the release and restart the service
+      run: |
+        before=$(systemctl show -p ActiveEnterTimestampMonotonic --value mine.service)
+        ln -sfn "$HOME/releases/$DYMPLOY_SHORT_COMMIT" "$HOME/current"
+        printf '%s\n' "$DYMPLOY_COMMIT" > "$HOME/.deployed"
+        for i in $(seq 1 30); do
+          now=$(systemctl show -p ActiveEnterTimestampMonotonic --value mine.service)
+          if [ "$now" != "$before" ] && systemctl is-active --quiet mine.service; then
+            exit 0
+          fi
+          sleep 1
+        done
+        echo "the service was not restarted successfully" >&2
+        exit 1
+  check:
+    run: curl -fsS -o /dev/null http://127.0.0.1:4013/
+    attempts: 10
+    interval: 3s
+    timeout: 5s
+  after:
+    steps:
+      - name: keep the last three releases after a successful health check
+        run: |
+          current=$(readlink -f "$HOME/current")
+          ls -1dt "$HOME"/releases/*/ | tail -n +4 | while IFS= read -r old; do
+            [ "$(readlink -f "$old")" = "$current" ] || rm -rf -- "$old"
+          done

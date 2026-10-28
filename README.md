@@ -11,7 +11,7 @@ If you love this content and want we can generate more, you can support us:
 
 ## Getting started
 
-You only need to clone this repository and compile it. Ensure you have installed Elixir 1.8+ and Erlang 20+. This was developed using Erlang 22.0 and Elixir 1.8.2.
+You only need to clone this repository and compile it. Ensure you have installed Elixir 1.18 or later. The deployment build uses Elixir 1.20.4 and Erlang/OTP 29 on Debian 13.
 
 ```
 git clone https://github.com/altenwald/mine.git
@@ -44,3 +44,26 @@ You can see here an example:
 You can open an issue, pull a request or send us a comment when you want.
 
 Enjoy!
+
+## Web server and database
+
+Run `mix deps.get` and `mix run --no-halt` to start the browser game at
+http://localhost:4001. Bandit serves the Plug router and `/websession` WebSocket endpoint.
+SQLite data is stored in `data/mine_dev.db` by default. Migrations run before the HTTP
+listener starts and import the production score snapshot once into a new database.
+
+`mix check --no-retry` runs the quality gate, including Dialyzer and tests with a
+minimum coverage of 90%. Tests use a separate SQLite database and a free HTTP port.
+
+## Native release
+
+Build with `MIX_ENV=prod mix release`. Set `DATABASE_PATH` to an absolute path outside
+the release directory and run `_build/prod/rel/mine/bin/mine start`. `PORT` overrides
+the HTTP port; `TRUSTED_PROXIES` is a comma-separated list of proxy addresses allowed
+to supply `X-Forwarded-For`.
+
+`dymploy.yaml` prepares a Debian 13 release for the `rowan-mine` target, runs the full
+gate, and checks the packaged SQLite driver and score import before deploying.
+The target must be provisioned before enabling deployment. Build caches include Mix,
+Hex and PLTs; `DIALYZER_PLT_DIR` selects the persistent PLT directory, with architecture
+and Erlang/Elixir version separation. Without it, local Dialyxir defaults are preserved.

@@ -2,15 +2,11 @@ defmodule Mine.ReleaseTasksTest do
   use ExUnit.Case, async: false
   alias Mine.ReleaseTasks
 
-  test "drop database and ensure it's created" do
-    assert [_ | _] = :mnesia.table_info(:hi_score, :all)
-    assert :ok = ReleaseTasks.drop_database()
-
-    assert catch_exit(:mnesia.table_info(:hi_score, :all)) ==
-             {:aborted, {:no_exists, :hi_score, :all}}
-
-    assert {:error, :already_up} = ReleaseTasks.ensure_database_created()
-    assert ReleaseTasks.run_migrations()
-    assert [_ | _] = :mnesia.table_info(:hi_score, :all)
+  test "migrations are idempotent and preserve scores" do
+    {:ok, score} = Mine.HiScore.save("Migration test", 10, 5, "127.0.0.1")
+    assert :ok = ReleaseTasks.run_migrations()
+    assert :ok = ReleaseTasks.run_migrations()
+    assert Mine.Repo.get!(Mine.HiScore, score.id).name == "Migration test"
+    Mine.Repo.delete!(score)
   end
 end

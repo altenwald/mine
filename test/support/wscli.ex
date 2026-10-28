@@ -8,6 +8,12 @@ defmodule Mine.WSCLI do
     WebSockex.cast(pid, {:text, Jason.encode!(data)})
   end
 
+  @doc false
+  def handle_pong(:pong, pid) do
+    send(pid, :pong)
+    {:ok, pid}
+  end
+
   def send_ping(pid) do
     WebSockex.cast(pid, :ping)
   end

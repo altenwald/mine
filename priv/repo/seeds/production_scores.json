@@ -1,0 +1,4606 @@
+{
+  "source": "mine.altenwald.com",
+  "exported_at": "2026-10-28",
+  "scores": [
+    {
+      "id": 1,
+      "inserted_at": "2019-09-17T17:13:17",
+      "name": "Marga",
+      "score": 200359,
+      "time": 784,
+      "updated_at": "2019-09-17T17:13:17"
+    },
+    {
+      "id": 2,
+      "inserted_at": "2019-09-22T11:46:59",
+      "name": "Marga",
+      "score": 197358,
+      "time": 822,
+      "updated_at": "2019-09-22T11:46:59"
+    },
+    {
+      "id": 3,
+      "inserted_at": "2019-09-22T11:57:21",
+      "name": "Marga",
+      "score": 203250,
+      "time": 841,
+      "updated_at": "2019-09-22T11:57:21"
+    },
+    {
+      "id": 4,
+      "inserted_at": "2019-09-22T12:02:20",
+      "name": "Marga",
+      "score": 210542,
+      "time": 872,
+      "updated_at": "2019-09-22T12:02:20"
+    },
+    {
+      "id": 5,
+      "inserted_at": "2019-09-22T12:06:49",
+      "name": "Marga",
+      "score": 201439,
+      "time": 863,
+      "updated_at": "2019-09-22T12:06:49"
+    },
+    {
+      "id": 6,
+      "inserted_at": "2019-09-26T06:42:51",
+      "name": "Marga",
+      "score": 203503,
+      "time": 864,
+      "updated_at": "2019-09-26T06:42:51"
+    },
+    {
+      "id": 7,
+      "inserted_at": "2019-09-26T06:45:04",
+      "name": "Marga",
+      "score": 204064,
+      "time": 879,
+      "updated_at": "2019-09-26T06:45:04"
+    },
+    {
+      "id": 8,
+      "inserted_at": "2019-09-26T06:50:50",
+      "name": "Marga",
+      "score": 203516,
+      "time": 836,
+      "updated_at": "2019-09-26T06:50:50"
+    },
+    {
+      "id": 9,
+      "inserted_at": "2019-09-26T06:53:51",
+      "name": "Marga",
+      "score": 201014,
+      "time": 838,
+      "updated_at": "2019-09-26T06:53:51"
+    },
+    {
+      "id": 10,
+      "inserted_at": "2019-09-26T06:59:20",
+      "name": "Marga",
+      "score": 203379,
+      "time": 860,
+      "updated_at": "2019-09-26T06:59:20"
+    },
+    {
+      "id": 11,
+      "inserted_at": "2021-05-06T22:48:59",
+      "name": "Duendecillo salvaje!",
+      "score": 200287,
+      "time": 774,
+      "updated_at": "2021-05-06T22:48:59"
+    },
+    {
+      "id": 12,
+      "inserted_at": "2021-05-06T22:58:39",
+      "name": "Duendecillo salvaje!",
+      "score": 189080,
+      "time": 691,
+      "updated_at": "2021-05-06T22:58:39"
+    },
+    {
+      "id": 13,
+      "inserted_at": "2021-05-07T08:02:56",
+      "name": "Duendecillo salvaje! arrrgh!",
+      "score": 202263,
+      "time": 819,
+      "updated_at": "2021-05-07T08:02:56"
+    },
+    {
+      "id": 14,
+      "inserted_at": "2021-05-17T13:35:13",
+      "name": "Duendecillo salvaje!",
+      "score": 201207,
+      "time": 821,
+      "updated_at": "2021-05-17T13:35:13"
+    },
+    {
+      "id": 15,
+      "inserted_at": "2021-05-17T13:40:18",
+      "name": "Duendecillo salvaje!",
+      "score": 203063,
+      "time": 801,
+      "updated_at": "2021-05-17T13:40:18"
+    },
+    {
+      "id": 16,
+      "inserted_at": "2021-05-19T15:57:00",
+      "name": "Duendecillo salvaje!",
+      "score": 202528,
+      "time": 831,
+      "updated_at": "2021-05-19T15:57:00"
+    },
+    {
+      "id": 17,
+      "inserted_at": "2021-11-05T23:50:25",
+      "name": "Duendecillo salvaje!",
+      "score": 197977,
+      "time": 796,
+      "updated_at": "2021-11-05T23:50:25"
+    },
+    {
+      "id": 18,
+      "inserted_at": "2022-03-10T14:15:31",
+      "name": "Duendecillo salvaje!",
+      "score": 184990,
+      "time": 793,
+      "updated_at": "2022-03-10T14:15:32"
+    },
+    {
+      "id": 19,
+      "inserted_at": "2022-10-28T11:25:26",
+      "name": "Duendecillo salvaje!",
+      "score": 141156,
+      "time": 168,
+      "updated_at": "2022-10-28T11:25:26"
+    },
+    {
+      "id": 20,
+      "inserted_at": "2022-12-06T01:34:29",
+      "name": "Duendecillo 🧚‍♂️ ",
+      "score": 193830,
+      "time": 739,
+      "updated_at": "2022-12-06T01:34:29"
+    },
+    {
+      "id": 21,
+      "inserted_at": "2022-12-06T01:41:53",
+      "name": "Duendecillo 🧚‍♂️ ",
+      "score": 196687,
+      "time": 684,
+      "updated_at": "2022-12-06T01:41:53"
+    },
+    {
+      "id": 22,
+      "inserted_at": "2023-01-04T15:29:59",
+      "name": "Ana Maruch",
+      "score": 191111,
+      "time": 561,
+      "updated_at": "2023-01-04T15:29:59"
+    },
+    {
+      "id": 23,
+      "inserted_at": "2023-02-28T10:49:00",
+      "name": "Duendecillo 🧚‍♂️ ",
+      "score": 192739,
+      "time": 697,
+      "updated_at": "2023-02-28T10:49:00"
+    },
+    {
+      "id": 24,
+      "inserted_at": "2023-04-10T02:53:45",
+      "name": "Duendecillo salvaje!",
+      "score": 203225,
+      "time": 791,
+      "updated_at": "2023-04-10T02:53:45"
+    },
+    {
+      "id": 25,
+      "inserted_at": "2023-04-10T03:00:43",
+      "name": "Duendecillo salvaje!",
+      "score": 201845,
+      "time": 832,
+      "updated_at": "2023-04-10T03:00:43"
+    },
+    {
+      "id": 26,
+      "inserted_at": "2023-04-10T03:05:43",
+      "name": "Duendecillo salvaje!",
+      "score": 199861,
+      "time": 777,
+      "updated_at": "2023-04-10T03:05:43"
+    },
+    {
+      "id": 27,
+      "inserted_at": "2023-04-10T03:18:14",
+      "name": "Duendecillo salvaje!",
+      "score": 193905,
+      "time": 750,
+      "updated_at": "2023-04-10T03:18:14"
+    },
+    {
+      "id": 28,
+      "inserted_at": "2023-11-16T07:15:19",
+      "name": "Ana Maruchi",
+      "score": 179880,
+      "time": 549,
+      "updated_at": "2023-11-16T07:15:19"
+    },
+    {
+      "id": 29,
+      "inserted_at": "2023-11-16T07:26:13",
+      "name": "Ana Maruchi",
+      "score": 177905,
+      "time": 382,
+      "updated_at": "2023-11-16T07:26:13"
+    },
+    {
+      "id": 30,
+      "inserted_at": "2023-11-16T11:29:00",
+      "name": "Ana Maruchi",
+      "score": 181777,
+      "time": 538,
+      "updated_at": "2023-11-16T11:29:00"
+    },
+    {
+      "id": 31,
+      "inserted_at": "2023-11-16T11:48:10",
+      "name": "Ana Maruchi",
+      "score": 192215,
+      "time": 626,
+      "updated_at": "2023-11-16T11:48:10"
+    },
+    {
+      "id": 32,
+      "inserted_at": "2023-11-16T12:07:08",
+      "name": "Ana Maruchi",
+      "score": 187148,
+      "time": 600,
+      "updated_at": "2023-11-16T12:07:08"
+    },
+    {
+      "id": 33,
+      "inserted_at": "2024-01-29T15:48:33",
+      "name": "Ana Maruch",
+      "score": 203399,
+      "time": 661,
+      "updated_at": "2024-01-29T15:48:33"
+    },
+    {
+      "id": 34,
+      "inserted_at": "2024-01-29T16:02:29",
+      "name": "Ana Maruch",
+      "score": 177938,
+      "time": 483,
+      "updated_at": "2024-01-29T16:02:29"
+    },
+    {
+      "id": 35,
+      "inserted_at": "2024-01-29T16:14:05",
+      "name": "Ana Maruch ",
+      "score": 186752,
+      "time": 478,
+      "updated_at": "2024-01-29T16:14:05"
+    },
+    {
+      "id": 36,
+      "inserted_at": "2024-02-29T02:24:53",
+      "name": "Duendecillo salvaje!",
+      "score": 191171,
+      "time": 731,
+      "updated_at": "2024-02-29T02:24:53"
+    },
+    {
+      "id": 37,
+      "inserted_at": "2024-09-11T11:09:24",
+      "name": "Ana Maruchi",
+      "score": 191626,
+      "time": 605,
+      "updated_at": "2024-09-11T11:09:24"
+    },
+    {
+      "id": 38,
+      "inserted_at": "2024-09-11T11:19:58",
+      "name": "Ana Maruchi",
+      "score": 196559,
+      "time": 692,
+      "updated_at": "2024-09-11T11:19:58"
+    },
+    {
+      "id": 39,
+      "inserted_at": "2024-09-11T14:14:39",
+      "name": "Duendecillo salvaje 🧚‍♂️",
+      "score": 200395,
+      "time": 817,
+      "updated_at": "2024-09-11T14:14:39"
+    },
+    {
+      "id": 40,
+      "inserted_at": "2024-09-16T09:36:38",
+      "name": "Ana Maruchi",
+      "score": 175812,
+      "time": 498,
+      "updated_at": "2024-09-16T09:36:38"
+    },
+    {
+      "id": 41,
+      "inserted_at": "2024-09-16T09:42:49",
+      "name": "Ana Maruchi",
+      "score": 203008,
+      "time": 671,
+      "updated_at": "2024-09-16T09:42:49"
+    },
+    {
+      "id": 42,
+      "inserted_at": "2024-10-14T11:50:20",
+      "name": "Ana Maruch",
+      "score": 189988,
+      "time": 557,
+      "updated_at": "2024-10-14T11:50:20"
+    },
+    {
+      "id": 43,
+      "inserted_at": "2024-10-14T11:55:45",
+      "name": "Ana Maruch",
+      "score": 201895,
+      "time": 687,
+      "updated_at": "2024-10-14T11:55:45"
+    },
+    {
+      "id": 44,
+      "inserted_at": "2024-10-15T11:47:07",
+      "name": "Ana Maruch",
+      "score": 205866,
+      "time": 770,
+      "updated_at": "2024-10-15T11:47:07"
+    },
+    {
+      "id": 45,
+      "inserted_at": "2024-10-15T11:57:06",
+      "name": "Ana Maruch",
+      "score": 202867,
+      "time": 654,
+      "updated_at": "2024-10-15T11:57:06"
+    },
+    {
+      "id": 46,
+      "inserted_at": "2025-02-13T01:24:49",
+      "name": "Lolo",
+      "score": 176104,
+      "time": 679,
+      "updated_at": "2025-02-13T01:24:49"
+    },
+    {
+      "id": 47,
+      "inserted_at": "2025-02-13T01:31:35",
+      "name": "Lolo",
+      "score": 199102,
+      "time": 727,
+      "updated_at": "2025-02-13T01:31:35"
+    },
+    {
+      "id": 48,
+      "inserted_at": "2025-03-04T13:18:24",
+      "name": "Manuel",
+      "score": 200937,
+      "time": 828,
+      "updated_at": "2025-03-04T13:18:24"
+    },
+    {
+      "id": 49,
+      "inserted_at": "2025-03-20T15:47:43",
+      "name": "Ana Maruch",
+      "score": 176122,
+      "time": 409,
+      "updated_at": "2025-03-20T15:47:43"
+    },
+    {
+      "id": 50,
+      "inserted_at": "2025-03-20T15:55:34",
+      "name": "AnaMaruch",
+      "score": 196224,
+      "time": 669,
+      "updated_at": "2025-03-20T15:55:34"
+    },
+    {
+      "id": 51,
+      "inserted_at": "2025-03-20T16:02:27",
+      "name": "Ana Maruch",
+      "score": 202974,
+      "time": 678,
+      "updated_at": "2025-03-20T16:02:27"
+    },
+    {
+      "id": 52,
+      "inserted_at": "2025-03-20T16:08:11",
+      "name": "AnaMaruch",
+      "score": 204450,
+      "time": 726,
+      "updated_at": "2025-03-20T16:08:11"
+    },
+    {
+      "id": 53,
+      "inserted_at": "2025-04-08T08:09:05",
+      "name": "Ana Maruch",
+      "score": 198519,
+      "time": 683,
+      "updated_at": "2025-04-08T08:09:05"
+    },
+    {
+      "id": 54,
+      "inserted_at": "2025-04-08T08:15:10",
+      "name": "Ana Maruch",
+      "score": 202958,
+      "time": 755,
+      "updated_at": "2025-04-08T08:15:10"
+    },
+    {
+      "id": 55,
+      "inserted_at": "2025-04-08T08:22:59",
+      "name": "Ana Maruch",
+      "score": 202787,
+      "time": 754,
+      "updated_at": "2025-04-08T08:22:59"
+    },
+    {
+      "id": 56,
+      "inserted_at": "2025-04-08T08:59:59",
+      "name": "Ana Maruch",
+      "score": 203989,
+      "time": 722,
+      "updated_at": "2025-04-08T08:59:59"
+    },
+    {
+      "id": 57,
+      "inserted_at": "2025-04-08T09:51:38",
+      "name": "Ana Maruch",
+      "score": 198786,
+      "time": 740,
+      "updated_at": "2025-04-08T09:51:38"
+    },
+    {
+      "id": 58,
+      "inserted_at": "2025-04-08T09:58:51",
+      "name": "Ana Maruch",
+      "score": 205346,
+      "time": 784,
+      "updated_at": "2025-04-08T09:58:51"
+    },
+    {
+      "id": 59,
+      "inserted_at": "2025-04-17T07:05:56",
+      "name": "Ana Maruch",
+      "score": 198130,
+      "time": 755,
+      "updated_at": "2025-04-17T07:05:56"
+    },
+    {
+      "id": 60,
+      "inserted_at": "2025-06-17T11:44:52",
+      "name": "Ana Maruch",
+      "score": 200600,
+      "time": 717,
+      "updated_at": "2025-06-17T11:44:52"
+    },
+    {
+      "id": 61,
+      "inserted_at": "2025-06-17T11:57:09",
+      "name": "Ana Maruch",
+      "score": 194076,
+      "time": 631,
+      "updated_at": "2025-06-17T11:57:09"
+    },
+    {
+      "id": 62,
+      "inserted_at": "2025-06-19T07:28:22",
+      "name": "Ana Maruch",
+      "score": 201024,
+      "time": 723,
+      "updated_at": "2025-06-19T07:28:22"
+    },
+    {
+      "id": 63,
+      "inserted_at": "2025-06-20T07:10:55",
+      "name": "Ana Maruch",
+      "score": 203676,
+      "time": 756,
+      "updated_at": "2025-06-20T07:10:55"
+    },
+    {
+      "id": 64,
+      "inserted_at": "2025-06-20T07:17:21",
+      "name": "Ana Maruch",
+      "score": 205301,
+      "time": 778,
+      "updated_at": "2025-06-20T07:17:21"
+    },
+    {
+      "id": 65,
+      "inserted_at": "2025-07-15T11:52:12",
+      "name": "Lolo",
+      "score": 199373,
+      "time": 793,
+      "updated_at": "2025-07-15T11:52:12"
+    },
+    {
+      "id": 66,
+      "inserted_at": "2025-09-26T01:18:51",
+      "name": "Lolo",
+      "score": 203230,
+      "time": 813,
+      "updated_at": "2025-09-26T01:18:51"
+    },
+    {
+      "id": 67,
+      "inserted_at": "2025-09-26T01:22:07",
+      "name": "Lolo",
+      "score": 204763,
+      "time": 837,
+      "updated_at": "2025-09-26T01:22:07"
+    },
+    {
+      "id": 68,
+      "inserted_at": "2025-09-26T01:25:49",
+      "name": "Lolo",
+      "score": 204834,
+      "time": 803,
+      "updated_at": "2025-09-26T01:25:49"
+    },
+    {
+      "id": 69,
+      "inserted_at": "2025-09-26T01:32:30",
+      "name": "Lolo",
+      "score": 202299,
+      "time": 744,
+      "updated_at": "2025-09-26T01:32:30"
+    },
+    {
+      "id": 70,
+      "inserted_at": "2025-09-26T01:38:09",
+      "name": "Lolo",
+      "score": 206036,
+      "time": 863,
+      "updated_at": "2025-09-26T01:38:09"
+    },
+    {
+      "id": 71,
+      "inserted_at": "2025-09-26T01:41:14",
+      "name": "Lolo",
+      "score": 207672,
+      "time": 866,
+      "updated_at": "2025-09-26T01:41:14"
+    },
+    {
+      "id": 72,
+      "inserted_at": "2025-09-26T01:47:44",
+      "name": "Lolo",
+      "score": 193333,
+      "time": 777,
+      "updated_at": "2025-09-26T01:47:44"
+    },
+    {
+      "id": 73,
+      "inserted_at": "2025-10-07T09:46:45",
+      "name": "Ana Maruch",
+      "score": 200932,
+      "time": 731,
+      "updated_at": "2025-10-07T09:46:45"
+    },
+    {
+      "id": 74,
+      "inserted_at": "2025-10-08T09:18:29",
+      "name": "Ana Maruch",
+      "score": 197253,
+      "time": 521,
+      "updated_at": "2025-10-08T09:18:29"
+    },
+    {
+      "id": 75,
+      "inserted_at": "2025-10-08T09:23:27",
+      "name": "Ana Maruch",
+      "score": 201810,
+      "time": 731,
+      "updated_at": "2025-10-08T09:23:27"
+    },
+    {
+      "id": 76,
+      "inserted_at": "2025-10-08T09:47:57",
+      "name": "Ana Maruch",
+      "score": 203792,
+      "time": 627,
+      "updated_at": "2025-10-08T09:47:57"
+    },
+    {
+      "id": 77,
+      "inserted_at": "2025-10-08T17:30:56",
+      "name": "Ana Maruch",
+      "score": 206968,
+      "time": 730,
+      "updated_at": "2025-10-08T17:30:56"
+    },
+    {
+      "id": 78,
+      "inserted_at": "2025-10-17T09:55:01",
+      "name": "Ana Maruch",
+      "score": 203864,
+      "time": 762,
+      "updated_at": "2025-10-17T09:55:01"
+    },
+    {
+      "id": 79,
+      "inserted_at": "2025-10-28T07:56:25",
+      "name": "Ana Maruch",
+      "score": 203330,
+      "time": 774,
+      "updated_at": "2025-10-28T07:56:25"
+    },
+    {
+      "id": 80,
+      "inserted_at": "2025-10-28T08:05:51",
+      "name": "Ana Maruch",
+      "score": 205949,
+      "time": 805,
+      "updated_at": "2025-10-28T08:05:51"
+    },
+    {
+      "id": 81,
+      "inserted_at": "2025-10-28T08:16:41",
+      "name": "Ana Maruch",
+      "score": 205593,
+      "time": 831,
+      "updated_at": "2025-10-28T08:16:41"
+    },
+    {
+      "id": 82,
+      "inserted_at": "2025-10-28T08:20:26",
+      "name": "Ana Maruch",
+      "score": 208133,
+      "time": 799,
+      "updated_at": "2025-10-28T08:20:26"
+    },
+    {
+      "id": 83,
+      "inserted_at": "2025-10-28T08:24:17",
+      "name": "Ana Maruch",
+      "score": 207042,
+      "time": 788,
+      "updated_at": "2025-10-28T08:24:17"
+    },
+    {
+      "id": 84,
+      "inserted_at": "2025-11-06T12:32:40",
+      "name": "Ana Maruch",
+      "score": 210317,
+      "time": 838,
+      "updated_at": "2025-11-06T12:32:40"
+    },
+    {
+      "id": 85,
+      "inserted_at": "2025-11-06T13:20:27",
+      "name": "Ana Maruch",
+      "score": 208165,
+      "time": 762,
+      "updated_at": "2025-11-06T13:20:27"
+    },
+    {
+      "id": 86,
+      "inserted_at": "2025-11-07T07:44:35",
+      "name": "Ana Maruch",
+      "score": 204067,
+      "time": 793,
+      "updated_at": "2025-11-07T07:44:35"
+    },
+    {
+      "id": 87,
+      "inserted_at": "2025-11-07T07:48:34",
+      "name": "Ana Maruch",
+      "score": 202581,
+      "time": 785,
+      "updated_at": "2025-11-07T07:48:34"
+    },
+    {
+      "id": 88,
+      "inserted_at": "2025-11-07T07:59:34",
+      "name": "Ana Maruch",
+      "score": 202546,
+      "time": 734,
+      "updated_at": "2025-11-07T07:59:34"
+    },
+    {
+      "id": 89,
+      "inserted_at": "2025-11-07T08:07:52",
+      "name": "Ana Maruch",
+      "score": 209305,
+      "time": 830,
+      "updated_at": "2025-11-07T08:07:52"
+    },
+    {
+      "id": 90,
+      "inserted_at": "2025-11-07T08:13:34",
+      "name": "Ana Maruch",
+      "score": 205995,
+      "time": 756,
+      "updated_at": "2025-11-07T08:13:34"
+    },
+    {
+      "id": 91,
+      "inserted_at": "2025-11-07T08:16:52",
+      "name": "Ana Maruch",
+      "score": 207987,
+      "time": 813,
+      "updated_at": "2025-11-07T08:16:52"
+    },
+    {
+      "id": 92,
+      "inserted_at": "2025-11-07T10:40:29",
+      "name": "Ana Maruch",
+      "score": 202060,
+      "time": 757,
+      "updated_at": "2025-11-07T10:40:29"
+    },
+    {
+      "id": 93,
+      "inserted_at": "2025-11-07T10:48:51",
+      "name": "Ana Maruch",
+      "score": 203969,
+      "time": 769,
+      "updated_at": "2025-11-07T10:48:51"
+    },
+    {
+      "id": 94,
+      "inserted_at": "2025-11-07T10:57:33",
+      "name": "Ana Maruch",
+      "score": 203588,
+      "time": 780,
+      "updated_at": "2025-11-07T10:57:33"
+    },
+    {
+      "id": 95,
+      "inserted_at": "2025-11-07T11:04:34",
+      "name": "Ana Maruch",
+      "score": 204531,
+      "time": 789,
+      "updated_at": "2025-11-07T11:04:34"
+    },
+    {
+      "id": 96,
+      "inserted_at": "2025-11-07T11:07:20",
+      "name": "Ana Maruch",
+      "score": 210495,
+      "time": 861,
+      "updated_at": "2025-11-07T11:07:20"
+    },
+    {
+      "id": 97,
+      "inserted_at": "2025-11-07T11:26:39",
+      "name": "Ana Maruch",
+      "score": 206654,
+      "time": 764,
+      "updated_at": "2025-11-07T11:26:39"
+    },
+    {
+      "id": 98,
+      "inserted_at": "2025-11-07T11:30:01",
+      "name": "Ana Maruch",
+      "score": 209160,
+      "time": 817,
+      "updated_at": "2025-11-07T11:30:01"
+    },
+    {
+      "id": 99,
+      "inserted_at": "2025-11-07T11:53:53",
+      "name": "Ana Maruch",
+      "score": 204581,
+      "time": 790,
+      "updated_at": "2025-11-07T11:53:53"
+    },
+    {
+      "id": 100,
+      "inserted_at": "2025-11-07T11:59:17",
+      "name": "Ana Maruch",
+      "score": 202619,
+      "time": 745,
+      "updated_at": "2025-11-07T11:59:17"
+    },
+    {
+      "id": 101,
+      "inserted_at": "2025-11-07T12:30:00",
+      "name": "Ana Maruch",
+      "score": 203236,
+      "time": 773,
+      "updated_at": "2025-11-07T12:30:00"
+    },
+    {
+      "id": 102,
+      "inserted_at": "2025-11-07T12:40:12",
+      "name": "Ana Maruch",
+      "score": 203679,
+      "time": 762,
+      "updated_at": "2025-11-07T12:40:12"
+    },
+    {
+      "id": 103,
+      "inserted_at": "2025-11-07T12:49:08",
+      "name": "Ana Maruch",
+      "score": 207198,
+      "time": 819,
+      "updated_at": "2025-11-07T12:49:08"
+    },
+    {
+      "id": 104,
+      "inserted_at": "2025-11-10T08:13:29",
+      "name": "Ana Maruch",
+      "score": 195098,
+      "time": 629,
+      "updated_at": "2025-11-10T08:13:29"
+    },
+    {
+      "id": 105,
+      "inserted_at": "2025-11-10T08:17:27",
+      "name": "Ana Maruch",
+      "score": 206755,
+      "time": 781,
+      "updated_at": "2025-11-10T08:17:27"
+    },
+    {
+      "id": 106,
+      "inserted_at": "2025-11-10T08:23:11",
+      "name": "Ana Maruch",
+      "score": 205013,
+      "time": 714,
+      "updated_at": "2025-11-10T08:23:11"
+    },
+    {
+      "id": 107,
+      "inserted_at": "2025-11-12T13:44:23",
+      "name": "Ana Maruch",
+      "score": 201570,
+      "time": 744,
+      "updated_at": "2025-11-12T13:44:23"
+    },
+    {
+      "id": 108,
+      "inserted_at": "2025-11-12T13:56:49",
+      "name": "Ana Maruch",
+      "score": 205418,
+      "time": 831,
+      "updated_at": "2025-11-12T13:56:49"
+    },
+    {
+      "id": 109,
+      "inserted_at": "2025-11-14T13:19:13",
+      "name": "Ana Maruch",
+      "score": 198460,
+      "time": 747,
+      "updated_at": "2025-11-14T13:19:13"
+    },
+    {
+      "id": 110,
+      "inserted_at": "2025-11-14T13:27:08",
+      "name": "Ana Maruch",
+      "score": 200164,
+      "time": 780,
+      "updated_at": "2025-11-14T13:27:08"
+    },
+    {
+      "id": 111,
+      "inserted_at": "2025-11-21T09:24:08",
+      "name": "Ana Maruch",
+      "score": 207477,
+      "time": 781,
+      "updated_at": "2025-11-21T09:24:08"
+    },
+    {
+      "id": 112,
+      "inserted_at": "2025-11-21T09:29:11",
+      "name": "Ana Maruch",
+      "score": 197870,
+      "time": 763,
+      "updated_at": "2025-11-21T09:29:11"
+    },
+    {
+      "id": 113,
+      "inserted_at": "2025-12-01T10:15:47",
+      "name": "Ana Maruch",
+      "score": 205961,
+      "time": 823,
+      "updated_at": "2025-12-01T10:15:47"
+    },
+    {
+      "id": 114,
+      "inserted_at": "2025-12-01T10:33:47",
+      "name": "Ana Maruch",
+      "score": 190902,
+      "time": 596,
+      "updated_at": "2025-12-01T10:33:47"
+    },
+    {
+      "id": 115,
+      "inserted_at": "2025-12-01T10:51:27",
+      "name": "britt",
+      "score": 151373,
+      "time": 3,
+      "updated_at": "2025-12-01T10:51:27"
+    },
+    {
+      "id": 116,
+      "inserted_at": "2025-12-01T10:58:29",
+      "name": "Ana Maruch",
+      "score": 205723,
+      "time": 770,
+      "updated_at": "2025-12-01T10:58:29"
+    },
+    {
+      "id": 117,
+      "inserted_at": "2025-12-02T08:20:13",
+      "name": "Ana Maruch",
+      "score": 206103,
+      "time": 802,
+      "updated_at": "2025-12-02T08:20:13"
+    },
+    {
+      "id": 118,
+      "inserted_at": "2025-12-02T08:25:05",
+      "name": "Ana Maruch",
+      "score": 201547,
+      "time": 740,
+      "updated_at": "2025-12-02T08:25:05"
+    },
+    {
+      "id": 119,
+      "inserted_at": "2025-12-02T10:08:24",
+      "name": "Ana Maruch",
+      "score": 203100,
+      "time": 807,
+      "updated_at": "2025-12-02T10:08:24"
+    },
+    {
+      "id": 120,
+      "inserted_at": "2025-12-03T11:40:24",
+      "name": "Ana Maruch",
+      "score": 210089,
+      "time": 800,
+      "updated_at": "2025-12-03T11:40:24"
+    },
+    {
+      "id": 121,
+      "inserted_at": "2025-12-03T11:49:10",
+      "name": "Ana Maruch",
+      "score": 207496,
+      "time": 802,
+      "updated_at": "2025-12-03T11:49:10"
+    },
+    {
+      "id": 122,
+      "inserted_at": "2025-12-05T08:08:11",
+      "name": "Ana Maruch",
+      "score": 205211,
+      "time": 675,
+      "updated_at": "2025-12-05T08:08:11"
+    },
+    {
+      "id": 123,
+      "inserted_at": "2025-12-05T08:16:49",
+      "name": "Ana Maruch",
+      "score": 199458,
+      "time": 818,
+      "updated_at": "2025-12-05T08:16:49"
+    },
+    {
+      "id": 124,
+      "inserted_at": "2025-12-05T08:20:58",
+      "name": "Ana Maruch",
+      "score": 208454,
+      "time": 854,
+      "updated_at": "2025-12-05T08:20:58"
+    },
+    {
+      "id": 125,
+      "inserted_at": "2025-12-05T08:24:36",
+      "name": "Ana Maruch",
+      "score": 205364,
+      "time": 827,
+      "updated_at": "2025-12-05T08:24:36"
+    },
+    {
+      "id": 126,
+      "inserted_at": "2025-12-07T13:51:05",
+      "name": "Ana Maruch",
+      "score": 202749,
+      "time": 775,
+      "updated_at": "2025-12-07T13:51:05"
+    },
+    {
+      "id": 127,
+      "inserted_at": "2025-12-07T13:55:31",
+      "name": "Ana Maruch",
+      "score": 206739,
+      "time": 787,
+      "updated_at": "2025-12-07T13:55:31"
+    },
+    {
+      "id": 128,
+      "inserted_at": "2025-12-11T07:47:55",
+      "name": "Ana Maruch",
+      "score": 204021,
+      "time": 776,
+      "updated_at": "2025-12-11T07:47:55"
+    },
+    {
+      "id": 129,
+      "inserted_at": "2025-12-11T07:53:00",
+      "name": "Ana Maruch",
+      "score": 197834,
+      "time": 706,
+      "updated_at": "2025-12-11T07:53:00"
+    },
+    {
+      "id": 130,
+      "inserted_at": "2026-01-08T09:22:15",
+      "name": "Ana Maruch",
+      "score": 195718,
+      "time": 687,
+      "updated_at": "2026-01-08T09:22:15"
+    },
+    {
+      "id": 131,
+      "inserted_at": "2026-01-13T08:47:45",
+      "name": "Ana Maruch",
+      "score": 186645,
+      "time": 691,
+      "updated_at": "2026-01-13T08:47:45"
+    },
+    {
+      "id": 132,
+      "inserted_at": "2026-01-13T08:52:29",
+      "name": "Ana Maruch",
+      "score": 204392,
+      "time": 744,
+      "updated_at": "2026-01-13T08:52:29"
+    },
+    {
+      "id": 133,
+      "inserted_at": "2026-01-13T08:57:20",
+      "name": "Ana Maruch",
+      "score": 202133,
+      "time": 722,
+      "updated_at": "2026-01-13T08:57:20"
+    },
+    {
+      "id": 134,
+      "inserted_at": "2026-01-13T09:22:32",
+      "name": "Ana Maruch",
+      "score": 205603,
+      "time": 808,
+      "updated_at": "2026-01-13T09:22:32"
+    },
+    {
+      "id": 135,
+      "inserted_at": "2026-01-13T09:27:52",
+      "name": "Ana Maruch",
+      "score": 202135,
+      "time": 715,
+      "updated_at": "2026-01-13T09:27:52"
+    },
+    {
+      "id": 136,
+      "inserted_at": "2026-01-15T08:27:59",
+      "name": "Ana Maruch",
+      "score": 202745,
+      "time": 813,
+      "updated_at": "2026-01-15T08:27:59"
+    },
+    {
+      "id": 137,
+      "inserted_at": "2026-01-19T11:40:33",
+      "name": "Ana Maruch",
+      "score": 196226,
+      "time": 733,
+      "updated_at": "2026-01-19T11:40:33"
+    },
+    {
+      "id": 138,
+      "inserted_at": "2026-01-19T11:50:15",
+      "name": "Ana Maruch",
+      "score": 205005,
+      "time": 781,
+      "updated_at": "2026-01-19T11:50:15"
+    },
+    {
+      "id": 139,
+      "inserted_at": "2026-01-20T09:06:41",
+      "name": "Ana Maruch",
+      "score": 198082,
+      "time": 710,
+      "updated_at": "2026-01-20T09:06:41"
+    },
+    {
+      "id": 140,
+      "inserted_at": "2026-01-20T09:15:05",
+      "name": "Ana Maruch",
+      "score": 194200,
+      "time": 723,
+      "updated_at": "2026-01-20T09:15:05"
+    },
+    {
+      "id": 141,
+      "inserted_at": "2026-01-20T09:19:49",
+      "name": "Ana Maruch",
+      "score": 198912,
+      "time": 763,
+      "updated_at": "2026-01-20T09:19:49"
+    },
+    {
+      "id": 142,
+      "inserted_at": "2026-01-20T09:28:34",
+      "name": "Ana Maruch",
+      "score": 201236,
+      "time": 767,
+      "updated_at": "2026-01-20T09:28:34"
+    },
+    {
+      "id": 143,
+      "inserted_at": "2026-01-20T09:32:42",
+      "name": "Ana Maruch",
+      "score": 204355,
+      "time": 788,
+      "updated_at": "2026-01-20T09:32:42"
+    },
+    {
+      "id": 144,
+      "inserted_at": "2026-01-20T09:40:02",
+      "name": "Ana Maruch",
+      "score": 201059,
+      "time": 813,
+      "updated_at": "2026-01-20T09:40:02"
+    },
+    {
+      "id": 145,
+      "inserted_at": "2026-01-20T11:59:02",
+      "name": "Ana Maruch",
+      "score": 201516,
+      "time": 814,
+      "updated_at": "2026-01-20T11:59:02"
+    },
+    {
+      "id": 146,
+      "inserted_at": "2026-01-20T12:04:46",
+      "name": "Ana Maruch",
+      "score": 208412,
+      "time": 852,
+      "updated_at": "2026-01-20T12:04:46"
+    },
+    {
+      "id": 147,
+      "inserted_at": "2026-01-20T12:08:21",
+      "name": "Ana Maruch",
+      "score": 207706,
+      "time": 826,
+      "updated_at": "2026-01-20T12:08:21"
+    },
+    {
+      "id": 148,
+      "inserted_at": "2026-01-28T12:44:20",
+      "name": "Ana Maruch",
+      "score": 200582,
+      "time": 726,
+      "updated_at": "2026-01-28T12:44:20"
+    },
+    {
+      "id": 149,
+      "inserted_at": "2026-01-28T12:48:23",
+      "name": "Ana Maruch",
+      "score": 197775,
+      "time": 784,
+      "updated_at": "2026-01-28T12:48:23"
+    },
+    {
+      "id": 150,
+      "inserted_at": "2026-01-28T12:52:25",
+      "name": "Ana Maruch",
+      "score": 205489,
+      "time": 801,
+      "updated_at": "2026-01-28T12:52:25"
+    },
+    {
+      "id": 151,
+      "inserted_at": "2026-01-29T10:20:48",
+      "name": "Ana Maruch",
+      "score": 200015,
+      "time": 732,
+      "updated_at": "2026-01-29T10:20:48"
+    },
+    {
+      "id": 152,
+      "inserted_at": "2026-01-29T10:24:32",
+      "name": "Ana Maruch",
+      "score": 202696,
+      "time": 793,
+      "updated_at": "2026-01-29T10:24:32"
+    },
+    {
+      "id": 153,
+      "inserted_at": "2026-01-29T10:27:37",
+      "name": "Ana Maruch",
+      "score": 204196,
+      "time": 826,
+      "updated_at": "2026-01-29T10:27:37"
+    },
+    {
+      "id": 154,
+      "inserted_at": "2026-01-29T10:33:40",
+      "name": "Ana Maruch",
+      "score": 202537,
+      "time": 714,
+      "updated_at": "2026-01-29T10:33:40"
+    },
+    {
+      "id": 155,
+      "inserted_at": "2026-01-29T10:37:28",
+      "name": "Ana Maruch",
+      "score": 210246,
+      "time": 788,
+      "updated_at": "2026-01-29T10:37:28"
+    },
+    {
+      "id": 156,
+      "inserted_at": "2026-01-29T10:41:40",
+      "name": "Ana Maruch",
+      "score": 205663,
+      "time": 777,
+      "updated_at": "2026-01-29T10:41:40"
+    },
+    {
+      "id": 157,
+      "inserted_at": "2026-01-29T10:45:35",
+      "name": "Ana Maruch",
+      "score": 207137,
+      "time": 849,
+      "updated_at": "2026-01-29T10:45:35"
+    },
+    {
+      "id": 158,
+      "inserted_at": "2026-01-29T10:52:14",
+      "name": "Ana Maruch",
+      "score": 201352,
+      "time": 698,
+      "updated_at": "2026-01-29T10:52:14"
+    },
+    {
+      "id": 159,
+      "inserted_at": "2026-01-29T11:10:47",
+      "name": "Ana Maruch",
+      "score": 208252,
+      "time": 653,
+      "updated_at": "2026-01-29T11:10:47"
+    },
+    {
+      "id": 160,
+      "inserted_at": "2026-01-29T11:16:19",
+      "name": "Ana Maruch",
+      "score": 207754,
+      "time": 817,
+      "updated_at": "2026-01-29T11:16:19"
+    },
+    {
+      "id": 161,
+      "inserted_at": "2026-01-29T11:21:19",
+      "name": "Ana Maruch",
+      "score": 200660,
+      "time": 778,
+      "updated_at": "2026-01-29T11:21:19"
+    },
+    {
+      "id": 162,
+      "inserted_at": "2026-01-29T11:25:26",
+      "name": "Ana Maruch",
+      "score": 203028,
+      "time": 792,
+      "updated_at": "2026-01-29T11:25:26"
+    },
+    {
+      "id": 163,
+      "inserted_at": "2026-01-29T11:28:29",
+      "name": "Ana Maruch",
+      "score": 208294,
+      "time": 830,
+      "updated_at": "2026-01-29T11:28:29"
+    },
+    {
+      "id": 164,
+      "inserted_at": "2026-01-29T11:40:28",
+      "name": "Ana Maruch",
+      "score": 184870,
+      "time": 689,
+      "updated_at": "2026-01-29T11:40:28"
+    },
+    {
+      "id": 165,
+      "inserted_at": "2026-01-29T11:44:34",
+      "name": "Ana Maruch",
+      "score": 206026,
+      "time": 784,
+      "updated_at": "2026-01-29T11:44:34"
+    },
+    {
+      "id": 166,
+      "inserted_at": "2026-01-29T11:55:58",
+      "name": "Ana Maruch",
+      "score": 207371,
+      "time": 838,
+      "updated_at": "2026-01-29T11:55:58"
+    },
+    {
+      "id": 167,
+      "inserted_at": "2026-01-30T09:12:00",
+      "name": "Ana Maruch",
+      "score": 207262,
+      "time": 835,
+      "updated_at": "2026-01-30T09:12:00"
+    },
+    {
+      "id": 168,
+      "inserted_at": "2026-01-30T09:23:14",
+      "name": "Ana Maruch",
+      "score": 196306,
+      "time": 409,
+      "updated_at": "2026-01-30T09:23:14"
+    },
+    {
+      "id": 169,
+      "inserted_at": "2026-01-30T10:56:09",
+      "name": "Ana Maruch",
+      "score": 203100,
+      "time": 749,
+      "updated_at": "2026-01-30T10:56:09"
+    },
+    {
+      "id": 170,
+      "inserted_at": "2026-02-04T13:24:22",
+      "name": "Ana Maruch",
+      "score": 194090,
+      "time": 763,
+      "updated_at": "2026-02-04T13:24:22"
+    },
+    {
+      "id": 171,
+      "inserted_at": "2026-02-04T13:27:11",
+      "name": "Ana Maruch",
+      "score": 205683,
+      "time": 841,
+      "updated_at": "2026-02-04T13:27:11"
+    },
+    {
+      "id": 172,
+      "inserted_at": "2026-02-05T07:51:36",
+      "name": "Ana Maruch",
+      "score": 196977,
+      "time": 770,
+      "updated_at": "2026-02-05T07:51:36"
+    },
+    {
+      "id": 173,
+      "inserted_at": "2026-02-05T07:57:10",
+      "name": "Ana Maruch",
+      "score": 195304,
+      "time": 734,
+      "updated_at": "2026-02-05T07:57:10"
+    },
+    {
+      "id": 174,
+      "inserted_at": "2026-02-05T07:59:21",
+      "name": "Ana Maruch",
+      "score": 211834,
+      "time": 886,
+      "updated_at": "2026-02-05T07:59:21"
+    },
+    {
+      "id": 175,
+      "inserted_at": "2026-02-05T08:04:45",
+      "name": "Ana Maruch",
+      "score": 204713,
+      "time": 786,
+      "updated_at": "2026-02-05T08:04:45"
+    },
+    {
+      "id": 176,
+      "inserted_at": "2026-02-05T08:11:40",
+      "name": "Ana Maruch",
+      "score": 208447,
+      "time": 828,
+      "updated_at": "2026-02-05T08:11:40"
+    },
+    {
+      "id": 177,
+      "inserted_at": "2026-02-09T09:02:11",
+      "name": "Ana Maruch",
+      "score": 201737,
+      "time": 741,
+      "updated_at": "2026-02-09T09:02:11"
+    },
+    {
+      "id": 178,
+      "inserted_at": "2026-02-09T09:06:48",
+      "name": "Ana Maruch",
+      "score": 208469,
+      "time": 785,
+      "updated_at": "2026-02-09T09:06:48"
+    },
+    {
+      "id": 179,
+      "inserted_at": "2026-02-09T09:21:57",
+      "name": "Ana Maruch",
+      "score": 205045,
+      "time": 813,
+      "updated_at": "2026-02-09T09:21:57"
+    },
+    {
+      "id": 180,
+      "inserted_at": "2026-02-09T09:30:24",
+      "name": "Ana Maruch",
+      "score": 201385,
+      "time": 693,
+      "updated_at": "2026-02-09T09:30:24"
+    },
+    {
+      "id": 181,
+      "inserted_at": "2026-02-10T16:07:02",
+      "name": "Papua",
+      "score": 203728,
+      "time": 787,
+      "updated_at": "2026-02-10T16:07:02"
+    },
+    {
+      "id": 182,
+      "inserted_at": "2026-02-10T16:46:57",
+      "name": "Papua",
+      "score": 195272,
+      "time": 787,
+      "updated_at": "2026-02-10T16:46:57"
+    },
+    {
+      "id": 183,
+      "inserted_at": "2026-02-10T16:53:13",
+      "name": "Papua",
+      "score": 205124,
+      "time": 845,
+      "updated_at": "2026-02-10T16:53:13"
+    },
+    {
+      "id": 184,
+      "inserted_at": "2026-02-11T08:36:47",
+      "name": "Ana Maruch",
+      "score": 201517,
+      "time": 774,
+      "updated_at": "2026-02-11T08:36:47"
+    },
+    {
+      "id": 185,
+      "inserted_at": "2026-02-11T08:39:56",
+      "name": "Ana Maruch",
+      "score": 205179,
+      "time": 828,
+      "updated_at": "2026-02-11T08:39:56"
+    },
+    {
+      "id": 186,
+      "inserted_at": "2026-02-11T08:43:58",
+      "name": "Ana Maruch",
+      "score": 203071,
+      "time": 796,
+      "updated_at": "2026-02-11T08:43:58"
+    },
+    {
+      "id": 187,
+      "inserted_at": "2026-02-11T08:47:06",
+      "name": "Ana Maruch",
+      "score": 208285,
+      "time": 845,
+      "updated_at": "2026-02-11T08:47:06"
+    },
+    {
+      "id": 188,
+      "inserted_at": "2026-02-11T08:52:50",
+      "name": "Ana Maruch",
+      "score": 193343,
+      "time": 703,
+      "updated_at": "2026-02-11T08:52:50"
+    },
+    {
+      "id": 189,
+      "inserted_at": "2026-02-11T09:01:50",
+      "name": "Ana Maruch",
+      "score": 200717,
+      "time": 666,
+      "updated_at": "2026-02-11T09:01:50"
+    },
+    {
+      "id": 190,
+      "inserted_at": "2026-02-11T09:21:02",
+      "name": "Ana Maruch",
+      "score": 199362,
+      "time": 785,
+      "updated_at": "2026-02-11T09:21:02"
+    },
+    {
+      "id": 191,
+      "inserted_at": "2026-02-11T09:25:00",
+      "name": "Ana Maruch",
+      "score": 201401,
+      "time": 783,
+      "updated_at": "2026-02-11T09:25:00"
+    },
+    {
+      "id": 192,
+      "inserted_at": "2026-02-11T09:28:24",
+      "name": "Ana Maruch",
+      "score": 206523,
+      "time": 827,
+      "updated_at": "2026-02-11T09:28:24"
+    },
+    {
+      "id": 193,
+      "inserted_at": "2026-02-11T10:15:36",
+      "name": "Ana Maruch",
+      "score": 205143,
+      "time": 794,
+      "updated_at": "2026-02-11T10:15:36"
+    },
+    {
+      "id": 194,
+      "inserted_at": "2026-02-11T10:19:55",
+      "name": "Ana Maruch",
+      "score": 202770,
+      "time": 763,
+      "updated_at": "2026-02-11T10:19:55"
+    },
+    {
+      "id": 195,
+      "inserted_at": "2026-02-11T10:33:36",
+      "name": "Ana Maruch",
+      "score": 197777,
+      "time": 638,
+      "updated_at": "2026-02-11T10:33:36"
+    },
+    {
+      "id": 196,
+      "inserted_at": "2026-03-04T08:16:56",
+      "name": "Ana Maruch",
+      "score": 203323,
+      "time": 800,
+      "updated_at": "2026-03-04T08:16:56"
+    },
+    {
+      "id": 197,
+      "inserted_at": "2026-03-04T08:20:04",
+      "name": "Emma",
+      "score": 205173,
+      "time": 846,
+      "updated_at": "2026-03-04T08:20:04"
+    },
+    {
+      "id": 198,
+      "inserted_at": "2026-03-04T08:23:22",
+      "name": "Emma",
+      "score": 206575,
+      "time": 850,
+      "updated_at": "2026-03-04T08:23:22"
+    },
+    {
+      "id": 199,
+      "inserted_at": "2026-03-04T08:27:40",
+      "name": "Emma",
+      "score": 207088,
+      "time": 858,
+      "updated_at": "2026-03-04T08:27:40"
+    },
+    {
+      "id": 200,
+      "inserted_at": "2026-03-05T09:08:17",
+      "name": "Ana Maruch",
+      "score": 200575,
+      "time": 682,
+      "updated_at": "2026-03-05T09:08:17"
+    },
+    {
+      "id": 201,
+      "inserted_at": "2026-03-05T09:13:22",
+      "name": "Ana Maruch",
+      "score": 208180,
+      "time": 870,
+      "updated_at": "2026-03-05T09:13:22"
+    },
+    {
+      "id": 202,
+      "inserted_at": "2026-03-05T09:29:44",
+      "name": "Ana Maruch",
+      "score": 201950,
+      "time": 777,
+      "updated_at": "2026-03-05T09:29:44"
+    },
+    {
+      "id": 203,
+      "inserted_at": "2026-03-05T10:57:36",
+      "name": "Ana Maruch",
+      "score": 207528,
+      "time": 861,
+      "updated_at": "2026-03-05T10:57:36"
+    },
+    {
+      "id": 204,
+      "inserted_at": "2026-03-06T12:18:59",
+      "name": "Ana Maruch",
+      "score": 206419,
+      "time": 867,
+      "updated_at": "2026-03-06T12:18:59"
+    },
+    {
+      "id": 205,
+      "inserted_at": "2026-03-06T12:22:46",
+      "name": "Ana Maruch",
+      "score": 204211,
+      "time": 813,
+      "updated_at": "2026-03-06T12:22:46"
+    },
+    {
+      "id": 206,
+      "inserted_at": "2026-03-06T12:31:36",
+      "name": "Ana Maruch",
+      "score": 203978,
+      "time": 818,
+      "updated_at": "2026-03-06T12:31:36"
+    },
+    {
+      "id": 207,
+      "inserted_at": "2026-03-06T12:53:53",
+      "name": "Emma",
+      "score": 173541,
+      "time": 472,
+      "updated_at": "2026-03-06T12:53:53"
+    },
+    {
+      "id": 208,
+      "inserted_at": "2026-03-09T11:51:22",
+      "name": "Ana Maruch",
+      "score": 202423,
+      "time": 854,
+      "updated_at": "2026-03-09T11:51:22"
+    },
+    {
+      "id": 209,
+      "inserted_at": "2026-03-09T11:54:18",
+      "name": "Ana Maruch",
+      "score": 209006,
+      "time": 849,
+      "updated_at": "2026-03-09T11:54:18"
+    },
+    {
+      "id": 210,
+      "inserted_at": "2026-03-09T11:57:54",
+      "name": "Ana Maruch",
+      "score": 206120,
+      "time": 843,
+      "updated_at": "2026-03-09T11:57:54"
+    },
+    {
+      "id": 211,
+      "inserted_at": "2026-03-11T12:41:14",
+      "name": "Ana Maruch",
+      "score": 202001,
+      "time": 789,
+      "updated_at": "2026-03-11T12:41:14"
+    },
+    {
+      "id": 212,
+      "inserted_at": "2026-03-11T12:51:35",
+      "name": "Ana Maruch",
+      "score": 193366,
+      "time": 747,
+      "updated_at": "2026-03-11T12:51:35"
+    },
+    {
+      "id": 213,
+      "inserted_at": "2026-03-11T12:55:50",
+      "name": "Ana Maruch",
+      "score": 194677,
+      "time": 761,
+      "updated_at": "2026-03-11T12:55:50"
+    },
+    {
+      "id": 214,
+      "inserted_at": "2026-03-11T12:59:40",
+      "name": "Ana Maruch",
+      "score": 204549,
+      "time": 780,
+      "updated_at": "2026-03-11T12:59:40"
+    },
+    {
+      "id": 215,
+      "inserted_at": "2026-03-12T13:46:26",
+      "name": "Ana Maruch",
+      "score": 199045,
+      "time": 783,
+      "updated_at": "2026-03-12T13:46:26"
+    },
+    {
+      "id": 216,
+      "inserted_at": "2026-03-12T13:50:35",
+      "name": "Ana Maruch",
+      "score": 196445,
+      "time": 780,
+      "updated_at": "2026-03-12T13:50:35"
+    },
+    {
+      "id": 217,
+      "inserted_at": "2026-03-12T13:57:38",
+      "name": "Ana Maruch",
+      "score": 208066,
+      "time": 799,
+      "updated_at": "2026-03-12T13:57:38"
+    },
+    {
+      "id": 218,
+      "inserted_at": "2026-03-12T14:00:47",
+      "name": "Ana Maruch",
+      "score": 208490,
+      "time": 824,
+      "updated_at": "2026-03-12T14:00:47"
+    },
+    {
+      "id": 219,
+      "inserted_at": "2026-03-12T14:05:02",
+      "name": "Ana Maruch",
+      "score": 211825,
+      "time": 801,
+      "updated_at": "2026-03-12T14:05:02"
+    },
+    {
+      "id": 220,
+      "inserted_at": "2026-03-12T14:17:54",
+      "name": "meow",
+      "score": 204490,
+      "time": 819,
+      "updated_at": "2026-03-12T14:17:54"
+    },
+    {
+      "id": 221,
+      "inserted_at": "2026-03-12T14:22:39",
+      "name": "meow",
+      "score": 202789,
+      "time": 820,
+      "updated_at": "2026-03-12T14:22:39"
+    },
+    {
+      "id": 222,
+      "inserted_at": "2026-03-16T10:57:36",
+      "name": "Ana Maruch",
+      "score": 204169,
+      "time": 847,
+      "updated_at": "2026-03-16T10:57:36"
+    },
+    {
+      "id": 223,
+      "inserted_at": "2026-03-17T10:43:04",
+      "name": "Ana Maruch",
+      "score": 207793,
+      "time": 814,
+      "updated_at": "2026-03-17T10:43:04"
+    },
+    {
+      "id": 224,
+      "inserted_at": "2026-03-17T10:47:03",
+      "name": "Ana Maruch",
+      "score": 205221,
+      "time": 808,
+      "updated_at": "2026-03-17T10:47:03"
+    },
+    {
+      "id": 225,
+      "inserted_at": "2026-03-17T10:52:37",
+      "name": "Ana Maruch",
+      "score": 200911,
+      "time": 815,
+      "updated_at": "2026-03-17T10:52:37"
+    },
+    {
+      "id": 226,
+      "inserted_at": "2026-03-17T10:57:42",
+      "name": "Ana Maruch",
+      "score": 201126,
+      "time": 772,
+      "updated_at": "2026-03-17T10:57:42"
+    },
+    {
+      "id": 227,
+      "inserted_at": "2026-03-18T08:04:55",
+      "name": "Ana Maruch",
+      "score": 202268,
+      "time": 819,
+      "updated_at": "2026-03-18T08:04:55"
+    },
+    {
+      "id": 228,
+      "inserted_at": "2026-03-19T11:44:15",
+      "name": "Ana Maruch",
+      "score": 198146,
+      "time": 630,
+      "updated_at": "2026-03-19T11:44:15"
+    },
+    {
+      "id": 229,
+      "inserted_at": "2026-03-19T11:48:04",
+      "name": "Ana Maruch",
+      "score": 204709,
+      "time": 780,
+      "updated_at": "2026-03-19T11:48:04"
+    },
+    {
+      "id": 230,
+      "inserted_at": "2026-03-19T12:00:47",
+      "name": "Ana Maruch",
+      "score": 205497,
+      "time": 823,
+      "updated_at": "2026-03-19T12:00:47"
+    },
+    {
+      "id": 231,
+      "inserted_at": "2026-03-19T12:55:21",
+      "name": "Ana Maruch",
+      "score": 205408,
+      "time": 810,
+      "updated_at": "2026-03-19T12:55:21"
+    },
+    {
+      "id": 232,
+      "inserted_at": "2026-03-19T13:09:27",
+      "name": "Ana Maruch",
+      "score": 203097,
+      "time": 817,
+      "updated_at": "2026-03-19T13:09:27"
+    },
+    {
+      "id": 233,
+      "inserted_at": "2026-03-19T16:35:11",
+      "name": "Ana Maruch",
+      "score": 208217,
+      "time": 853,
+      "updated_at": "2026-03-19T16:35:11"
+    },
+    {
+      "id": 234,
+      "inserted_at": "2026-03-19T16:39:25",
+      "name": "Ana Maruch",
+      "score": 208041,
+      "time": 851,
+      "updated_at": "2026-03-19T16:39:25"
+    },
+    {
+      "id": 235,
+      "inserted_at": "2026-03-19T18:13:18",
+      "name": "Ana Maruch",
+      "score": 208202,
+      "time": 813,
+      "updated_at": "2026-03-19T18:13:18"
+    },
+    {
+      "id": 236,
+      "inserted_at": "2026-03-24T09:29:51",
+      "name": "Ana Maruch",
+      "score": 206745,
+      "time": 817,
+      "updated_at": "2026-03-24T09:29:51"
+    },
+    {
+      "id": 237,
+      "inserted_at": "2026-03-25T07:41:35",
+      "name": "Ana Maruch",
+      "score": 201202,
+      "time": 819,
+      "updated_at": "2026-03-25T07:41:35"
+    },
+    {
+      "id": 238,
+      "inserted_at": "2026-03-25T07:51:20",
+      "name": "meow",
+      "score": 200937,
+      "time": 710,
+      "updated_at": "2026-03-25T07:51:20"
+    },
+    {
+      "id": 239,
+      "inserted_at": "2026-03-26T08:07:17",
+      "name": "Ana Maruch",
+      "score": 193325,
+      "time": 722,
+      "updated_at": "2026-03-26T08:07:17"
+    },
+    {
+      "id": 240,
+      "inserted_at": "2026-03-26T08:14:36",
+      "name": "Ana Maruch",
+      "score": 202981,
+      "time": 690,
+      "updated_at": "2026-03-26T08:14:36"
+    },
+    {
+      "id": 241,
+      "inserted_at": "2026-03-26T08:18:50",
+      "name": "Ana Maruch",
+      "score": 201327,
+      "time": 780,
+      "updated_at": "2026-03-26T08:18:50"
+    },
+    {
+      "id": 242,
+      "inserted_at": "2026-03-26T08:22:50",
+      "name": "Ana Maruch",
+      "score": 206401,
+      "time": 767,
+      "updated_at": "2026-03-26T08:22:50"
+    },
+    {
+      "id": 243,
+      "inserted_at": "2026-03-26T08:30:31",
+      "name": "Ana Maruch",
+      "score": 203090,
+      "time": 803,
+      "updated_at": "2026-03-26T08:30:31"
+    },
+    {
+      "id": 244,
+      "inserted_at": "2026-03-26T09:23:49",
+      "name": "meow",
+      "score": 203937,
+      "time": 830,
+      "updated_at": "2026-03-26T09:23:49"
+    },
+    {
+      "id": 245,
+      "inserted_at": "2026-03-26T13:18:16",
+      "name": "Ana Maruch",
+      "score": 194585,
+      "time": 816,
+      "updated_at": "2026-03-26T13:18:16"
+    },
+    {
+      "id": 246,
+      "inserted_at": "2026-03-26T13:20:31",
+      "name": "meow",
+      "score": 208778,
+      "time": 882,
+      "updated_at": "2026-03-26T13:20:31"
+    },
+    {
+      "id": 247,
+      "inserted_at": "2026-03-26T13:32:29",
+      "name": "meow",
+      "score": 208475,
+      "time": 897,
+      "updated_at": "2026-03-26T13:32:29"
+    },
+    {
+      "id": 248,
+      "inserted_at": "2026-03-26T13:34:48",
+      "name": "meooow",
+      "score": 208244,
+      "time": 894,
+      "updated_at": "2026-03-26T13:34:48"
+    },
+    {
+      "id": 249,
+      "inserted_at": "2026-03-26T13:41:22",
+      "name": "meooow",
+      "score": 209940,
+      "time": 919,
+      "updated_at": "2026-03-26T13:41:22"
+    },
+    {
+      "id": 250,
+      "inserted_at": "2026-03-26T13:44:43",
+      "name": "meow",
+      "score": 208527,
+      "time": 903,
+      "updated_at": "2026-03-26T13:44:43"
+    },
+    {
+      "id": 251,
+      "inserted_at": "2026-03-26T13:57:23",
+      "name": "Ana Maruch",
+      "score": 202303,
+      "time": 821,
+      "updated_at": "2026-03-26T13:57:23"
+    },
+    {
+      "id": 252,
+      "inserted_at": "2026-03-26T14:00:46",
+      "name": "Ana Maruch",
+      "score": 201662,
+      "time": 802,
+      "updated_at": "2026-03-26T14:00:46"
+    },
+    {
+      "id": 253,
+      "inserted_at": "2026-03-26T14:04:37",
+      "name": "Ana Maruch",
+      "score": 201393,
+      "time": 796,
+      "updated_at": "2026-03-26T14:04:37"
+    },
+    {
+      "id": 254,
+      "inserted_at": "2026-03-26T14:11:55",
+      "name": "yaoicatgirl",
+      "score": 204520,
+      "time": 891,
+      "updated_at": "2026-03-26T14:11:55"
+    },
+    {
+      "id": 255,
+      "inserted_at": "2026-03-26T14:22:10",
+      "name": "yaoicatgirl",
+      "score": 206887,
+      "time": 898,
+      "updated_at": "2026-03-26T14:22:10"
+    },
+    {
+      "id": 256,
+      "inserted_at": "2026-03-26T14:26:13",
+      "name": "yaoicatgirl",
+      "score": 211764,
+      "time": 909,
+      "updated_at": "2026-03-26T14:26:13"
+    },
+    {
+      "id": 257,
+      "inserted_at": "2026-04-02T08:21:09",
+      "name": "Ana Maruch",
+      "score": 210491,
+      "time": 852,
+      "updated_at": "2026-04-02T08:21:09"
+    },
+    {
+      "id": 258,
+      "inserted_at": "2026-04-02T11:43:25",
+      "name": "yaoicatgirl",
+      "score": 192830,
+      "time": 688,
+      "updated_at": "2026-04-02T11:43:25"
+    },
+    {
+      "id": 259,
+      "inserted_at": "2026-04-09T09:55:09",
+      "name": "Ana Maruch",
+      "score": 204469,
+      "time": 800,
+      "updated_at": "2026-04-09T09:55:09"
+    },
+    {
+      "id": 260,
+      "inserted_at": "2026-04-09T10:10:43",
+      "name": "Ana Maruch",
+      "score": 204787,
+      "time": 823,
+      "updated_at": "2026-04-09T10:10:43"
+    },
+    {
+      "id": 261,
+      "inserted_at": "2026-04-09T10:20:12",
+      "name": "Ana Maruch",
+      "score": 201816,
+      "time": 794,
+      "updated_at": "2026-04-09T10:20:12"
+    },
+    {
+      "id": 262,
+      "inserted_at": "2026-04-09T10:23:29",
+      "name": "Ana Maruch",
+      "score": 204987,
+      "time": 826,
+      "updated_at": "2026-04-09T10:23:29"
+    },
+    {
+      "id": 263,
+      "inserted_at": "2026-04-09T10:28:38",
+      "name": "Ana Maruch",
+      "score": 202496,
+      "time": 717,
+      "updated_at": "2026-04-09T10:28:38"
+    },
+    {
+      "id": 264,
+      "inserted_at": "2026-04-09T10:36:21",
+      "name": "Ana Maruch",
+      "score": 198157,
+      "time": 751,
+      "updated_at": "2026-04-09T10:36:21"
+    },
+    {
+      "id": 265,
+      "inserted_at": "2026-04-09T10:39:56",
+      "name": "Ana Maruch",
+      "score": 207399,
+      "time": 836,
+      "updated_at": "2026-04-09T10:39:56"
+    },
+    {
+      "id": 266,
+      "inserted_at": "2026-04-09T10:47:21",
+      "name": "Ana Maruch",
+      "score": 205883,
+      "time": 813,
+      "updated_at": "2026-04-09T10:47:21"
+    },
+    {
+      "id": 267,
+      "inserted_at": "2026-04-09T10:55:41",
+      "name": "Ana Maruch",
+      "score": 202517,
+      "time": 804,
+      "updated_at": "2026-04-09T10:55:41"
+    },
+    {
+      "id": 268,
+      "inserted_at": "2026-04-09T11:00:19",
+      "name": "Ana Maruch",
+      "score": 201324,
+      "time": 815,
+      "updated_at": "2026-04-09T11:00:19"
+    },
+    {
+      "id": 269,
+      "inserted_at": "2026-04-09T11:31:32",
+      "name": "Ana Maruch",
+      "score": 211159,
+      "time": 849,
+      "updated_at": "2026-04-09T11:31:32"
+    },
+    {
+      "id": 270,
+      "inserted_at": "2026-04-09T11:35:19",
+      "name": "Ana Maruch",
+      "score": 203070,
+      "time": 829,
+      "updated_at": "2026-04-09T11:35:19"
+    },
+    {
+      "id": 271,
+      "inserted_at": "2026-04-09T11:39:39",
+      "name": "Ana Maruch",
+      "score": 202579,
+      "time": 760,
+      "updated_at": "2026-04-09T11:39:39"
+    },
+    {
+      "id": 272,
+      "inserted_at": "2026-04-09T11:43:41",
+      "name": "Ana Maruch",
+      "score": 203360,
+      "time": 781,
+      "updated_at": "2026-04-09T11:43:41"
+    },
+    {
+      "id": 273,
+      "inserted_at": "2026-04-09T11:46:53",
+      "name": "Ana Maruch",
+      "score": 204175,
+      "time": 832,
+      "updated_at": "2026-04-09T11:46:53"
+    },
+    {
+      "id": 274,
+      "inserted_at": "2026-04-09T11:51:04",
+      "name": "Ana Maruch",
+      "score": 197021,
+      "time": 757,
+      "updated_at": "2026-04-09T11:51:04"
+    },
+    {
+      "id": 275,
+      "inserted_at": "2026-04-10T10:56:31",
+      "name": "Ana Maruch",
+      "score": 194130,
+      "time": 720,
+      "updated_at": "2026-04-10T10:56:31"
+    },
+    {
+      "id": 276,
+      "inserted_at": "2026-04-13T08:14:54",
+      "name": "Ana Maruch",
+      "score": 208481,
+      "time": 825,
+      "updated_at": "2026-04-13T08:14:54"
+    },
+    {
+      "id": 277,
+      "inserted_at": "2026-04-13T08:19:01",
+      "name": "Ana Maruch",
+      "score": 200738,
+      "time": 815,
+      "updated_at": "2026-04-13T08:19:01"
+    },
+    {
+      "id": 278,
+      "inserted_at": "2026-04-14T08:15:05",
+      "name": "Ana Maruch",
+      "score": 199141,
+      "time": 816,
+      "updated_at": "2026-04-14T08:15:05"
+    },
+    {
+      "id": 279,
+      "inserted_at": "2026-04-14T08:20:32",
+      "name": "Ana Maruch",
+      "score": 205771,
+      "time": 853,
+      "updated_at": "2026-04-14T08:20:32"
+    },
+    {
+      "id": 280,
+      "inserted_at": "2026-04-14T09:05:12",
+      "name": "Ana Maruch",
+      "score": 208098,
+      "time": 865,
+      "updated_at": "2026-04-14T09:05:12"
+    },
+    {
+      "id": 281,
+      "inserted_at": "2026-04-14T09:12:43",
+      "name": "Ana Maruch",
+      "score": 203827,
+      "time": 853,
+      "updated_at": "2026-04-14T09:12:43"
+    },
+    {
+      "id": 282,
+      "inserted_at": "2026-04-14T09:19:32",
+      "name": "meow",
+      "score": 203461,
+      "time": 832,
+      "updated_at": "2026-04-14T09:19:32"
+    },
+    {
+      "id": 283,
+      "inserted_at": "2026-04-14T09:22:19",
+      "name": "yaoicatgirl",
+      "score": 206144,
+      "time": 860,
+      "updated_at": "2026-04-14T09:22:19"
+    },
+    {
+      "id": 284,
+      "inserted_at": "2026-04-14T09:45:57",
+      "name": "Ana Maruch",
+      "score": 207551,
+      "time": 814,
+      "updated_at": "2026-04-14T09:45:57"
+    },
+    {
+      "id": 285,
+      "inserted_at": "2026-04-14T09:50:51",
+      "name": "Ana Maruch",
+      "score": 202518,
+      "time": 812,
+      "updated_at": "2026-04-14T09:50:51"
+    },
+    {
+      "id": 286,
+      "inserted_at": "2026-04-14T09:56:29",
+      "name": "Ana Maruch",
+      "score": 209109,
+      "time": 786,
+      "updated_at": "2026-04-14T09:56:29"
+    },
+    {
+      "id": 287,
+      "inserted_at": "2026-04-14T12:10:30",
+      "name": "Ana Maruch",
+      "score": 202823,
+      "time": 841,
+      "updated_at": "2026-04-14T12:10:30"
+    },
+    {
+      "id": 288,
+      "inserted_at": "2026-04-14T13:06:57",
+      "name": "Ana Maruch",
+      "score": 208506,
+      "time": 770,
+      "updated_at": "2026-04-14T13:06:57"
+    },
+    {
+      "id": 289,
+      "inserted_at": "2026-04-15T10:50:45",
+      "name": "Ana Maruch",
+      "score": 204239,
+      "time": 814,
+      "updated_at": "2026-04-15T10:50:45"
+    },
+    {
+      "id": 290,
+      "inserted_at": "2026-04-17T09:41:45",
+      "name": "Ana Maruch",
+      "score": 207111,
+      "time": 856,
+      "updated_at": "2026-04-17T09:41:45"
+    },
+    {
+      "id": 291,
+      "inserted_at": "2026-04-17T09:54:53",
+      "name": "Ana Maruch",
+      "score": 206888,
+      "time": 835,
+      "updated_at": "2026-04-17T09:54:53"
+    },
+    {
+      "id": 292,
+      "inserted_at": "2026-04-17T10:47:25",
+      "name": "meow",
+      "score": 208128,
+      "time": 799,
+      "updated_at": "2026-04-17T10:47:25"
+    },
+    {
+      "id": 293,
+      "inserted_at": "2026-04-17T10:53:11",
+      "name": "meow",
+      "score": 201039,
+      "time": 668,
+      "updated_at": "2026-04-17T10:53:11"
+    },
+    {
+      "id": 294,
+      "inserted_at": "2026-04-17T11:40:52",
+      "name": "Ana Maruch",
+      "score": 199188,
+      "time": 752,
+      "updated_at": "2026-04-17T11:40:52"
+    },
+    {
+      "id": 295,
+      "inserted_at": "2026-04-17T11:44:32",
+      "name": "Ana Maruch",
+      "score": 205701,
+      "time": 819,
+      "updated_at": "2026-04-17T11:44:32"
+    },
+    {
+      "id": 296,
+      "inserted_at": "2026-04-17T11:59:40",
+      "name": "Ana Maruch",
+      "score": 203915,
+      "time": 810,
+      "updated_at": "2026-04-17T11:59:40"
+    },
+    {
+      "id": 297,
+      "inserted_at": "2026-04-17T12:03:44",
+      "name": "Ana Maruch",
+      "score": 205564,
+      "time": 810,
+      "updated_at": "2026-04-17T12:03:44"
+    },
+    {
+      "id": 298,
+      "inserted_at": "2026-04-17T12:10:03",
+      "name": "Ana Maruch",
+      "score": 197691,
+      "time": 718,
+      "updated_at": "2026-04-17T12:10:03"
+    },
+    {
+      "id": 299,
+      "inserted_at": "2026-04-17T12:13:49",
+      "name": "Ana Maruch",
+      "score": 202326,
+      "time": 849,
+      "updated_at": "2026-04-17T12:13:49"
+    },
+    {
+      "id": 300,
+      "inserted_at": "2026-04-21T08:07:18",
+      "name": "yaoicatgirl",
+      "score": 210829,
+      "time": 898,
+      "updated_at": "2026-04-21T08:07:18"
+    },
+    {
+      "id": 301,
+      "inserted_at": "2026-04-21T08:11:41",
+      "name": "yaoicatgirl",
+      "score": 210319,
+      "time": 904,
+      "updated_at": "2026-04-21T08:11:41"
+    },
+    {
+      "id": 302,
+      "inserted_at": "2026-04-21T08:18:49",
+      "name": "Ana Maruch",
+      "score": 203994,
+      "time": 856,
+      "updated_at": "2026-04-21T08:18:49"
+    },
+    {
+      "id": 303,
+      "inserted_at": "2026-04-21T08:20:28",
+      "name": "yaoicatgirl",
+      "score": 209726,
+      "time": 918,
+      "updated_at": "2026-04-21T08:20:28"
+    },
+    {
+      "id": 304,
+      "inserted_at": "2026-04-21T08:22:34",
+      "name": "yaoicatgirl",
+      "score": 209593,
+      "time": 904,
+      "updated_at": "2026-04-21T08:22:34"
+    },
+    {
+      "id": 305,
+      "inserted_at": "2026-04-21T08:29:30",
+      "name": "yaoicatgirl",
+      "score": 209905,
+      "time": 893,
+      "updated_at": "2026-04-21T08:29:30"
+    },
+    {
+      "id": 306,
+      "inserted_at": "2026-05-06T12:02:01",
+      "name": "Ana Maruch",
+      "score": 199561,
+      "time": 740,
+      "updated_at": "2026-05-06T12:02:01"
+    },
+    {
+      "id": 307,
+      "inserted_at": "2026-05-06T12:04:18",
+      "name": "Ana Maruch",
+      "score": 207966,
+      "time": 870,
+      "updated_at": "2026-05-06T12:04:18"
+    },
+    {
+      "id": 308,
+      "inserted_at": "2026-05-06T12:06:26",
+      "name": "Ana Maruch",
+      "score": 209150,
+      "time": 896,
+      "updated_at": "2026-05-06T12:06:26"
+    },
+    {
+      "id": 309,
+      "inserted_at": "2026-05-06T13:05:17",
+      "name": "Yaoicatgirl",
+      "score": 210864,
+      "time": 903,
+      "updated_at": "2026-05-06T13:05:17"
+    },
+    {
+      "id": 310,
+      "inserted_at": "2026-05-06T13:11:18",
+      "name": "yaoicatgirl",
+      "score": 210232,
+      "time": 877,
+      "updated_at": "2026-05-06T13:11:18"
+    },
+    {
+      "id": 311,
+      "inserted_at": "2026-05-06T13:18:04",
+      "name": "Ana Maruch",
+      "score": 201515,
+      "time": 836,
+      "updated_at": "2026-05-06T13:18:04"
+    },
+    {
+      "id": 312,
+      "inserted_at": "2026-05-06T13:20:20",
+      "name": "Ana Maruch",
+      "score": 207848,
+      "time": 879,
+      "updated_at": "2026-05-06T13:20:20"
+    },
+    {
+      "id": 313,
+      "inserted_at": "2026-05-06T13:21:25",
+      "name": "yaoicatgirl",
+      "score": 210796,
+      "time": 922,
+      "updated_at": "2026-05-06T13:21:25"
+    },
+    {
+      "id": 314,
+      "inserted_at": "2026-05-06T13:23:02",
+      "name": "Ana Maruch",
+      "score": 206707,
+      "time": 872,
+      "updated_at": "2026-05-06T13:23:02"
+    },
+    {
+      "id": 315,
+      "inserted_at": "2026-05-06T13:28:27",
+      "name": "Ana Maruch",
+      "score": 210320,
+      "time": 891,
+      "updated_at": "2026-05-06T13:28:27"
+    },
+    {
+      "id": 316,
+      "inserted_at": "2026-05-06T18:59:38",
+      "name": "Ana Maruch",
+      "score": 211016,
+      "time": 891,
+      "updated_at": "2026-05-06T18:59:38"
+    },
+    {
+      "id": 317,
+      "inserted_at": "2026-05-08T07:47:01",
+      "name": "Yaoicatgirl",
+      "score": 205989,
+      "time": 889,
+      "updated_at": "2026-05-08T07:47:01"
+    },
+    {
+      "id": 318,
+      "inserted_at": "2026-05-08T07:52:15",
+      "name": "yaoicatgirl",
+      "score": 210705,
+      "time": 904,
+      "updated_at": "2026-05-08T07:52:15"
+    },
+    {
+      "id": 319,
+      "inserted_at": "2026-05-08T07:54:35",
+      "name": "Yaoicatgirl",
+      "score": 210086,
+      "time": 921,
+      "updated_at": "2026-05-08T07:54:35"
+    },
+    {
+      "id": 320,
+      "inserted_at": "2026-05-08T07:56:40",
+      "name": "yaoicatgirl",
+      "score": 206566,
+      "time": 892,
+      "updated_at": "2026-05-08T07:56:40"
+    },
+    {
+      "id": 321,
+      "inserted_at": "2026-05-08T08:30:58",
+      "name": "Ana Maruch",
+      "score": 206733,
+      "time": 829,
+      "updated_at": "2026-05-08T08:30:58"
+    },
+    {
+      "id": 322,
+      "inserted_at": "2026-05-08T10:54:37",
+      "name": "Ana Maruch",
+      "score": 201614,
+      "time": 828,
+      "updated_at": "2026-05-08T10:54:37"
+    },
+    {
+      "id": 323,
+      "inserted_at": "2026-05-08T10:55:11",
+      "name": "Yaoicatgirl",
+      "score": 208599,
+      "time": 902,
+      "updated_at": "2026-05-08T10:55:11"
+    },
+    {
+      "id": 324,
+      "inserted_at": "2026-05-08T12:17:13",
+      "name": "yaoicatgirl",
+      "score": 212838,
+      "time": 929,
+      "updated_at": "2026-05-08T12:17:13"
+    },
+    {
+      "id": 325,
+      "inserted_at": "2026-05-08T12:21:23",
+      "name": "Yaoicatgirl",
+      "score": 209603,
+      "time": 897,
+      "updated_at": "2026-05-08T12:21:23"
+    },
+    {
+      "id": 326,
+      "inserted_at": "2026-05-11T07:10:47",
+      "name": "Ana Maruch",
+      "score": 210358,
+      "time": 903,
+      "updated_at": "2026-05-11T07:10:47"
+    },
+    {
+      "id": 327,
+      "inserted_at": "2026-05-11T07:15:47",
+      "name": "Ana Maruch",
+      "score": 207823,
+      "time": 856,
+      "updated_at": "2026-05-11T07:15:47"
+    },
+    {
+      "id": 328,
+      "inserted_at": "2026-05-11T07:57:31",
+      "name": "yaoicatgirl",
+      "score": 212369,
+      "time": 916,
+      "updated_at": "2026-05-11T07:57:31"
+    },
+    {
+      "id": 329,
+      "inserted_at": "2026-05-11T08:21:49",
+      "name": "Ana Maruch",
+      "score": 207125,
+      "time": 874,
+      "updated_at": "2026-05-11T08:21:49"
+    },
+    {
+      "id": 330,
+      "inserted_at": "2026-05-11T08:24:25",
+      "name": "Ana Maruch",
+      "score": 206128,
+      "time": 851,
+      "updated_at": "2026-05-11T08:24:25"
+    },
+    {
+      "id": 331,
+      "inserted_at": "2026-05-11T08:26:54",
+      "name": "Ana Maruch",
+      "score": 200584,
+      "time": 859,
+      "updated_at": "2026-05-11T08:26:54"
+    },
+    {
+      "id": 332,
+      "inserted_at": "2026-05-11T09:05:08",
+      "name": "Ana Maruch",
+      "score": 205723,
+      "time": 887,
+      "updated_at": "2026-05-11T09:05:08"
+    },
+    {
+      "id": 333,
+      "inserted_at": "2026-05-11T09:10:47",
+      "name": "Ana Maruch",
+      "score": 202511,
+      "time": 832,
+      "updated_at": "2026-05-11T09:10:47"
+    },
+    {
+      "id": 334,
+      "inserted_at": "2026-05-11T09:14:25",
+      "name": "Ana Maruch",
+      "score": 207082,
+      "time": 871,
+      "updated_at": "2026-05-11T09:14:25"
+    },
+    {
+      "id": 335,
+      "inserted_at": "2026-05-11T09:29:36",
+      "name": "Ana Maruch",
+      "score": 203578,
+      "time": 840,
+      "updated_at": "2026-05-11T09:29:36"
+    },
+    {
+      "id": 336,
+      "inserted_at": "2026-05-11T09:31:21",
+      "name": "Ana Maruch",
+      "score": 208337,
+      "time": 901,
+      "updated_at": "2026-05-11T09:31:21"
+    },
+    {
+      "id": 337,
+      "inserted_at": "2026-05-11T09:40:44",
+      "name": "Ana Maruch",
+      "score": 207591,
+      "time": 880,
+      "updated_at": "2026-05-11T09:40:44"
+    },
+    {
+      "id": 338,
+      "inserted_at": "2026-05-11T09:44:41",
+      "name": "Ana Maruch",
+      "score": 203428,
+      "time": 874,
+      "updated_at": "2026-05-11T09:44:41"
+    },
+    {
+      "id": 339,
+      "inserted_at": "2026-05-11T09:46:50",
+      "name": "Ana Maruch",
+      "score": 208183,
+      "time": 901,
+      "updated_at": "2026-05-11T09:46:50"
+    },
+    {
+      "id": 340,
+      "inserted_at": "2026-05-11T09:48:36",
+      "name": "Ana Maruch",
+      "score": 211256,
+      "time": 904,
+      "updated_at": "2026-05-11T09:48:36"
+    },
+    {
+      "id": 341,
+      "inserted_at": "2026-05-11T09:50:22",
+      "name": "Ana Maruch",
+      "score": 211093,
+      "time": 916,
+      "updated_at": "2026-05-11T09:50:22"
+    },
+    {
+      "id": 342,
+      "inserted_at": "2026-05-11T09:55:55",
+      "name": "Ana Maruch",
+      "score": 207018,
+      "time": 877,
+      "updated_at": "2026-05-11T09:55:55"
+    },
+    {
+      "id": 343,
+      "inserted_at": "2026-05-11T10:30:09",
+      "name": "Yaoicatgirl",
+      "score": 213264,
+      "time": 931,
+      "updated_at": "2026-05-11T10:30:09"
+    },
+    {
+      "id": 344,
+      "inserted_at": "2026-05-11T10:30:52",
+      "name": "Ana Maruch",
+      "score": 206432,
+      "time": 879,
+      "updated_at": "2026-05-11T10:30:52"
+    },
+    {
+      "id": 345,
+      "inserted_at": "2026-05-11T10:40:05",
+      "name": "Ana Maruch",
+      "score": 208366,
+      "time": 901,
+      "updated_at": "2026-05-11T10:40:05"
+    },
+    {
+      "id": 346,
+      "inserted_at": "2026-05-11T10:41:22",
+      "name": "yaoicatgirl",
+      "score": 209537,
+      "time": 914,
+      "updated_at": "2026-05-11T10:41:22"
+    },
+    {
+      "id": 347,
+      "inserted_at": "2026-05-11T10:43:23",
+      "name": "Ana Maruch",
+      "score": 208663,
+      "time": 864,
+      "updated_at": "2026-05-11T10:43:23"
+    },
+    {
+      "id": 348,
+      "inserted_at": "2026-05-11T10:45:39",
+      "name": "Ana Maruch",
+      "score": 208184,
+      "time": 874,
+      "updated_at": "2026-05-11T10:45:39"
+    },
+    {
+      "id": 349,
+      "inserted_at": "2026-05-11T10:49:43",
+      "name": "Ana Maruch",
+      "score": 206483,
+      "time": 815,
+      "updated_at": "2026-05-11T10:49:43"
+    },
+    {
+      "id": 350,
+      "inserted_at": "2026-05-11T10:56:55",
+      "name": "Ana Maruch",
+      "score": 203645,
+      "time": 862,
+      "updated_at": "2026-05-11T10:56:55"
+    },
+    {
+      "id": 351,
+      "inserted_at": "2026-05-11T11:38:55",
+      "name": "Yaoicatgirl",
+      "score": 211192,
+      "time": 928,
+      "updated_at": "2026-05-11T11:38:55"
+    },
+    {
+      "id": 352,
+      "inserted_at": "2026-05-11T12:01:51",
+      "name": "yaoicatgirl",
+      "score": 212401,
+      "time": 941,
+      "updated_at": "2026-05-11T12:01:51"
+    },
+    {
+      "id": 353,
+      "inserted_at": "2026-05-13T07:21:15",
+      "name": "Yaoicatgirl",
+      "score": 210357,
+      "time": 919,
+      "updated_at": "2026-05-13T07:21:15"
+    },
+    {
+      "id": 354,
+      "inserted_at": "2026-05-13T10:09:06",
+      "name": "yaoicatgirl",
+      "score": 213983,
+      "time": 941,
+      "updated_at": "2026-05-13T10:09:06"
+    },
+    {
+      "id": 355,
+      "inserted_at": "2026-05-13T10:13:31",
+      "name": "Yaoicatgirl",
+      "score": 210674,
+      "time": 918,
+      "updated_at": "2026-05-13T10:13:31"
+    },
+    {
+      "id": 356,
+      "inserted_at": "2026-05-13T10:45:31",
+      "name": "yaoicatgirl",
+      "score": 210705,
+      "time": 913,
+      "updated_at": "2026-05-13T10:45:31"
+    },
+    {
+      "id": 357,
+      "inserted_at": "2026-05-13T10:49:55",
+      "name": "Yaoicatgirl",
+      "score": 212871,
+      "time": 916,
+      "updated_at": "2026-05-13T10:49:55"
+    },
+    {
+      "id": 358,
+      "inserted_at": "2026-05-13T10:51:35",
+      "name": "yaoicatgirl",
+      "score": 212147,
+      "time": 932,
+      "updated_at": "2026-05-13T10:51:35"
+    },
+    {
+      "id": 359,
+      "inserted_at": "2026-05-13T11:34:01",
+      "name": "Yaoicatgirl",
+      "score": 211209,
+      "time": 900,
+      "updated_at": "2026-05-13T11:34:01"
+    },
+    {
+      "id": 360,
+      "inserted_at": "2026-05-13T11:47:18",
+      "name": "yaoicatgirl",
+      "score": 211640,
+      "time": 896,
+      "updated_at": "2026-05-13T11:47:18"
+    },
+    {
+      "id": 361,
+      "inserted_at": "2026-05-13T11:52:42",
+      "name": "Ana Maruch",
+      "score": 208427,
+      "time": 909,
+      "updated_at": "2026-05-13T11:52:42"
+    },
+    {
+      "id": 362,
+      "inserted_at": "2026-05-13T12:01:24",
+      "name": "Ana Maruch",
+      "score": 209205,
+      "time": 863,
+      "updated_at": "2026-05-13T12:01:24"
+    },
+    {
+      "id": 363,
+      "inserted_at": "2026-05-13T12:03:55",
+      "name": "Ana Maruch",
+      "score": 209463,
+      "time": 881,
+      "updated_at": "2026-05-13T12:03:55"
+    },
+    {
+      "id": 364,
+      "inserted_at": "2026-05-13T12:07:13",
+      "name": "Ana Maruch",
+      "score": 208018,
+      "time": 881,
+      "updated_at": "2026-05-13T12:07:13"
+    },
+    {
+      "id": 365,
+      "inserted_at": "2026-05-13T12:10:18",
+      "name": "Ana Maruch",
+      "score": 207863,
+      "time": 885,
+      "updated_at": "2026-05-13T12:10:18"
+    },
+    {
+      "id": 366,
+      "inserted_at": "2026-05-13T12:16:53",
+      "name": "Ana Maruch",
+      "score": 209531,
+      "time": 829,
+      "updated_at": "2026-05-13T12:16:53"
+    },
+    {
+      "id": 367,
+      "inserted_at": "2026-05-19T08:02:17",
+      "name": "Yaoicatgirl",
+      "score": 212388,
+      "time": 924,
+      "updated_at": "2026-05-19T08:02:17"
+    },
+    {
+      "id": 368,
+      "inserted_at": "2026-05-19T08:03:46",
+      "name": "yaoicatgirl",
+      "score": 212619,
+      "time": 929,
+      "updated_at": "2026-05-19T08:03:46"
+    },
+    {
+      "id": 369,
+      "inserted_at": "2026-05-19T08:08:28",
+      "name": "Yaoicatgirl",
+      "score": 212361,
+      "time": 919,
+      "updated_at": "2026-05-19T08:08:28"
+    },
+    {
+      "id": 370,
+      "inserted_at": "2026-05-19T08:12:33",
+      "name": "yaoicatgirl",
+      "score": 210434,
+      "time": 923,
+      "updated_at": "2026-05-19T08:12:33"
+    },
+    {
+      "id": 371,
+      "inserted_at": "2026-05-19T08:15:03",
+      "name": "Yaoicatgirl",
+      "score": 208306,
+      "time": 923,
+      "updated_at": "2026-05-19T08:15:03"
+    },
+    {
+      "id": 372,
+      "inserted_at": "2026-05-19T08:17:19",
+      "name": "yaoicatgirl",
+      "score": 210198,
+      "time": 929,
+      "updated_at": "2026-05-19T08:17:19"
+    },
+    {
+      "id": 373,
+      "inserted_at": "2026-05-19T09:23:13",
+      "name": "Yaoicatgirl",
+      "score": 211130,
+      "time": 916,
+      "updated_at": "2026-05-19T09:23:13"
+    },
+    {
+      "id": 374,
+      "inserted_at": "2026-05-19T09:32:48",
+      "name": "yaoicatgirl",
+      "score": 211538,
+      "time": 930,
+      "updated_at": "2026-05-19T09:32:48"
+    },
+    {
+      "id": 375,
+      "inserted_at": "2026-05-19T09:36:46",
+      "name": "Yaoicatgirl",
+      "score": 211531,
+      "time": 929,
+      "updated_at": "2026-05-19T09:36:46"
+    },
+    {
+      "id": 376,
+      "inserted_at": "2026-05-20T09:31:21",
+      "name": "yaoicatgirl",
+      "score": 210966,
+      "time": 917,
+      "updated_at": "2026-05-20T09:31:21"
+    },
+    {
+      "id": 377,
+      "inserted_at": "2026-05-20T09:34:55",
+      "name": "Yaoicatgirl",
+      "score": 213083,
+      "time": 935,
+      "updated_at": "2026-05-20T09:34:55"
+    },
+    {
+      "id": 378,
+      "inserted_at": "2026-05-20T09:36:20",
+      "name": "yaoicatgirl",
+      "score": 211715,
+      "time": 930,
+      "updated_at": "2026-05-20T09:36:20"
+    },
+    {
+      "id": 379,
+      "inserted_at": "2026-05-20T09:37:56",
+      "name": "Yaoicatgirl",
+      "score": 211318,
+      "time": 925,
+      "updated_at": "2026-05-20T09:37:56"
+    },
+    {
+      "id": 380,
+      "inserted_at": "2026-05-20T13:37:06",
+      "name": "yaoicatgirl",
+      "score": 212847,
+      "time": 929,
+      "updated_at": "2026-05-20T13:37:06"
+    },
+    {
+      "id": 381,
+      "inserted_at": "2026-05-20T13:39:38",
+      "name": "yaoicatgirl",
+      "score": 210260,
+      "time": 903,
+      "updated_at": "2026-05-20T13:39:38"
+    },
+    {
+      "id": 382,
+      "inserted_at": "2026-05-20T13:47:24",
+      "name": "Yaoicatgirl",
+      "score": 209736,
+      "time": 885,
+      "updated_at": "2026-05-20T13:47:24"
+    },
+    {
+      "id": 383,
+      "inserted_at": "2026-05-20T13:50:22",
+      "name": "yaoicatgirl",
+      "score": 210734,
+      "time": 898,
+      "updated_at": "2026-05-20T13:50:22"
+    },
+    {
+      "id": 384,
+      "inserted_at": "2026-05-20T13:51:40",
+      "name": "Yaoicatgirl",
+      "score": 213284,
+      "time": 933,
+      "updated_at": "2026-05-20T13:51:40"
+    },
+    {
+      "id": 385,
+      "inserted_at": "2026-05-20T13:53:02",
+      "name": "yaoicatgirl",
+      "score": 211168,
+      "time": 939,
+      "updated_at": "2026-05-20T13:53:02"
+    },
+    {
+      "id": 386,
+      "inserted_at": "2026-05-21T07:20:04",
+      "name": "Yaoicatgirl",
+      "score": 211270,
+      "time": 878,
+      "updated_at": "2026-05-21T07:20:04"
+    },
+    {
+      "id": 387,
+      "inserted_at": "2026-05-21T08:10:12",
+      "name": "yaoicatgirl",
+      "score": 211471,
+      "time": 917,
+      "updated_at": "2026-05-21T08:10:12"
+    },
+    {
+      "id": 388,
+      "inserted_at": "2026-05-21T08:15:31",
+      "name": "Yaoicatgirl",
+      "score": 208887,
+      "time": 920,
+      "updated_at": "2026-05-21T08:15:31"
+    },
+    {
+      "id": 389,
+      "inserted_at": "2026-05-21T08:23:02",
+      "name": "Yaoicatgirl",
+      "score": 211032,
+      "time": 932,
+      "updated_at": "2026-05-21T08:23:02"
+    },
+    {
+      "id": 390,
+      "inserted_at": "2026-05-21T08:25:21",
+      "name": "yaoicatgirl",
+      "score": 211183,
+      "time": 920,
+      "updated_at": "2026-05-21T08:25:21"
+    },
+    {
+      "id": 391,
+      "inserted_at": "2026-05-21T08:27:05",
+      "name": "Yaoicatgirl",
+      "score": 210167,
+      "time": 931,
+      "updated_at": "2026-05-21T08:27:05"
+    },
+    {
+      "id": 392,
+      "inserted_at": "2026-05-27T09:34:16",
+      "name": "yaoicatgirl",
+      "score": 211381,
+      "time": 917,
+      "updated_at": "2026-05-27T09:34:16"
+    },
+    {
+      "id": 393,
+      "inserted_at": "2026-05-27T09:43:59",
+      "name": "Yaoicatgirl",
+      "score": 210905,
+      "time": 897,
+      "updated_at": "2026-05-27T09:43:59"
+    },
+    {
+      "id": 394,
+      "inserted_at": "2026-05-27T09:46:40",
+      "name": "yaoicatgirl",
+      "score": 211385,
+      "time": 920,
+      "updated_at": "2026-05-27T09:46:40"
+    },
+    {
+      "id": 395,
+      "inserted_at": "2026-05-27T10:06:12",
+      "name": "Yaoicatgirl",
+      "score": 212861,
+      "time": 936,
+      "updated_at": "2026-05-27T10:06:12"
+    },
+    {
+      "id": 396,
+      "inserted_at": "2026-05-28T09:10:43",
+      "name": "yaoicatgirl",
+      "score": 214052,
+      "time": 924,
+      "updated_at": "2026-05-28T09:10:43"
+    },
+    {
+      "id": 397,
+      "inserted_at": "2026-05-29T10:54:44",
+      "name": "Ana Maruch",
+      "score": 201724,
+      "time": 844,
+      "updated_at": "2026-05-29T10:54:44"
+    },
+    {
+      "id": 398,
+      "inserted_at": "2026-05-29T10:59:00",
+      "name": "Ana Maruch",
+      "score": 210722,
+      "time": 895,
+      "updated_at": "2026-05-29T10:59:00"
+    },
+    {
+      "id": 399,
+      "inserted_at": "2026-05-29T11:01:40",
+      "name": "Ana Maruch",
+      "score": 205098,
+      "time": 854,
+      "updated_at": "2026-05-29T11:01:40"
+    },
+    {
+      "id": 400,
+      "inserted_at": "2026-05-29T12:23:20",
+      "name": "Ana Maruch",
+      "score": 204255,
+      "time": 802,
+      "updated_at": "2026-05-29T12:23:20"
+    },
+    {
+      "id": 401,
+      "inserted_at": "2026-05-29T12:27:23",
+      "name": "Ana Maruch",
+      "score": 210766,
+      "time": 878,
+      "updated_at": "2026-05-29T12:27:23"
+    },
+    {
+      "id": 402,
+      "inserted_at": "2026-05-29T12:31:46",
+      "name": "Ana Maruch",
+      "score": 210546,
+      "time": 896,
+      "updated_at": "2026-05-29T12:31:46"
+    },
+    {
+      "id": 403,
+      "inserted_at": "2026-05-29T12:34:30",
+      "name": "Yaoicatgirl",
+      "score": 210753,
+      "time": 926,
+      "updated_at": "2026-05-29T12:34:30"
+    },
+    {
+      "id": 404,
+      "inserted_at": "2026-05-29T12:34:35",
+      "name": "Ana Maruch",
+      "score": 204358,
+      "time": 848,
+      "updated_at": "2026-05-29T12:34:35"
+    },
+    {
+      "id": 405,
+      "inserted_at": "2026-05-29T12:36:43",
+      "name": "Ana Maruch",
+      "score": 209308,
+      "time": 904,
+      "updated_at": "2026-05-29T12:36:43"
+    },
+    {
+      "id": 406,
+      "inserted_at": "2026-06-04T08:45:27",
+      "name": "Ana Maruch",
+      "score": 201426,
+      "time": 811,
+      "updated_at": "2026-06-04T08:45:27"
+    },
+    {
+      "id": 407,
+      "inserted_at": "2026-06-04T08:48:20",
+      "name": "Ana Maruch",
+      "score": 210662,
+      "time": 888,
+      "updated_at": "2026-06-04T08:48:20"
+    },
+    {
+      "id": 408,
+      "inserted_at": "2026-06-04T08:53:28",
+      "name": "Ana Maruch",
+      "score": 208302,
+      "time": 892,
+      "updated_at": "2026-06-04T08:53:28"
+    },
+    {
+      "id": 409,
+      "inserted_at": "2026-06-04T08:56:57",
+      "name": "Ana Maruch",
+      "score": 210934,
+      "time": 899,
+      "updated_at": "2026-06-04T08:56:57"
+    },
+    {
+      "id": 410,
+      "inserted_at": "2026-06-04T09:00:14",
+      "name": "Ana Maruch",
+      "score": 208164,
+      "time": 884,
+      "updated_at": "2026-06-04T09:00:14"
+    },
+    {
+      "id": 411,
+      "inserted_at": "2026-06-04T09:04:46",
+      "name": "Ana Maruch",
+      "score": 210999,
+      "time": 867,
+      "updated_at": "2026-06-04T09:04:46"
+    },
+    {
+      "id": 412,
+      "inserted_at": "2026-06-04T09:07:00",
+      "name": "Ana Maruch",
+      "score": 208970,
+      "time": 877,
+      "updated_at": "2026-06-04T09:07:00"
+    },
+    {
+      "id": 413,
+      "inserted_at": "2026-06-04T09:34:18",
+      "name": "Ana Maruch",
+      "score": 210791,
+      "time": 899,
+      "updated_at": "2026-06-04T09:34:18"
+    },
+    {
+      "id": 414,
+      "inserted_at": "2026-06-04T09:41:52",
+      "name": "Ana Maruch",
+      "score": 207808,
+      "time": 897,
+      "updated_at": "2026-06-04T09:41:52"
+    },
+    {
+      "id": 415,
+      "inserted_at": "2026-06-04T10:48:04",
+      "name": "Ana Maruch",
+      "score": 203103,
+      "time": 792,
+      "updated_at": "2026-06-04T10:48:04"
+    },
+    {
+      "id": 450,
+      "inserted_at": "2026-08-15T18:50:28",
+      "name": "Lolo",
+      "score": 209252,
+      "time": 823,
+      "updated_at": "2026-08-15T18:50:28"
+    },
+    {
+      "id": 451,
+      "inserted_at": "2026-08-15T18:58:50",
+      "name": "Lolo",
+      "score": 202115,
+      "time": 819,
+      "updated_at": "2026-08-15T18:58:50"
+    },
+    {
+      "id": 452,
+      "inserted_at": "2026-08-28T12:08:55",
+      "name": "Ana Maruch",
+      "score": 207442,
+      "time": 861,
+      "updated_at": "2026-08-28T12:08:55"
+    },
+    {
+      "id": 453,
+      "inserted_at": "2026-08-28T12:12:04",
+      "name": "Ana Maruch",
+      "score": 210644,
+      "time": 883,
+      "updated_at": "2026-08-28T12:12:04"
+    },
+    {
+      "id": 454,
+      "inserted_at": "2026-08-28T12:14:13",
+      "name": "yaoicatgirl",
+      "score": 210485,
+      "time": 915,
+      "updated_at": "2026-08-28T12:14:13"
+    },
+    {
+      "id": 455,
+      "inserted_at": "2026-08-28T12:17:11",
+      "name": "ooodyseus of ithacaaaaa",
+      "score": 202631,
+      "time": 839,
+      "updated_at": "2026-08-28T12:17:11"
+    },
+    {
+      "id": 456,
+      "inserted_at": "2026-08-28T12:19:43",
+      "name": "Yaoicatgirl",
+      "score": 211126,
+      "time": 927,
+      "updated_at": "2026-08-28T12:19:43"
+    },
+    {
+      "id": 457,
+      "inserted_at": "2026-08-28T12:20:04",
+      "name": "ooodyseus of ithacaaaaa",
+      "score": 202565,
+      "time": 844,
+      "updated_at": "2026-08-28T12:20:04"
+    },
+    {
+      "id": 458,
+      "inserted_at": "2026-08-28T12:21:23",
+      "name": "yaoicatgirl",
+      "score": 211974,
+      "time": 932,
+      "updated_at": "2026-08-28T12:21:23"
+    },
+    {
+      "id": 459,
+      "inserted_at": "2026-08-28T12:23:22",
+      "name": "Yaoicatgirl",
+      "score": 209631,
+      "time": 905,
+      "updated_at": "2026-08-28T12:23:22"
+    },
+    {
+      "id": 460,
+      "inserted_at": "2026-08-28T12:25:08",
+      "name": "yaoicatgirl",
+      "score": 213364,
+      "time": 922,
+      "updated_at": "2026-08-28T12:25:08"
+    },
+    {
+      "id": 461,
+      "inserted_at": "2026-08-28T12:29:09",
+      "name": "ooodyseus of ithacaaaaa",
+      "score": 208369,
+      "time": 811,
+      "updated_at": "2026-08-28T12:29:09"
+    },
+    {
+      "id": 462,
+      "inserted_at": "2026-09-03T11:05:35",
+      "name": "Ana Maruch",
+      "score": 204433,
+      "time": 885,
+      "updated_at": "2026-09-03T11:05:35"
+    },
+    {
+      "id": 463,
+      "inserted_at": "2026-09-04T06:44:52",
+      "name": "yaoicatgirl",
+      "score": 212482,
+      "time": 926,
+      "updated_at": "2026-09-04T06:44:52"
+    },
+    {
+      "id": 464,
+      "inserted_at": "2026-09-04T06:52:27",
+      "name": "Yaoicatgirl",
+      "score": 211239,
+      "time": 926,
+      "updated_at": "2026-09-04T06:52:27"
+    },
+    {
+      "id": 465,
+      "inserted_at": "2026-09-04T07:02:20",
+      "name": "yaoicatgirl",
+      "score": 210561,
+      "time": 903,
+      "updated_at": "2026-09-04T07:02:20"
+    },
+    {
+      "id": 466,
+      "inserted_at": "2026-09-04T07:08:41",
+      "name": "Yaoicatgirl",
+      "score": 210950,
+      "time": 923,
+      "updated_at": "2026-09-04T07:08:41"
+    },
+    {
+      "id": 467,
+      "inserted_at": "2026-09-04T09:31:53",
+      "name": "yaoicatgirl",
+      "score": 209695,
+      "time": 899,
+      "updated_at": "2026-09-04T09:31:53"
+    },
+    {
+      "id": 468,
+      "inserted_at": "2026-09-04T09:34:01",
+      "name": "Yaoicatgirl",
+      "score": 213122,
+      "time": 940,
+      "updated_at": "2026-09-04T09:34:01"
+    },
+    {
+      "id": 469,
+      "inserted_at": "2026-09-04T09:40:56",
+      "name": "yaoicatgirl",
+      "score": 213291,
+      "time": 860,
+      "updated_at": "2026-09-04T09:40:56"
+    },
+    {
+      "id": 470,
+      "inserted_at": "2026-09-04T09:44:44",
+      "name": "Yaoicatgirl",
+      "score": 209806,
+      "time": 920,
+      "updated_at": "2026-09-04T09:44:44"
+    },
+    {
+      "id": 471,
+      "inserted_at": "2026-09-04T10:31:20",
+      "name": "Ana Maruch",
+      "score": 202400,
+      "time": 847,
+      "updated_at": "2026-09-04T10:31:20"
+    },
+    {
+      "id": 472,
+      "inserted_at": "2026-09-04T10:35:14",
+      "name": "Ana Maruch",
+      "score": 208571,
+      "time": 878,
+      "updated_at": "2026-09-04T10:35:14"
+    },
+    {
+      "id": 473,
+      "inserted_at": "2026-09-04T10:37:50",
+      "name": "Ana Maruch",
+      "score": 208669,
+      "time": 869,
+      "updated_at": "2026-09-04T10:37:50"
+    },
+    {
+      "id": 474,
+      "inserted_at": "2026-09-04T10:56:38",
+      "name": "Ana Maruch",
+      "score": 207005,
+      "time": 870,
+      "updated_at": "2026-09-04T10:56:38"
+    },
+    {
+      "id": 475,
+      "inserted_at": "2026-09-04T11:15:09",
+      "name": "Ana Maruch",
+      "score": 206787,
+      "time": 826,
+      "updated_at": "2026-09-04T11:15:09"
+    },
+    {
+      "id": 476,
+      "inserted_at": "2026-09-04T11:19:14",
+      "name": "Ana Maruch",
+      "score": 209975,
+      "time": 838,
+      "updated_at": "2026-09-04T11:19:14"
+    },
+    {
+      "id": 477,
+      "inserted_at": "2026-09-04T11:25:09",
+      "name": "Ana Maruch",
+      "score": 205248,
+      "time": 823,
+      "updated_at": "2026-09-04T11:25:09"
+    },
+    {
+      "id": 478,
+      "inserted_at": "2026-09-04T12:08:28",
+      "name": "Ana Maruch",
+      "score": 205540,
+      "time": 875,
+      "updated_at": "2026-09-04T12:08:28"
+    },
+    {
+      "id": 479,
+      "inserted_at": "2026-09-04T12:12:01",
+      "name": "Ana Maruch",
+      "score": 205429,
+      "time": 801,
+      "updated_at": "2026-09-04T12:12:01"
+    },
+    {
+      "id": 480,
+      "inserted_at": "2026-09-04T12:24:37",
+      "name": "Ana Maruch",
+      "score": 203869,
+      "time": 764,
+      "updated_at": "2026-09-04T12:24:37"
+    },
+    {
+      "id": 481,
+      "inserted_at": "2026-09-09T07:00:31",
+      "name": "Ana Maruch",
+      "score": 207796,
+      "time": 835,
+      "updated_at": "2026-09-09T07:00:31"
+    },
+    {
+      "id": 482,
+      "inserted_at": "2026-09-09T07:03:13",
+      "name": "Ana Maruch",
+      "score": 206024,
+      "time": 859,
+      "updated_at": "2026-09-09T07:03:13"
+    },
+    {
+      "id": 483,
+      "inserted_at": "2026-09-09T07:07:18",
+      "name": "Ana Maruch",
+      "score": 202033,
+      "time": 826,
+      "updated_at": "2026-09-09T07:07:18"
+    },
+    {
+      "id": 484,
+      "inserted_at": "2026-09-09T07:11:00",
+      "name": "Ana Maruch",
+      "score": 202442,
+      "time": 806,
+      "updated_at": "2026-09-09T07:11:00"
+    },
+    {
+      "id": 485,
+      "inserted_at": "2026-09-09T07:12:53",
+      "name": "Ana Maruch",
+      "score": 210195,
+      "time": 897,
+      "updated_at": "2026-09-09T07:12:53"
+    },
+    {
+      "id": 486,
+      "inserted_at": "2026-09-24T10:52:14",
+      "name": "yaoicatgirl",
+      "score": 209918,
+      "time": 919,
+      "updated_at": "2026-09-24T10:52:14"
+    },
+    {
+      "id": 487,
+      "inserted_at": "2026-09-24T10:53:33",
+      "name": "Yaoicatgirl",
+      "score": 210314,
+      "time": 930,
+      "updated_at": "2026-09-24T10:53:33"
+    },
+    {
+      "id": 488,
+      "inserted_at": "2026-09-24T10:55:16",
+      "name": "yaoicatgirl",
+      "score": 212367,
+      "time": 903,
+      "updated_at": "2026-09-24T10:55:16"
+    },
+    {
+      "id": 489,
+      "inserted_at": "2026-09-28T06:43:47",
+      "name": "Yaoicatgirl",
+      "score": 211572,
+      "time": 919,
+      "updated_at": "2026-09-28T06:43:47"
+    },
+    {
+      "id": 490,
+      "inserted_at": "2026-09-28T06:55:24",
+      "name": "yaoicatgirl",
+      "score": 211311,
+      "time": 898,
+      "updated_at": "2026-09-28T06:55:24"
+    },
+    {
+      "id": 491,
+      "inserted_at": "2026-09-28T06:57:54",
+      "name": "Yaoicatgirl",
+      "score": 206826,
+      "time": 890,
+      "updated_at": "2026-09-28T06:57:54"
+    },
+    {
+      "id": 492,
+      "inserted_at": "2026-09-28T07:03:45",
+      "name": "Verity",
+      "score": 207516,
+      "time": 875,
+      "updated_at": "2026-09-28T07:03:45"
+    },
+    {
+      "id": 493,
+      "inserted_at": "2026-09-28T07:05:10",
+      "name": "Meow ",
+      "score": 211825,
+      "time": 924,
+      "updated_at": "2026-09-28T07:05:10"
+    },
+    {
+      "id": 494,
+      "inserted_at": "2026-09-28T07:06:27",
+      "name": "Vnhvfff",
+      "score": 210258,
+      "time": 932,
+      "updated_at": "2026-09-28T07:06:27"
+    },
+    {
+      "id": 495,
+      "inserted_at": "2026-09-28T07:12:18",
+      "name": "yaoicatgirl",
+      "score": 211523,
+      "time": 922,
+      "updated_at": "2026-09-28T07:12:18"
+    },
+    {
+      "id": 496,
+      "inserted_at": "2026-09-28T07:15:17",
+      "name": "Meow ",
+      "score": 211837,
+      "time": 916,
+      "updated_at": "2026-09-28T07:15:17"
+    },
+    {
+      "id": 497,
+      "inserted_at": "2026-09-28T07:24:33",
+      "name": "Vnhvfff",
+      "score": 210704,
+      "time": 920,
+      "updated_at": "2026-09-28T07:24:33"
+    },
+    {
+      "id": 498,
+      "inserted_at": "2026-09-28T07:26:45",
+      "name": "Yaoicatgirl",
+      "score": 208941,
+      "time": 916,
+      "updated_at": "2026-09-28T07:26:45"
+    },
+    {
+      "id": 499,
+      "inserted_at": "2026-09-28T07:57:34",
+      "name": "yaoicatgirl",
+      "score": 212116,
+      "time": 920,
+      "updated_at": "2026-09-28T07:57:34"
+    },
+    {
+      "id": 500,
+      "inserted_at": "2026-09-28T08:00:07",
+      "name": "Yaoicatgirl",
+      "score": 211734,
+      "time": 922,
+      "updated_at": "2026-09-28T08:00:07"
+    },
+    {
+      "id": 501,
+      "inserted_at": "2026-09-29T06:38:44",
+      "name": "yaoicatgirl",
+      "score": 210276,
+      "time": 932,
+      "updated_at": "2026-09-29T06:38:44"
+    },
+    {
+      "id": 502,
+      "inserted_at": "2026-09-29T06:42:54",
+      "name": "Yaoicatgirl",
+      "score": 209577,
+      "time": 900,
+      "updated_at": "2026-09-29T06:42:54"
+    },
+    {
+      "id": 503,
+      "inserted_at": "2026-09-29T06:46:01",
+      "name": "yaoicatgirl",
+      "score": 211199,
+      "time": 923,
+      "updated_at": "2026-09-29T06:46:01"
+    },
+    {
+      "id": 504,
+      "inserted_at": "2026-09-29T06:47:38",
+      "name": "Yaoicatgirl",
+      "score": 207686,
+      "time": 907,
+      "updated_at": "2026-09-29T06:47:38"
+    },
+    {
+      "id": 505,
+      "inserted_at": "2026-09-29T06:49:33",
+      "name": "yaoicatgirl",
+      "score": 210718,
+      "time": 914,
+      "updated_at": "2026-09-29T06:49:33"
+    },
+    {
+      "id": 506,
+      "inserted_at": "2026-09-29T06:51:01",
+      "name": "Yaoicatgirl",
+      "score": 213052,
+      "time": 924,
+      "updated_at": "2026-09-29T06:51:01"
+    },
+    {
+      "id": 507,
+      "inserted_at": "2026-09-29T06:52:29",
+      "name": "yaoicatgirl",
+      "score": 210813,
+      "time": 922,
+      "updated_at": "2026-09-29T06:52:29"
+    },
+    {
+      "id": 508,
+      "inserted_at": "2026-09-29T06:53:45",
+      "name": "Yaoicatgirl",
+      "score": 212163,
+      "time": 928,
+      "updated_at": "2026-09-29T06:53:45"
+    },
+    {
+      "id": 509,
+      "inserted_at": "2026-09-29T06:56:27",
+      "name": "yaoicatgirl",
+      "score": 211509,
+      "time": 905,
+      "updated_at": "2026-09-29T06:56:27"
+    },
+    {
+      "id": 510,
+      "inserted_at": "2026-09-29T07:00:45",
+      "name": "Yaoicatgirl",
+      "score": 210611,
+      "time": 934,
+      "updated_at": "2026-09-29T07:00:45"
+    },
+    {
+      "id": 511,
+      "inserted_at": "2026-09-29T07:02:01",
+      "name": "yaoicatgirl",
+      "score": 212616,
+      "time": 930,
+      "updated_at": "2026-09-29T07:02:01"
+    },
+    {
+      "id": 512,
+      "inserted_at": "2026-09-29T07:06:08",
+      "name": "Yaoicatgirl",
+      "score": 211046,
+      "time": 914,
+      "updated_at": "2026-09-29T07:06:08"
+    },
+    {
+      "id": 513,
+      "inserted_at": "2026-09-29T07:07:47",
+      "name": "yaoicatgirl",
+      "score": 211737,
+      "time": 937,
+      "updated_at": "2026-09-29T07:07:47"
+    },
+    {
+      "id": 514,
+      "inserted_at": "2026-09-29T07:10:01",
+      "name": "Yaoicatgirl",
+      "score": 210779,
+      "time": 924,
+      "updated_at": "2026-09-29T07:10:01"
+    },
+    {
+      "id": 515,
+      "inserted_at": "2026-09-29T07:11:30",
+      "name": "yaoicatgirl",
+      "score": 209448,
+      "time": 916,
+      "updated_at": "2026-09-29T07:11:30"
+    },
+    {
+      "id": 516,
+      "inserted_at": "2026-09-29T07:15:03",
+      "name": "Yaoicatgirl",
+      "score": 210073,
+      "time": 912,
+      "updated_at": "2026-09-29T07:15:03"
+    },
+    {
+      "id": 517,
+      "inserted_at": "2026-09-29T07:20:43",
+      "name": "yaoicatgirl",
+      "score": 212667,
+      "time": 945,
+      "updated_at": "2026-09-29T07:20:43"
+    },
+    {
+      "id": 518,
+      "inserted_at": "2026-09-29T07:22:40",
+      "name": "Yaoicatgirl",
+      "score": 211866,
+      "time": 941,
+      "updated_at": "2026-09-29T07:22:40"
+    },
+    {
+      "id": 519,
+      "inserted_at": "2026-09-29T07:24:53",
+      "name": "yaoicatgirl",
+      "score": 208641,
+      "time": 925,
+      "updated_at": "2026-09-29T07:24:53"
+    },
+    {
+      "id": 520,
+      "inserted_at": "2026-09-29T07:37:55",
+      "name": "Grfyge",
+      "score": 211414,
+      "time": 942,
+      "updated_at": "2026-09-29T07:37:55"
+    },
+    {
+      "id": 521,
+      "inserted_at": "2026-09-29T08:26:29",
+      "name": "Yaoicatgirl",
+      "score": 210983,
+      "time": 900,
+      "updated_at": "2026-09-29T08:26:29"
+    },
+    {
+      "id": 522,
+      "inserted_at": "2026-09-29T09:52:29",
+      "name": "Ana Maruch",
+      "score": 210815,
+      "time": 889,
+      "updated_at": "2026-09-29T09:52:29"
+    },
+    {
+      "id": 523,
+      "inserted_at": "2026-09-29T09:58:26",
+      "name": "Ana Maruch",
+      "score": 211469,
+      "time": 886,
+      "updated_at": "2026-09-29T09:58:26"
+    },
+    {
+      "id": 524,
+      "inserted_at": "2026-09-30T07:18:46",
+      "name": "yaoicatgirl",
+      "score": 208191,
+      "time": 918,
+      "updated_at": "2026-09-30T07:18:46"
+    },
+    {
+      "id": 525,
+      "inserted_at": "2026-09-30T07:20:56",
+      "name": "Yaoicatgirl",
+      "score": 212028,
+      "time": 904,
+      "updated_at": "2026-09-30T07:20:56"
+    },
+    {
+      "id": 526,
+      "inserted_at": "2026-09-30T10:07:17",
+      "name": "yaoicatgirl",
+      "score": 210678,
+      "time": 917,
+      "updated_at": "2026-09-30T10:07:17"
+    },
+    {
+      "id": 527,
+      "inserted_at": "2026-09-30T10:09:27",
+      "name": "Ana Maruch",
+      "score": 198403,
+      "time": 818,
+      "updated_at": "2026-09-30T10:09:27"
+    },
+    {
+      "id": 528,
+      "inserted_at": "2026-09-30T10:13:36",
+      "name": "Yaoicatgirl",
+      "score": 210075,
+      "time": 904,
+      "updated_at": "2026-09-30T10:13:36"
+    },
+    {
+      "id": 529,
+      "inserted_at": "2026-09-30T10:15:15",
+      "name": "yaoicatgirl",
+      "score": 209221,
+      "time": 908,
+      "updated_at": "2026-09-30T10:15:15"
+    },
+    {
+      "id": 530,
+      "inserted_at": "2026-09-30T10:18:38",
+      "name": "Yaoicatgirl",
+      "score": 212474,
+      "time": 942,
+      "updated_at": "2026-09-30T10:18:38"
+    },
+    {
+      "id": 531,
+      "inserted_at": "2026-09-30T10:40:50",
+      "name": "yaoicatgirl",
+      "score": 212191,
+      "time": 929,
+      "updated_at": "2026-09-30T10:40:50"
+    },
+    {
+      "id": 532,
+      "inserted_at": "2026-09-30T10:43:42",
+      "name": "Verity",
+      "score": 208790,
+      "time": 903,
+      "updated_at": "2026-09-30T10:43:42"
+    },
+    {
+      "id": 533,
+      "inserted_at": "2026-09-30T10:49:55",
+      "name": "Verity",
+      "score": 213157,
+      "time": 948,
+      "updated_at": "2026-09-30T10:49:55"
+    },
+    {
+      "id": 534,
+      "inserted_at": "2026-09-30T10:53:15",
+      "name": "Verity",
+      "score": 211879,
+      "time": 932,
+      "updated_at": "2026-09-30T10:53:15"
+    },
+    {
+      "id": 535,
+      "inserted_at": "2026-09-30T10:54:54",
+      "name": "Verity",
+      "score": 211050,
+      "time": 926,
+      "updated_at": "2026-09-30T10:54:54"
+    },
+    {
+      "id": 536,
+      "inserted_at": "2026-10-01T07:15:09",
+      "name": "Yaoicatgirl",
+      "score": 210365,
+      "time": 921,
+      "updated_at": "2026-10-01T07:15:09"
+    },
+    {
+      "id": 537,
+      "inserted_at": "2026-10-01T07:17:55",
+      "name": "yaoicatgirl",
+      "score": 211233,
+      "time": 937,
+      "updated_at": "2026-10-01T07:17:55"
+    },
+    {
+      "id": 538,
+      "inserted_at": "2026-10-01T07:19:05",
+      "name": "Verity",
+      "score": 211193,
+      "time": 937,
+      "updated_at": "2026-10-01T07:19:05"
+    },
+    {
+      "id": 539,
+      "inserted_at": "2026-10-01T07:20:22",
+      "name": "Verity",
+      "score": 211123,
+      "time": 930,
+      "updated_at": "2026-10-01T07:20:22"
+    },
+    {
+      "id": 540,
+      "inserted_at": "2026-10-01T07:21:56",
+      "name": "Yaoicatgirl",
+      "score": 211406,
+      "time": 928,
+      "updated_at": "2026-10-01T07:21:56"
+    },
+    {
+      "id": 541,
+      "inserted_at": "2026-10-01T07:23:43",
+      "name": "yaoicatgirl",
+      "score": 209399,
+      "time": 924,
+      "updated_at": "2026-10-01T07:23:43"
+    },
+    {
+      "id": 542,
+      "inserted_at": "2026-10-01T07:28:18",
+      "name": "Yaoicatgirl",
+      "score": 212674,
+      "time": 951,
+      "updated_at": "2026-10-01T07:28:18"
+    },
+    {
+      "id": 543,
+      "inserted_at": "2026-10-01T09:32:28",
+      "name": "yaoicatgirl",
+      "score": 211909,
+      "time": 933,
+      "updated_at": "2026-10-01T09:32:28"
+    },
+    {
+      "id": 544,
+      "inserted_at": "2026-10-01T09:46:19",
+      "name": "Yaoicatgirl",
+      "score": 210037,
+      "time": 916,
+      "updated_at": "2026-10-01T09:46:19"
+    },
+    {
+      "id": 545,
+      "inserted_at": "2026-10-01T09:51:43",
+      "name": "yaoicatgirl",
+      "score": 210875,
+      "time": 931,
+      "updated_at": "2026-10-01T09:51:43"
+    },
+    {
+      "id": 546,
+      "inserted_at": "2026-10-01T09:55:22",
+      "name": "Yaoicatgirl",
+      "score": 210957,
+      "time": 927,
+      "updated_at": "2026-10-01T09:55:22"
+    },
+    {
+      "id": 547,
+      "inserted_at": "2026-10-01T09:56:34",
+      "name": "yaoicatgirl",
+      "score": 211234,
+      "time": 935,
+      "updated_at": "2026-10-01T09:56:34"
+    },
+    {
+      "id": 548,
+      "inserted_at": "2026-10-01T12:09:19",
+      "name": "yaoicatgirl",
+      "score": 212210,
+      "time": 930,
+      "updated_at": "2026-10-01T12:09:19"
+    },
+    {
+      "id": 549,
+      "inserted_at": "2026-10-01T12:14:19",
+      "name": "Yaoicatgirl",
+      "score": 205877,
+      "time": 908,
+      "updated_at": "2026-10-01T12:14:19"
+    },
+    {
+      "id": 550,
+      "inserted_at": "2026-10-01T12:15:29",
+      "name": "Yaoicatgirl",
+      "score": 212875,
+      "time": 934,
+      "updated_at": "2026-10-01T12:15:29"
+    },
+    {
+      "id": 551,
+      "inserted_at": "2026-10-01T12:17:06",
+      "name": "yaoicatgirl",
+      "score": 210484,
+      "time": 930,
+      "updated_at": "2026-10-01T12:17:06"
+    },
+    {
+      "id": 552,
+      "inserted_at": "2026-10-02T07:23:43",
+      "name": "Yaoicatgirl",
+      "score": 210416,
+      "time": 926,
+      "updated_at": "2026-10-02T07:23:43"
+    },
+    {
+      "id": 553,
+      "inserted_at": "2026-10-02T07:25:01",
+      "name": "yaoicatgirl",
+      "score": 212941,
+      "time": 929,
+      "updated_at": "2026-10-02T07:25:01"
+    },
+    {
+      "id": 554,
+      "inserted_at": "2026-10-02T08:19:13",
+      "name": "Yaoicatgirl",
+      "score": 211148,
+      "time": 923,
+      "updated_at": "2026-10-02T08:19:13"
+    },
+    {
+      "id": 555,
+      "inserted_at": "2026-10-02T08:20:29",
+      "name": "yaoicatgirl",
+      "score": 211569,
+      "time": 929,
+      "updated_at": "2026-10-02T08:20:29"
+    },
+    {
+      "id": 556,
+      "inserted_at": "2026-10-02T08:21:54",
+      "name": "Yaoicatgirl",
+      "score": 210007,
+      "time": 921,
+      "updated_at": "2026-10-02T08:21:54"
+    },
+    {
+      "id": 557,
+      "inserted_at": "2026-10-02T08:26:03",
+      "name": "yaoicatgirl",
+      "score": 210805,
+      "time": 924,
+      "updated_at": "2026-10-02T08:26:03"
+    },
+    {
+      "id": 558,
+      "inserted_at": "2026-10-02T08:27:11",
+      "name": "Yaoicatgirl",
+      "score": 210817,
+      "time": 935,
+      "updated_at": "2026-10-02T08:27:11"
+    },
+    {
+      "id": 559,
+      "inserted_at": "2026-10-02T13:10:00",
+      "name": "yaoicatgirl",
+      "score": 211390,
+      "time": 932,
+      "updated_at": "2026-10-02T13:10:00"
+    },
+    {
+      "id": 560,
+      "inserted_at": "2026-10-02T13:15:57",
+      "name": "Yaoicatgirl",
+      "score": 211754,
+      "time": 949,
+      "updated_at": "2026-10-02T13:15:57"
+    },
+    {
+      "id": 561,
+      "inserted_at": "2026-10-05T07:04:37",
+      "name": "yaoicatgirl",
+      "score": 209664,
+      "time": 907,
+      "updated_at": "2026-10-05T07:04:37"
+    },
+    {
+      "id": 562,
+      "inserted_at": "2026-10-05T07:08:42",
+      "name": "Yaoicatgirl",
+      "score": 212720,
+      "time": 938,
+      "updated_at": "2026-10-05T07:08:42"
+    },
+    {
+      "id": 563,
+      "inserted_at": "2026-10-05T07:13:52",
+      "name": "yaoicatgirl",
+      "score": 211743,
+      "time": 943,
+      "updated_at": "2026-10-05T07:13:52"
+    },
+    {
+      "id": 564,
+      "inserted_at": "2026-10-08T11:50:13",
+      "name": "Yaoicatgirl",
+      "score": 212716,
+      "time": 923,
+      "updated_at": "2026-10-08T11:50:13"
+    },
+    {
+      "id": 565,
+      "inserted_at": "2026-10-09T09:51:57",
+      "name": "yaoicatgirl",
+      "score": 210339,
+      "time": 929,
+      "updated_at": "2026-10-09T09:51:57"
+    },
+    {
+      "id": 566,
+      "inserted_at": "2026-10-09T09:52:55",
+      "name": "Yaoicatgirl",
+      "score": 213829,
+      "time": 946,
+      "updated_at": "2026-10-09T09:52:55"
+    },
+    {
+      "id": 567,
+      "inserted_at": "2026-10-19T06:39:21",
+      "name": "yaoicatgirl",
+      "score": 211445,
+      "time": 934,
+      "updated_at": "2026-10-19T06:39:21"
+    },
+    {
+      "id": 568,
+      "inserted_at": "2026-10-19T06:40:38",
+      "name": "Yaoicatgirl",
+      "score": 211934,
+      "time": 931,
+      "updated_at": "2026-10-19T06:40:38"
+    },
+    {
+      "id": 569,
+      "inserted_at": "2026-10-19T06:42:29",
+      "name": "yaoicatgirl",
+      "score": 212911,
+      "time": 950,
+      "updated_at": "2026-10-19T06:42:29"
+    },
+    {
+      "id": 570,
+      "inserted_at": "2026-10-19T06:45:20",
+      "name": "Yaoicatgirl",
+      "score": 212721,
+      "time": 944,
+      "updated_at": "2026-10-19T06:45:20"
+    },
+    {
+      "id": 571,
+      "inserted_at": "2026-10-19T06:56:49",
+      "name": "yaoicatgirl",
+      "score": 212704,
+      "time": 944,
+      "updated_at": "2026-10-19T06:56:49"
+    },
+    {
+      "id": 572,
+      "inserted_at": "2026-10-19T06:57:59",
+      "name": "Yaoicatgirl",
+      "score": 211775,
+      "time": 933,
+      "updated_at": "2026-10-19T06:57:59"
+    },
+    {
+      "id": 573,
+      "inserted_at": "2026-10-19T07:20:16",
+      "name": "yaoicatgirl",
+      "score": 212127,
+      "time": 936,
+      "updated_at": "2026-10-19T07:20:16"
+    },
+    {
+      "id": 574,
+      "inserted_at": "2026-10-20T07:18:12",
+      "name": "Yaoicatgirl",
+      "score": 212075,
+      "time": 937,
+      "updated_at": "2026-10-20T07:18:12"
+    },
+    {
+      "id": 575,
+      "inserted_at": "2026-10-20T07:20:58",
+      "name": "yaoicatgirl",
+      "score": 211105,
+      "time": 938,
+      "updated_at": "2026-10-20T07:20:58"
+    },
+    {
+      "id": 576,
+      "inserted_at": "2026-10-20T07:23:11",
+      "name": "Yaoicatgirl",
+      "score": 212608,
+      "time": 947,
+      "updated_at": "2026-10-20T07:23:11"
+    },
+    {
+      "id": 577,
+      "inserted_at": "2026-10-20T07:24:37",
+      "name": "yaoicatgirl",
+      "score": 210912,
+      "time": 919,
+      "updated_at": "2026-10-20T07:24:37"
+    },
+    {
+      "id": 578,
+      "inserted_at": "2026-10-20T07:26:58",
+      "name": "Yaoicatgirl",
+      "score": 212714,
+      "time": 927,
+      "updated_at": "2026-10-20T07:26:58"
+    },
+    {
+      "id": 579,
+      "inserted_at": "2026-10-20T08:22:38",
+      "name": "yaoicatgirl",
+      "score": 211463,
+      "time": 916,
+      "updated_at": "2026-10-20T08:22:38"
+    },
+    {
+      "id": 580,
+      "inserted_at": "2026-10-21T07:40:51",
+      "name": "Yaoicatgirl",
+      "score": 211032,
+      "time": 923,
+      "updated_at": "2026-10-21T07:40:51"
+    },
+    {
+      "id": 581,
+      "inserted_at": "2026-10-21T07:49:13",
+      "name": "yaoicatgirl",
+      "score": 213618,
+      "time": 953,
+      "updated_at": "2026-10-21T07:49:13"
+    },
+    {
+      "id": 582,
+      "inserted_at": "2026-10-21T08:04:38",
+      "name": "Yaoicatgirl",
+      "score": 211972,
+      "time": 944,
+      "updated_at": "2026-10-21T08:04:38"
+    },
+    {
+      "id": 583,
+      "inserted_at": "2026-10-21T08:06:27",
+      "name": "yaoicatgirl",
+      "score": 210196,
+      "time": 934,
+      "updated_at": "2026-10-21T08:06:27"
+    },
+    {
+      "id": 584,
+      "inserted_at": "2026-10-21T09:28:27",
+      "name": "Yaoicatgirl",
+      "score": 211343,
+      "time": 930,
+      "updated_at": "2026-10-21T09:28:27"
+    },
+    {
+      "id": 585,
+      "inserted_at": "2026-10-21T09:31:50",
+      "name": "yaoicatgirl",
+      "score": 211709,
+      "time": 933,
+      "updated_at": "2026-10-21T09:31:50"
+    },
+    {
+      "id": 586,
+      "inserted_at": "2026-10-21T09:34:31",
+      "name": "Yaoicatgirl",
+      "score": 211917,
+      "time": 935,
+      "updated_at": "2026-10-21T09:34:31"
+    },
+    {
+      "id": 587,
+      "inserted_at": "2026-10-21T09:38:35",
+      "name": "yaoicatgirl",
+      "score": 214464,
+      "time": 948,
+      "updated_at": "2026-10-21T09:38:35"
+    },
+    {
+      "id": 588,
+      "inserted_at": "2026-10-21T09:40:43",
+      "name": "Yaoicatgirl",
+      "score": 211569,
+      "time": 944,
+      "updated_at": "2026-10-21T09:40:43"
+    },
+    {
+      "id": 589,
+      "inserted_at": "2026-10-21T09:43:55",
+      "name": "I wanna die ",
+      "score": 211651,
+      "time": 947,
+      "updated_at": "2026-10-21T09:43:55"
+    },
+    {
+      "id": 590,
+      "inserted_at": "2026-10-21T09:47:45",
+      "name": "I wanna die ",
+      "score": 213299,
+      "time": 940,
+      "updated_at": "2026-10-21T09:47:45"
+    },
+    {
+      "id": 591,
+      "inserted_at": "2026-10-22T08:01:39",
+      "name": "Stupid shit life ",
+      "score": 210080,
+      "time": 921,
+      "updated_at": "2026-10-22T08:01:39"
+    },
+    {
+      "id": 592,
+      "inserted_at": "2026-10-22T08:05:13",
+      "name": "😂😂😂😂",
+      "score": 210840,
+      "time": 924,
+      "updated_at": "2026-10-22T08:05:13"
+    },
+    {
+      "id": 593,
+      "inserted_at": "2026-10-22T08:10:46",
+      "name": "😂😂😂",
+      "score": 211804,
+      "time": 947,
+      "updated_at": "2026-10-22T08:10:46"
+    },
+    {
+      "id": 594,
+      "inserted_at": "2026-10-22T08:12:09",
+      "name": "😂😂😂😂😂",
+      "score": 212936,
+      "time": 944,
+      "updated_at": "2026-10-22T08:12:09"
+    },
+    {
+      "id": 595,
+      "inserted_at": "2026-10-22T08:17:58",
+      "name": "Hahhahahahahhahhzhahhahahahahvzgagaha",
+      "score": 213001,
+      "time": 941,
+      "updated_at": "2026-10-22T08:17:58"
+    },
+    {
+      "id": 596,
+      "inserted_at": "2026-10-22T11:36:08",
+      "name": "Ffgdgfchg",
+      "score": 212680,
+      "time": 937,
+      "updated_at": "2026-10-22T11:36:08"
+    },
+    {
+      "id": 597,
+      "inserted_at": "2026-10-22T11:52:39",
+      "name": "😂😂😂 ouhjvhgvgfxf zd",
+      "score": 213662,
+      "time": 949,
+      "updated_at": "2026-10-22T11:52:39"
+    },
+    {
+      "id": 598,
+      "inserted_at": "2026-10-22T11:54:46",
+      "name": "Cffcfbcfgx aayhaahahahhahaahahhaahhahaa",
+      "score": 213919,
+      "time": 949,
+      "updated_at": "2026-10-22T11:54:46"
+    },
+    {
+      "id": 599,
+      "inserted_at": "2026-10-22T11:56:38",
+      "name": "Meow?",
+      "score": 213203,
+      "time": 945,
+      "updated_at": "2026-10-22T11:56:38"
+    },
+    {
+      "id": 600,
+      "inserted_at": "2026-10-22T12:00:26",
+      "name": "??????",
+      "score": 210003,
+      "time": 927,
+      "updated_at": "2026-10-22T12:00:26"
+    },
+    {
+      "id": 601,
+      "inserted_at": "2026-10-22T12:01:41",
+      "name": "??!!?!!",
+      "score": 211556,
+      "time": 931,
+      "updated_at": "2026-10-22T12:01:41"
+    },
+    {
+      "id": 602,
+      "inserted_at": "2026-10-22T12:03:53",
+      "name": "Yaoicatgirl",
+      "score": 212642,
+      "time": 945,
+      "updated_at": "2026-10-22T12:03:53"
+    },
+    {
+      "id": 603,
+      "inserted_at": "2026-10-22T12:06:00",
+      "name": "?!??!!?!?! ",
+      "score": 211984,
+      "time": 949,
+      "updated_at": "2026-10-22T12:06:00"
+    },
+    {
+      "id": 604,
+      "inserted_at": "2026-10-22T12:12:06",
+      "name": ">:(",
+      "score": 212999,
+      "time": 943,
+      "updated_at": "2026-10-22T12:12:06"
+    },
+    {
+      "id": 605,
+      "inserted_at": "2026-10-22T12:22:31",
+      "name": "Meow ",
+      "score": 211800,
+      "time": 914,
+      "updated_at": "2026-10-22T12:22:31"
+    },
+    {
+      "id": 606,
+      "inserted_at": "2026-10-22T12:24:21",
+      "name": "Hhhaahahahhaha",
+      "score": 211553,
+      "time": 944,
+      "updated_at": "2026-10-22T12:24:21"
+    },
+    {
+      "id": 607,
+      "inserted_at": "2026-10-23T12:06:15",
+      "name": "Verity",
+      "score": 208494,
+      "time": 919,
+      "updated_at": "2026-10-23T12:06:15"
+    },
+    {
+      "id": 608,
+      "inserted_at": "2026-10-23T12:12:23",
+      "name": "Hgatafaghahaggagagahhahahhahahhahahahha",
+      "score": 211616,
+      "time": 941,
+      "updated_at": "2026-10-23T12:12:23"
+    },
+    {
+      "id": 609,
+      "inserted_at": "2026-10-23T12:13:51",
+      "name": "Ok",
+      "score": 213048,
+      "time": 952,
+      "updated_at": "2026-10-23T12:13:51"
+    }
+  ]
+}
