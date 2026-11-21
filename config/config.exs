@@ -9,6 +9,11 @@ config :mine,
 
 config :mine, ecto_repos: [Mine.Repo]
 
+# The release directory is read-only for the service, so tzdata cannot
+# write its update poll there; it crashed and restarted every 3 seconds.
+# The zone data bundled with the release is updated by bumping tzdata.
+config :tzdata, :autoupdate, :disabled
+
 config :mine, Mine.Repo,
   database: Path.expand("../data/mine_#{config_env()}.db", __DIR__),
   pool_size: 1,
